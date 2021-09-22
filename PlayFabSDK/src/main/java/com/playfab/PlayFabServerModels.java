@@ -1610,6 +1610,14 @@ public class PlayFabServerModels {
         SteamUserNotFound,
         ElasticSearchOperationFailed,
         NotImplemented,
+        PublisherNotFound,
+        PublisherDeleted,
+        ApiDisabledForMigration,
+        ResourceNameUpdateNotAllowed,
+        ApiNotEnabledForTitle,
+        DuplicateTitleNameForPublisher,
+        AzureTitleCreationInProgress,
+        DuplicateAzureResourceId,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1631,6 +1639,8 @@ public class PlayFabServerModels {
         MatchmakingQueueLimitExceeded,
         MatchmakingRequestTypeMismatch,
         MatchmakingBadRequest,
+        PubSubFeatureNotEnabledForTitle,
+        PubSubTooManyRequests,
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
@@ -1732,7 +1742,23 @@ public class PlayFabServerModels {
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
         SnapshotNotFound,
-        InventoryApiNotImplemented
+        InventoryApiNotImplemented,
+        LobbyDoesNotExist,
+        LobbyRateLimitExceeded,
+        LobbyPlayerAlreadyJoined,
+        LobbyNotJoinable,
+        LobbyMemberCannotRejoin,
+        LobbyCurrentPlayersMoreThanMaxPlayers,
+        LobbyPlayerNotPresent,
+        LobbyBadRequest,
+        LobbyPlayerMaxLobbyLimitExceeded,
+        LobbyNewOwnerMustBeConnected,
+        LobbyCurrentOwnerStillConnected,
+        LobbyMemberIsNotOwner,
+        EventSamplingInvalidRatio,
+        EventSamplingInvalidEventNamespace,
+        EventSamplingInvalidEventName,
+        EventSamplingRatioNotFound
     }
 
     public static class GenericPlayFabIdPair {
@@ -2021,8 +2047,6 @@ public class PlayFabServerModels {
     }
 
     public static class GetLeaderboardForUsersCharactersRequest {
-        /** Maximum number of entries to retrieve. */
-        public Integer MaxResultsCount;
         /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
         public String PlayFabId;
         /** Unique identifier for the title-specific statistic for the leaderboard. */
@@ -3351,7 +3375,11 @@ public class PlayFabServerModels {
         public Date Created;
         /** Player display name */
         public String DisplayName;
-        /** List of experiment variants for the player. */
+        /**
+         * List of experiment variants for the player. Note that these variants are not guaranteed to be up-to-date when returned
+         * during login because the player profile is updated only after login. Instead, use the LoginResult.TreatmentAssignment
+         * property during login to get the correct variants and variables.
+         */
         public ArrayList<String> ExperimentVariants;
         /** UTC time when the player most recently logged in to the title */
         public Date LastLogin;
@@ -4612,8 +4640,6 @@ public class PlayFabServerModels {
         public UserTwitchInfo TwitchInfo;
         /** User account name in the PlayFab service */
         public String Username;
-        /** Windows Hello account information, if a Windows Hello account has been linked */
-        public UserWindowsHelloInfo WindowsHelloInfo;
         /** User XBox account information, if a XBox account has been linked */
         public UserXboxInfo XboxInfo;
         
@@ -4747,7 +4773,6 @@ public class PlayFabServerModels {
         XboxLive,
         Parse,
         Twitch,
-        WindowsHello,
         ServerCustomId,
         NintendoSwitchDeviceId,
         FacebookInstantGamesId,
@@ -4825,14 +4850,6 @@ public class PlayFabServerModels {
         public String TwitchId;
         /** Twitch Username */
         public String TwitchUserName;
-        
-    }
-
-    public static class UserWindowsHelloInfo {
-        /** Windows Hello Device Name */
-        public String WindowsHelloDeviceName;
-        /** Windows Hello Public Key Hash */
-        public String WindowsHelloPublicKeyHash;
         
     }
 
