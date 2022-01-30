@@ -523,9 +523,18 @@ public class PlayFabErrors {
         ApiNotEnabledForTitle(1520),
         DuplicateTitleNameForPublisher(1521),
         AzureTitleCreationInProgress(1522),
-        DuplicateAzureResourceId(1523),
-        TitleContraintsPublisherDeletion(1524),
+        TitleConstraintsPublisherDeletion(1524),
         InvalidPlayerAccountPoolId(1525),
+        PlayerAccountPoolNotFound(1526),
+        PlayerAccountPoolDeleted(1527),
+        TitleCleanupInProgress(1528),
+        AzureResourceConcurrentOperationInProgress(1529),
+        TitlePublisherUpdateNotAllowed(1530),
+        AzureResourceManagerNotSupportedInStamp(1531),
+        ApiNotIncludedInAzurePlayFabFeatureSet(1532),
+        GoogleServiceAccountFailedAuth(1533),
+        GoogleAPIServiceUnavailable(1534),
+        GoogleAPIServiceUnknownError(1535),
         MatchmakingEntityInvalid(2001),
         MatchmakingPlayerAttributesInvalid(2002),
         MatchmakingQueueNotFound(2016),
@@ -549,7 +558,7 @@ public class PlayFabErrors {
         MatchmakingBadRequest(2059),
         PubSubFeatureNotEnabledForTitle(2500),
         PubSubTooManyRequests(2501),
-        PubSubConnectionHandleAccessDenied(2502),
+        PubSubConnectionNotFoundForEntity(2502),
         PubSubConnectionHandleInvalid(2503),
         PubSubSubscriptionLimitExceeded(2504),
         TitleConfigNotFound(3001),
@@ -673,7 +682,9 @@ public class PlayFabErrors {
         EventSinkConnectionInvalid(15000),
         EventSinkConnectionUnauthorized(15001),
         EventSinkRegionInvalid(15002),
-        OperationCanceled(16000);
+        OperationCanceled(16000),
+        InvalidDisplayNameRandomSuffixLength(17000),
+        AllowNonUniquePlayerDisplayNamesDisableNotAllowed(17001);
 
         public int id;
 

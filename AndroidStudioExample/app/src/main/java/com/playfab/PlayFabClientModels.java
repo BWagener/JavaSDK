@@ -2471,7 +2471,10 @@ public class PlayFabClientModels {
     public static class LinkGameCenterAccountRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** If another user is already linked to the account, unlink the other user and re-link. */
+        /**
+         * If another user is already linked to the account, unlink the other user and re-link. If the current user is already
+         * linked, link both accounts
+         */
         public Boolean ForceLink;
         /** Game Center identifier for the player account to be linked. */
         public String GameCenterId;
@@ -2500,7 +2503,10 @@ public class PlayFabClientModels {
     public static class LinkGoogleAccountRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** If another user is already linked to the account, unlink the other user and re-link. */
+        /**
+         * If another user is already linked to the account, unlink the other user and re-link. If the current user is already
+         * linked, link both accounts
+         */
         public Boolean ForceLink;
         /**
          * Server authentication code obtained on the client by calling getServerAuthCode()
@@ -3885,7 +3891,10 @@ public class PlayFabClientModels {
         
     }
 
-    /** Once verified, the valid items will be restored into the user's inventory. */
+    /**
+     * Once verified, the valid items will be restored into the user's inventory. This result should be used for immediate
+     * updates to the local client game state as opposed to the GetUserInventory API which can have an up to half second delay.
+     */
     public static class RestoreIOSPurchasesResult {
         /** Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions. */
         public ArrayList<PurchaseReceiptFulfillment> Fulfillments;
@@ -4018,7 +4027,11 @@ public class PlayFabClientModels {
         API
     }
 
-    /** This API must be enabled for use as an option in the game manager website. It is disabled by default. */
+    /**
+     * This API must be enabled for use as an option in the game manager website. It is disabled by default.
+     * @deprecated Do not use
+     */
+    @Deprecated
     public static class StartGameRequest {
         /** version information for the build of the game server which is to be started */
         public String BuildVersion;
@@ -4037,6 +4050,8 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class StartGameResult {
         /** timestamp for when the server should expire, if applicable */
         public String Expires;
@@ -4981,7 +4996,11 @@ public class PlayFabClientModels {
         
     }
 
-    /** Once verified, the catalog item matching the Amazon item name will be added to the user's inventory. */
+    /**
+     * Once verified, the catalog item matching the Amazon item name will be added to the user's inventory. This result should
+     * be used for immediate updates to the local client game state as opposed to the GetUserInventory API which can have an up
+     * to half second delay.
+     */
     public static class ValidateAmazonReceiptResult {
         /** Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions. */
         public ArrayList<PurchaseReceiptFulfillment> Fulfillments;
@@ -5013,7 +5032,8 @@ public class PlayFabClientModels {
 
     /**
      * Once verified, the catalog item (ItemId) matching the GooglePlay store item (productId) will be added to the user's
-     * inventory.
+     * inventory. This result should be used for immediate updates to the local client game state as opposed to the
+     * GetUserInventory API which can have an up to half second delay.
      */
     public static class ValidateGooglePlayPurchaseResult {
         /** Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions. */
@@ -5042,7 +5062,11 @@ public class PlayFabClientModels {
         
     }
 
-    /** Once verified, the catalog item matching the iTunes item name will be added to the user's inventory. */
+    /**
+     * Once verified, the catalog item matching the iTunes item name will be added to the user's inventory. This result should
+     * be used for immediate updates to the local client game state as opposed to the GetUserInventory API which can have an up
+     * to half second delay.
+     */
     public static class ValidateIOSReceiptResult {
         /** Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions. */
         public ArrayList<PurchaseReceiptFulfillment> Fulfillments;
@@ -5063,7 +5087,11 @@ public class PlayFabClientModels {
         
     }
 
-    /** Once verified, the catalog item matching the Product name will be added to the user's inventory. */
+    /**
+     * Once verified, the catalog item matching the Product name will be added to the user's inventory. This result should be
+     * used for immediate updates to the local client game state as opposed to the GetUserInventory API which can have an up to
+     * half second delay.
+     */
     public static class ValidateWindowsReceiptResult {
         /** Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions. */
         public ArrayList<PurchaseReceiptFulfillment> Fulfillments;

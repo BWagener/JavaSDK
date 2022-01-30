@@ -135,6 +135,8 @@ public class PlayFabAdminModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class AddServerBuildRequest {
         /** server host regions in which this build should be running and available */
         public ArrayList<Region> ActiveRegions;
@@ -158,6 +160,8 @@ public class PlayFabAdminModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class AddServerBuildResult {
         /** array of regions where this build can used, when it is active */
         public ArrayList<Region> ActiveRegions;
@@ -230,6 +234,22 @@ public class PlayFabAdminModels {
         Email
     }
 
+    public static class AzureResourceSystemData {
+        /** The timestamp of resource creation (UTC) */
+        public Date CreatedAt;
+        /** The identity that created the resource */
+        public String CreatedBy;
+        /** The type of identity that created the resource */
+        public String CreatedByType;
+        /** The type of identity that last modified the resource */
+        public Date LastModifiedAt;
+        /** The identity that last modified the resource */
+        public String LastModifiedBy;
+        /** The type of identity that last modified the resource */
+        public String LastModifiedByType;
+        
+    }
+
     /** Contains information for a ban. */
     public static class BanInfo {
         /** The active state of this ban. Expired bans may still have this value set to true but they will have no effect. */
@@ -242,8 +262,6 @@ public class PlayFabAdminModels {
         public Date Expires;
         /** The IP address on which the ban was applied. May affect multiple players. */
         public String IPAddress;
-        /** The MAC address on which the ban was applied. May affect multiple players. */
-        public String MACAddress;
         /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
         public String PlayFabId;
         /** The reason why this ban was applied. */
@@ -1932,9 +1950,18 @@ public class PlayFabAdminModels {
         ApiNotEnabledForTitle,
         DuplicateTitleNameForPublisher,
         AzureTitleCreationInProgress,
-        DuplicateAzureResourceId,
-        TitleContraintsPublisherDeletion,
+        TitleConstraintsPublisherDeletion,
         InvalidPlayerAccountPoolId,
+        PlayerAccountPoolNotFound,
+        PlayerAccountPoolDeleted,
+        TitleCleanupInProgress,
+        AzureResourceConcurrentOperationInProgress,
+        TitlePublisherUpdateNotAllowed,
+        AzureResourceManagerNotSupportedInStamp,
+        ApiNotIncludedInAzurePlayFabFeatureSet,
+        GoogleServiceAccountFailedAuth,
+        GoogleAPIServiceUnavailable,
+        GoogleAPIServiceUnknownError,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1958,7 +1985,7 @@ public class PlayFabAdminModels {
         MatchmakingBadRequest,
         PubSubFeatureNotEnabledForTitle,
         PubSubTooManyRequests,
-        PubSubConnectionHandleAccessDenied,
+        PubSubConnectionNotFoundForEntity,
         PubSubConnectionHandleInvalid,
         PubSubSubscriptionLimitExceeded,
         TitleConfigNotFound,
@@ -2082,7 +2109,9 @@ public class PlayFabAdminModels {
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
-        OperationCanceled
+        OperationCanceled,
+        InvalidDisplayNameRandomSuffixLength,
+        AllowNonUniquePlayerDisplayNamesDisableNotAllowed
     }
 
     public static class GetActionsOnPlayersInSegmentTaskInstanceResult {
@@ -2579,12 +2608,16 @@ public class PlayFabAdminModels {
         }
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GetServerBuildUploadURLRequest {
         /** unique identifier of the game server build to upload */
         public String BuildId;
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GetServerBuildUploadURLResult {
         /** pre-authorized URL for uploading the game server build package */
         public String URL;
@@ -2748,7 +2781,8 @@ public class PlayFabAdminModels {
     /**
      * All items currently in the user inventory will be returned, irrespective of how they were acquired (via purchasing,
      * grants, coupons, etc.). Items that are expired, fully consumed, or are no longer valid are not considered to be in the
-     * user's current inventory, and so will not be not included.
+     * user's current inventory, and so will not be not included. There can be a delay of up to a half a second for inventory
+     * changes to be reflected in the GetUserInventory API response.
      */
     public static class GetUserInventoryRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
@@ -3179,7 +3213,9 @@ public class PlayFabAdminModels {
      * created in order to prevent excess load on existing Hosts. This operation is not additive. Using it will cause the game
      * mode definition for the game server executable in question to be created from scratch. If there is an existing game
      * server mode definition for the given BuildVersion, it will be deleted and replaced with the data specified in this call.
+     * @deprecated Do not use
      */
+    @Deprecated
     public static class ModifyMatchmakerGameModesRequest {
         /** previously uploaded build version for which game modes are being specified */
         public String BuildVersion;
@@ -3188,6 +3224,8 @@ public class PlayFabAdminModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class ModifyMatchmakerGameModesResult {
         
     }
@@ -4567,6 +4605,8 @@ public class PlayFabAdminModels {
          * name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
          */
         public String Key;
+        /** System Data of the Azure Resource */
+        public AzureResourceSystemData SystemData;
         /**
          * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
          * title has been selected.

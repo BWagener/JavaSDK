@@ -164,6 +164,22 @@ public class PlayFabServerModels {
         
     }
 
+    public static class AzureResourceSystemData {
+        /** The timestamp of resource creation (UTC) */
+        public Date CreatedAt;
+        /** The identity that created the resource */
+        public String CreatedBy;
+        /** The type of identity that created the resource */
+        public String CreatedByType;
+        /** The type of identity that last modified the resource */
+        public Date LastModifiedAt;
+        /** The identity that last modified the resource */
+        public String LastModifiedBy;
+        /** The type of identity that last modified the resource */
+        public String LastModifiedByType;
+        
+    }
+
     /** Contains information for a ban. */
     public static class BanInfo {
         /** The active state of this ban. Expired bans may still have this value set to true but they will have no effect. */
@@ -176,8 +192,6 @@ public class PlayFabServerModels {
         public Date Expires;
         /** The IP address on which the ban was applied. May affect multiple players. */
         public String IPAddress;
-        /** The MAC address on which the ban was applied. May affect multiple players. */
-        public String MACAddress;
         /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
         public String PlayFabId;
         /** The reason why this ban was applied. */
@@ -1617,8 +1631,18 @@ public class PlayFabServerModels {
         ApiNotEnabledForTitle,
         DuplicateTitleNameForPublisher,
         AzureTitleCreationInProgress,
-        DuplicateAzureResourceId,
-        TitleContraintsPublisherDeletion,
+        TitleConstraintsPublisherDeletion,
+        InvalidPlayerAccountPoolId,
+        PlayerAccountPoolNotFound,
+        PlayerAccountPoolDeleted,
+        TitleCleanupInProgress,
+        AzureResourceConcurrentOperationInProgress,
+        TitlePublisherUpdateNotAllowed,
+        AzureResourceManagerNotSupportedInStamp,
+        ApiNotIncludedInAzurePlayFabFeatureSet,
+        GoogleServiceAccountFailedAuth,
+        GoogleAPIServiceUnavailable,
+        GoogleAPIServiceUnknownError,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1642,6 +1666,9 @@ public class PlayFabServerModels {
         MatchmakingBadRequest,
         PubSubFeatureNotEnabledForTitle,
         PubSubTooManyRequests,
+        PubSubConnectionNotFoundForEntity,
+        PubSubConnectionHandleInvalid,
+        PubSubSubscriptionLimitExceeded,
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
@@ -1759,7 +1786,13 @@ public class PlayFabServerModels {
         EventSamplingInvalidRatio,
         EventSamplingInvalidEventNamespace,
         EventSamplingInvalidEventName,
-        EventSamplingRatioNotFound
+        EventSamplingRatioNotFound,
+        EventSinkConnectionInvalid,
+        EventSinkConnectionUnauthorized,
+        EventSinkRegionInvalid,
+        OperationCanceled,
+        InvalidDisplayNameRandomSuffixLength,
+        AllowNonUniquePlayerDisplayNamesDisableNotAllowed
     }
 
     public static class GenericPlayFabIdPair {
@@ -3599,6 +3632,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum Region {
         USCentral,
         USEast,
@@ -3609,6 +3644,8 @@ public class PlayFabServerModels {
         Australia
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class RegisterGameRequest {
         /** Unique identifier of the build running on the Game Server Instance. */
         public String Build;
@@ -3639,6 +3676,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class RegisterGameResponse {
         /**
          * Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the
@@ -4062,17 +4101,30 @@ public class PlayFabServerModels {
      * Value. If it already exists, the Value for that key will be overwritten with the new Value.
      */
     public static class SetTitleDataRequest {
+        /** Id of azure resource */
+        public String AzureResourceId;
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
         /**
          * key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
          * name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
          */
         public String Key;
+        /** System Data of the Azure Resource */
+        public AzureResourceSystemData SystemData;
+        /**
+         * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
+         * title has been selected.
+         */
+        public String TitleId;
         /** new value to set. Set to null to remove a value */
         public String Value;
         
     }
 
     public static class SetTitleDataResult {
+        /** Id of azure resource */
+        public String AzureResourceId;
         
     }
 
