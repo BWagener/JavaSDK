@@ -262,79 +262,6 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Adds the game server executable specified (previously uploaded - see GetServerBuildUploadUrl) to the set of those a
-     * client is permitted to request in a call to StartGame
-     * @deprecated Do not use
-     * @param request AddServerBuildRequest
-     * @return Async Task will return AddServerBuildResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<AddServerBuildResult>> AddServerBuildAsync(final AddServerBuildRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<AddServerBuildResult>>() {
-            public PlayFabResult<AddServerBuildResult> call() throws Exception {
-                return privateAddServerBuildAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Adds the game server executable specified (previously uploaded - see GetServerBuildUploadUrl) to the set of those a
-     * client is permitted to request in a call to StartGame
-     * @deprecated Do not use
-     * @param request AddServerBuildRequest
-     * @return AddServerBuildResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<AddServerBuildResult> AddServerBuild(final AddServerBuildRequest request) {
-        FutureTask<PlayFabResult<AddServerBuildResult>> task = new FutureTask(new Callable<PlayFabResult<AddServerBuildResult>>() {
-            public PlayFabResult<AddServerBuildResult> call() throws Exception {
-                return privateAddServerBuildAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<AddServerBuildResult> exceptionResult = new PlayFabResult<AddServerBuildResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Adds the game server executable specified (previously uploaded - see GetServerBuildUploadUrl) to the set of those a
-     * client is permitted to request in a call to StartGame
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<AddServerBuildResult> privateAddServerBuildAsync(final AddServerBuildRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/AddServerBuild"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<AddServerBuildResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<AddServerBuildResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<AddServerBuildResult>>(){}.getType());
-        AddServerBuildResult result = resultData.data;
-
-        PlayFabResult<AddServerBuildResult> pfResult = new PlayFabResult<AddServerBuildResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
      * Increments the specified virtual currency by the stated amount
      * @param request AddUserVirtualCurrencyRequest
      * @return Async Task will return ModifyUserVirtualCurrencyResult
@@ -1781,6 +1708,76 @@ public class PlayFabAdminAPI {
         ExportMasterPlayerDataResult result = resultData.data;
 
         PlayFabResult<ExportMasterPlayerDataResult> pfResult = new PlayFabResult<ExportMasterPlayerDataResult>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
+     * Starts an export for the player profiles in a segment. This API creates a snapshot of all the player profiles which
+     * match the segment definition at the time of the API call. Profiles which change while an export is in progress will not
+     * be reflected in the results.
+     * @param request ExportPlayersInSegmentRequest
+     * @return Async Task will return ExportPlayersInSegmentResult
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<ExportPlayersInSegmentResult>> ExportPlayersInSegmentAsync(final ExportPlayersInSegmentRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<ExportPlayersInSegmentResult>>() {
+            public PlayFabResult<ExportPlayersInSegmentResult> call() throws Exception {
+                return privateExportPlayersInSegmentAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Starts an export for the player profiles in a segment. This API creates a snapshot of all the player profiles which
+     * match the segment definition at the time of the API call. Profiles which change while an export is in progress will not
+     * be reflected in the results.
+     * @param request ExportPlayersInSegmentRequest
+     * @return ExportPlayersInSegmentResult
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<ExportPlayersInSegmentResult> ExportPlayersInSegment(final ExportPlayersInSegmentRequest request) {
+        FutureTask<PlayFabResult<ExportPlayersInSegmentResult>> task = new FutureTask(new Callable<PlayFabResult<ExportPlayersInSegmentResult>>() {
+            public PlayFabResult<ExportPlayersInSegmentResult> call() throws Exception {
+                return privateExportPlayersInSegmentAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<ExportPlayersInSegmentResult> exceptionResult = new PlayFabResult<ExportPlayersInSegmentResult>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /**
+     * Starts an export for the player profiles in a segment. This API creates a snapshot of all the player profiles which
+     * match the segment definition at the time of the API call. Profiles which change while an export is in progress will not
+     * be reflected in the results.
+     */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<ExportPlayersInSegmentResult> privateExportPlayersInSegmentAsync(final ExportPlayersInSegmentRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/ExportPlayersInSegment"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<ExportPlayersInSegmentResult>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<ExportPlayersInSegmentResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<ExportPlayersInSegmentResult>>(){}.getType());
+        ExportPlayersInSegmentResult result = resultData.data;
+
+        PlayFabResult<ExportPlayersInSegmentResult> pfResult = new PlayFabResult<ExportPlayersInSegmentResult>();
         pfResult.Result = result;
         return pfResult;
     }
@@ -3249,6 +3246,79 @@ public class PlayFabAdminAPI {
     }
 
     /**
+     * Retrieves the result of an export started by ExportPlayersInSegment API. If the ExportPlayersInSegment is successful and
+     * complete, this API returns the IndexUrl from which the index file can be downloaded. The index file has a list of urls
+     * from which the files containing the player profile data can be downloaded. Otherwise, it returns the current 'State' of
+     * the export
+     * @param request GetPlayersInSegmentExportRequest
+     * @return Async Task will return GetPlayersInSegmentExportResponse
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<GetPlayersInSegmentExportResponse>> GetSegmentExportAsync(final GetPlayersInSegmentExportRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<GetPlayersInSegmentExportResponse>>() {
+            public PlayFabResult<GetPlayersInSegmentExportResponse> call() throws Exception {
+                return privateGetSegmentExportAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Retrieves the result of an export started by ExportPlayersInSegment API. If the ExportPlayersInSegment is successful and
+     * complete, this API returns the IndexUrl from which the index file can be downloaded. The index file has a list of urls
+     * from which the files containing the player profile data can be downloaded. Otherwise, it returns the current 'State' of
+     * the export
+     * @param request GetPlayersInSegmentExportRequest
+     * @return GetPlayersInSegmentExportResponse
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<GetPlayersInSegmentExportResponse> GetSegmentExport(final GetPlayersInSegmentExportRequest request) {
+        FutureTask<PlayFabResult<GetPlayersInSegmentExportResponse>> task = new FutureTask(new Callable<PlayFabResult<GetPlayersInSegmentExportResponse>>() {
+            public PlayFabResult<GetPlayersInSegmentExportResponse> call() throws Exception {
+                return privateGetSegmentExportAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<GetPlayersInSegmentExportResponse> exceptionResult = new PlayFabResult<GetPlayersInSegmentExportResponse>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /**
+     * Retrieves the result of an export started by ExportPlayersInSegment API. If the ExportPlayersInSegment is successful and
+     * complete, this API returns the IndexUrl from which the index file can be downloaded. The index file has a list of urls
+     * from which the files containing the player profile data can be downloaded. Otherwise, it returns the current 'State' of
+     * the export
+     */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<GetPlayersInSegmentExportResponse> privateGetSegmentExportAsync(final GetPlayersInSegmentExportRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/GetSegmentExport"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<GetPlayersInSegmentExportResponse>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<GetPlayersInSegmentExportResponse> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<GetPlayersInSegmentExportResponse>>(){}.getType());
+        GetPlayersInSegmentExportResponse result = resultData.data;
+
+        PlayFabResult<GetPlayersInSegmentExportResponse> pfResult = new PlayFabResult<GetPlayersInSegmentExportResponse>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
      * Get detail information of a segment and its associated definition(s) and action(s) for a title.
      * @param request GetSegmentsRequest
      * @return Async Task will return GetSegmentsResponse
@@ -3306,141 +3376,6 @@ public class PlayFabAdminAPI {
         GetSegmentsResponse result = resultData.data;
 
         PlayFabResult<GetSegmentsResponse> pfResult = new PlayFabResult<GetSegmentsResponse>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Retrieves the build details for the specified game server executable
-     * @param request GetServerBuildInfoRequest
-     * @return Async Task will return GetServerBuildInfoResult
-     */
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<GetServerBuildInfoResult>> GetServerBuildInfoAsync(final GetServerBuildInfoRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<GetServerBuildInfoResult>>() {
-            public PlayFabResult<GetServerBuildInfoResult> call() throws Exception {
-                return privateGetServerBuildInfoAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Retrieves the build details for the specified game server executable
-     * @param request GetServerBuildInfoRequest
-     * @return GetServerBuildInfoResult
-     */
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<GetServerBuildInfoResult> GetServerBuildInfo(final GetServerBuildInfoRequest request) {
-        FutureTask<PlayFabResult<GetServerBuildInfoResult>> task = new FutureTask(new Callable<PlayFabResult<GetServerBuildInfoResult>>() {
-            public PlayFabResult<GetServerBuildInfoResult> call() throws Exception {
-                return privateGetServerBuildInfoAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<GetServerBuildInfoResult> exceptionResult = new PlayFabResult<GetServerBuildInfoResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /** Retrieves the build details for the specified game server executable */
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<GetServerBuildInfoResult> privateGetServerBuildInfoAsync(final GetServerBuildInfoRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/GetServerBuildInfo"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<GetServerBuildInfoResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<GetServerBuildInfoResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<GetServerBuildInfoResult>>(){}.getType());
-        GetServerBuildInfoResult result = resultData.data;
-
-        PlayFabResult<GetServerBuildInfoResult> pfResult = new PlayFabResult<GetServerBuildInfoResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for
-     * use - see AddServerBuild)
-     * @deprecated Do not use
-     * @param request GetServerBuildUploadURLRequest
-     * @return Async Task will return GetServerBuildUploadURLResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<GetServerBuildUploadURLResult>> GetServerBuildUploadUrlAsync(final GetServerBuildUploadURLRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<GetServerBuildUploadURLResult>>() {
-            public PlayFabResult<GetServerBuildUploadURLResult> call() throws Exception {
-                return privateGetServerBuildUploadUrlAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for
-     * use - see AddServerBuild)
-     * @deprecated Do not use
-     * @param request GetServerBuildUploadURLRequest
-     * @return GetServerBuildUploadURLResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<GetServerBuildUploadURLResult> GetServerBuildUploadUrl(final GetServerBuildUploadURLRequest request) {
-        FutureTask<PlayFabResult<GetServerBuildUploadURLResult>> task = new FutureTask(new Callable<PlayFabResult<GetServerBuildUploadURLResult>>() {
-            public PlayFabResult<GetServerBuildUploadURLResult> call() throws Exception {
-                return privateGetServerBuildUploadUrlAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<GetServerBuildUploadURLResult> exceptionResult = new PlayFabResult<GetServerBuildUploadURLResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for
-     * use - see AddServerBuild)
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<GetServerBuildUploadURLResult> privateGetServerBuildUploadUrlAsync(final GetServerBuildUploadURLRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/GetServerBuildUploadUrl"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<GetServerBuildUploadURLResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<GetServerBuildUploadURLResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<GetServerBuildUploadURLResult>>(){}.getType());
-        GetServerBuildUploadURLResult result = resultData.data;
-
-        PlayFabResult<GetServerBuildUploadURLResult> pfResult = new PlayFabResult<GetServerBuildUploadURLResult>();
         pfResult.Result = result;
         return pfResult;
     }
@@ -4562,68 +4497,6 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the build details for all game server executables which are currently defined for the title
-     * @param request ListBuildsRequest
-     * @return Async Task will return ListBuildsResult
-     */
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<ListBuildsResult>> ListServerBuildsAsync(final ListBuildsRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<ListBuildsResult>>() {
-            public PlayFabResult<ListBuildsResult> call() throws Exception {
-                return privateListServerBuildsAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Retrieves the build details for all game server executables which are currently defined for the title
-     * @param request ListBuildsRequest
-     * @return ListBuildsResult
-     */
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<ListBuildsResult> ListServerBuilds(final ListBuildsRequest request) {
-        FutureTask<PlayFabResult<ListBuildsResult>> task = new FutureTask(new Callable<PlayFabResult<ListBuildsResult>>() {
-            public PlayFabResult<ListBuildsResult> call() throws Exception {
-                return privateListServerBuildsAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<ListBuildsResult> exceptionResult = new PlayFabResult<ListBuildsResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /** Retrieves the build details for all game server executables which are currently defined for the title */
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<ListBuildsResult> privateListServerBuildsAsync(final ListBuildsRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/ListServerBuilds"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<ListBuildsResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<ListBuildsResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<ListBuildsResult>>(){}.getType());
-        ListBuildsResult result = resultData.data;
-
-        PlayFabResult<ListBuildsResult> pfResult = new PlayFabResult<ListBuildsResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
      * Retuns the list of all defined virtual currencies for the title
      * @param request ListVirtualCurrencyTypesRequest
      * @return Async Task will return ListVirtualCurrencyTypesResult
@@ -4681,76 +4554,6 @@ public class PlayFabAdminAPI {
         ListVirtualCurrencyTypesResult result = resultData.data;
 
         PlayFabResult<ListVirtualCurrencyTypesResult> pfResult = new PlayFabResult<ListVirtualCurrencyTypesResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Updates the game server mode details for the specified game server executable
-     * @deprecated Do not use
-     * @param request ModifyMatchmakerGameModesRequest
-     * @return Async Task will return ModifyMatchmakerGameModesResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<ModifyMatchmakerGameModesResult>> ModifyMatchmakerGameModesAsync(final ModifyMatchmakerGameModesRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<ModifyMatchmakerGameModesResult>>() {
-            public PlayFabResult<ModifyMatchmakerGameModesResult> call() throws Exception {
-                return privateModifyMatchmakerGameModesAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Updates the game server mode details for the specified game server executable
-     * @deprecated Do not use
-     * @param request ModifyMatchmakerGameModesRequest
-     * @return ModifyMatchmakerGameModesResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<ModifyMatchmakerGameModesResult> ModifyMatchmakerGameModes(final ModifyMatchmakerGameModesRequest request) {
-        FutureTask<PlayFabResult<ModifyMatchmakerGameModesResult>> task = new FutureTask(new Callable<PlayFabResult<ModifyMatchmakerGameModesResult>>() {
-            public PlayFabResult<ModifyMatchmakerGameModesResult> call() throws Exception {
-                return privateModifyMatchmakerGameModesAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<ModifyMatchmakerGameModesResult> exceptionResult = new PlayFabResult<ModifyMatchmakerGameModesResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Updates the game server mode details for the specified game server executable
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<ModifyMatchmakerGameModesResult> privateModifyMatchmakerGameModesAsync(final ModifyMatchmakerGameModesRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/ModifyMatchmakerGameModes"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<ModifyMatchmakerGameModesResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<ModifyMatchmakerGameModesResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<ModifyMatchmakerGameModesResult>>(){}.getType());
-        ModifyMatchmakerGameModesResult result = resultData.data;
-
-        PlayFabResult<ModifyMatchmakerGameModesResult> pfResult = new PlayFabResult<ModifyMatchmakerGameModesResult>();
         pfResult.Result = result;
         return pfResult;
     }
@@ -4937,73 +4740,6 @@ public class PlayFabAdminAPI {
         RemovePlayerTagResult result = resultData.data;
 
         PlayFabResult<RemovePlayerTagResult> pfResult = new PlayFabResult<RemovePlayerTagResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Removes the game server executable specified from the set of those a client is permitted to request in a call to
-     * StartGame
-     * @param request RemoveServerBuildRequest
-     * @return Async Task will return RemoveServerBuildResult
-     */
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<RemoveServerBuildResult>> RemoveServerBuildAsync(final RemoveServerBuildRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<RemoveServerBuildResult>>() {
-            public PlayFabResult<RemoveServerBuildResult> call() throws Exception {
-                return privateRemoveServerBuildAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Removes the game server executable specified from the set of those a client is permitted to request in a call to
-     * StartGame
-     * @param request RemoveServerBuildRequest
-     * @return RemoveServerBuildResult
-     */
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<RemoveServerBuildResult> RemoveServerBuild(final RemoveServerBuildRequest request) {
-        FutureTask<PlayFabResult<RemoveServerBuildResult>> task = new FutureTask(new Callable<PlayFabResult<RemoveServerBuildResult>>() {
-            public PlayFabResult<RemoveServerBuildResult> call() throws Exception {
-                return privateRemoveServerBuildAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<RemoveServerBuildResult> exceptionResult = new PlayFabResult<RemoveServerBuildResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Removes the game server executable specified from the set of those a client is permitted to request in a call to
-     * StartGame
-     */
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<RemoveServerBuildResult> privateRemoveServerBuildAsync(final RemoveServerBuildRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/RemoveServerBuild"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<RemoveServerBuildResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<RemoveServerBuildResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<RemoveServerBuildResult>>(){}.getType());
-        RemoveServerBuildResult result = resultData.data;
-
-        PlayFabResult<RemoveServerBuildResult> pfResult = new PlayFabResult<RemoveServerBuildResult>();
         pfResult.Result = result;
         return pfResult;
     }

@@ -1945,6 +1945,19 @@ public class PlayFabClientModels {
         
     }
 
+    public static class GetPlayFabIDsFromNintendoServiceAccountIdsRequest {
+        /** Array of unique Nintendo Switch Account identifiers for which the title needs to get PlayFab identifiers. */
+        public ArrayList<String> NintendoAccountIds;
+        
+    }
+
+    /** For Nintendo Service Account identifiers which have not been linked to PlayFab accounts, null will be returned. */
+    public static class GetPlayFabIDsFromNintendoServiceAccountIdsResult {
+        /** Mapping of Nintendo Switch Service Account identifiers to PlayFab identifiers. */
+        public ArrayList<NintendoServiceAccountPlayFabIdPair> Data;
+        
+    }
+
     public static class GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest {
         /** Array of unique Nintendo Switch Device identifiers for which the title needs to get PlayFab identifiers. */
         public ArrayList<String> NintendoSwitchDeviceIds;
@@ -3388,6 +3401,17 @@ public class PlayFabClientModels {
         
     }
 
+    public static class NintendoServiceAccountPlayFabIdPair {
+        /** Unique Nintendo Switch Service Account identifier for a user. */
+        public String NintendoServiceAccountId;
+        /**
+         * Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Nintendo Switch Service Account
+         * identifier.
+         */
+        public String PlayFabId;
+        
+    }
+
     public static class NintendoSwitchPlayFabIdPair {
         /** Unique Nintendo Switch Device identifier for a user. */
         public String NintendoSwitchDeviceId;
@@ -4025,51 +4049,6 @@ public class PlayFabClientModels {
         Partner,
         Custom,
         API
-    }
-
-    /**
-     * This API must be enabled for use as an option in the game manager website. It is disabled by default.
-     * @deprecated Do not use
-     */
-    @Deprecated
-    public static class StartGameRequest {
-        /** version information for the build of the game server which is to be started */
-        public String BuildVersion;
-        /** character to use for stats based matching. Leave null to use account stats */
-        public String CharacterId;
-        /** custom command line argument when starting game server process */
-        public String CustomCommandLineData;
-        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
-        public Map<String,String> CustomTags;
-        /** the title-defined game mode this server is to be running (defaults to 0 if there is only one mode) */
-        public String GameMode;
-        /** the region to associate this server with for match filtering */
-        public Region Region;
-        /** player statistic for others to use in finding this game. May be null for no stat-based matching */
-        public String StatisticName;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class StartGameResult {
-        /** timestamp for when the server should expire, if applicable */
-        public String Expires;
-        /** unique identifier for the lobby of the server started */
-        public String LobbyID;
-        /** password required to log into the server */
-        public String Password;
-        /** server IPV4 address */
-        public String ServerIPV4Address;
-        /** server IPV6 address */
-        public String ServerIPV6Address;
-        /** port on the server to be used for communication */
-        public Integer ServerPort;
-        /** server public DNS name */
-        public String ServerPublicDNSName;
-        /** unique identifier for the server */
-        public String Ticket;
-        
     }
 
     /**
@@ -4977,6 +4956,8 @@ public class PlayFabClientModels {
     public static class UserXboxInfo {
         /** XBox user ID */
         public String XboxUserId;
+        /** XBox user sandbox */
+        public String XboxUserSandbox;
         
     }
 

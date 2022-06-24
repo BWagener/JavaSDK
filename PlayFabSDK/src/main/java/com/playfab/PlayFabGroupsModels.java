@@ -30,7 +30,7 @@ public class PlayFabGroupsModels {
     public static class AcceptGroupInvitationRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** The entity to perform this action on. */
+        /** The optional entity to perform this action on. Defaults to the currently logged in entity. */
         public EntityKey Entity;
         /** The identifier of the group */
         public EntityKey Group;
@@ -69,7 +69,7 @@ public class PlayFabGroupsModels {
         public Boolean AutoAcceptOutstandingInvite;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** The entity to perform this action on. */
+        /** The optional entity to perform this action on. Defaults to the currently logged in entity. */
         public EntityKey Entity;
         /** The identifier of the group */
         public EntityKey Group;
@@ -134,7 +134,7 @@ public class PlayFabGroupsModels {
     public static class CreateGroupRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** The entity to perform this action on. */
+        /** The optional entity to perform this action on. Defaults to the currently logged in entity. */
         public EntityKey Entity;
         /** The name of the group. This is unique at the title level by default. */
         public String GroupName;
@@ -171,7 +171,7 @@ public class PlayFabGroupsModels {
         public EntityKey Group;
         /**
          * The ID of the role. This must be unique within the group and cannot be changed. Role IDs must be between 1 and 64
-         * characters long.
+         * characters long and are restricted to a-Z, A-Z, 0-9, '(', ')', '_', '-' and '.'.
          */
         public String RoleId;
         /**
@@ -477,7 +477,7 @@ public class PlayFabGroupsModels {
     public static class ListMembershipOpportunitiesRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** The entity to perform this action on. */
+        /** The optional entity to perform this action on. Defaults to the currently logged in entity. */
         public EntityKey Entity;
         
     }
@@ -498,7 +498,7 @@ public class PlayFabGroupsModels {
     public static class ListMembershipRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** The entity to perform this action on. */
+        /** The optional entity to perform this action on. Defaults to the currently logged in entity. */
         public EntityKey Entity;
         
     }

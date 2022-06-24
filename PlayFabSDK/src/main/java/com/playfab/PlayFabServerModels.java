@@ -164,22 +164,6 @@ public class PlayFabServerModels {
         
     }
 
-    public static class AzureResourceSystemData {
-        /** The timestamp of resource creation (UTC) */
-        public Date CreatedAt;
-        /** The identity that created the resource */
-        public String CreatedBy;
-        /** The type of identity that created the resource */
-        public String CreatedByType;
-        /** The type of identity that last modified the resource */
-        public Date LastModifiedAt;
-        /** The identity that last modified the resource */
-        public String LastModifiedBy;
-        /** The type of identity that last modified the resource */
-        public String LastModifiedByType;
-        
-    }
-
     /** Contains information for a ban. */
     public static class BanInfo {
         /** The active state of this ban. Expired bans may still have this value set to true but they will have no effect. */
@@ -1643,6 +1627,14 @@ public class PlayFabServerModels {
         GoogleServiceAccountFailedAuth,
         GoogleAPIServiceUnavailable,
         GoogleAPIServiceUnknownError,
+        NoValidIdentityForAad,
+        PlayerIdentityLinkNotFound,
+        PhotonApplicationIdAlreadyInUse,
+        CloudScriptUnableToDeleteProductionRevision,
+        CustomIdNotFound,
+        AutomationInvalidInput,
+        AutomationInvalidRuleName,
+        AutomationRuleAlreadyExists,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1710,6 +1702,7 @@ public class PlayFabServerModels {
         ExportCannotParseQuery,
         ExportControlCommandsNotAllowed,
         ExportQueryMissingTableReference,
+        ExportInsightsV1Deprecated,
         ExplorerBasicInvalidQueryName,
         ExplorerBasicInvalidQueryDescription,
         ExplorerBasicInvalidQueryConditions,
@@ -1790,6 +1783,15 @@ public class PlayFabServerModels {
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
+        EventSinkLimitExceeded,
+        EventSinkSasTokenInvalid,
+        EventSinkNotFound,
+        EventSinkNameInvalid,
+        EventSinkSasTokenPermissionInvalid,
+        EventSinkSecretInvalid,
+        EventSinkTenantNotFound,
+        EventSinkAadNotFound,
+        EventSinkDatabaseNotFound,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
         AllowNonUniquePlayerDisplayNamesDisableNotAllowed
@@ -2398,6 +2400,19 @@ public class PlayFabServerModels {
     public static class GetPlayFabIDsFromGenericIDsResult {
         /** Mapping of generic service identifiers to PlayFab identifiers. */
         public ArrayList<GenericPlayFabIdPair> Data;
+        
+    }
+
+    public static class GetPlayFabIDsFromNintendoServiceAccountIdsRequest {
+        /** Array of unique Nintendo Switch Account identifiers for which the title needs to get PlayFab identifiers. */
+        public ArrayList<String> NintendoAccountIds;
+        
+    }
+
+    /** For Nintendo Service Account identifiers which have not been linked to PlayFab accounts, null will be returned. */
+    public static class GetPlayFabIDsFromNintendoServiceAccountIdsResult {
+        /** Mapping of Nintendo Switch Service Account identifiers to PlayFab identifiers. */
+        public ArrayList<NintendoServiceAccountPlayFabIdPair> Data;
         
     }
 
@@ -3279,6 +3294,17 @@ public class PlayFabServerModels {
         
     }
 
+    public static class NintendoServiceAccountPlayFabIdPair {
+        /** Unique Nintendo Switch Service Account identifier for a user. */
+        public String NintendoServiceAccountId;
+        /**
+         * Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Nintendo Switch Service Account
+         * identifier.
+         */
+        public String PlayFabId;
+        
+    }
+
     public static class NintendoSwitchPlayFabIdPair {
         /** Unique Nintendo Switch Device identifier for a user. */
         public String NintendoSwitchDeviceId;
@@ -3632,8 +3658,6 @@ public class PlayFabServerModels {
         
     }
 
-    /** @deprecated Do not use */
-    @Deprecated
     public static enum Region {
         USCentral,
         USEast,
@@ -3644,8 +3668,6 @@ public class PlayFabServerModels {
         Australia
     }
 
-    /** @deprecated Do not use */
-    @Deprecated
     public static class RegisterGameRequest {
         /** Unique identifier of the build running on the Game Server Instance. */
         public String Build;
@@ -3676,8 +3698,6 @@ public class PlayFabServerModels {
         
     }
 
-    /** @deprecated Do not use */
-    @Deprecated
     public static class RegisterGameResponse {
         /**
          * Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the
@@ -4101,8 +4121,6 @@ public class PlayFabServerModels {
      * Value. If it already exists, the Value for that key will be overwritten with the new Value.
      */
     public static class SetTitleDataRequest {
-        /** Id of azure resource */
-        public String AzureResourceId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /**
@@ -4110,8 +4128,6 @@ public class PlayFabServerModels {
          * name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
          */
         public String Key;
-        /** System Data of the Azure Resource */
-        public AzureResourceSystemData SystemData;
         /**
          * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
          * title has been selected.
@@ -4123,8 +4139,6 @@ public class PlayFabServerModels {
     }
 
     public static class SetTitleDataResult {
-        /** Id of azure resource */
-        public String AzureResourceId;
         
     }
 
@@ -4909,6 +4923,8 @@ public class PlayFabServerModels {
     public static class UserXboxInfo {
         /** XBox user ID */
         public String XboxUserId;
+        /** XBox user sandbox */
+        public String XboxUserSandbox;
         
     }
 

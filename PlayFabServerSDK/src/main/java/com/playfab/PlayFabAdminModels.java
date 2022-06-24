@@ -135,63 +135,6 @@ public class PlayFabAdminModels {
         
     }
 
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class AddServerBuildRequest {
-        /** server host regions in which this build should be running and available */
-        public ArrayList<Region> ActiveRegions;
-        /** unique identifier for the build executable */
-        public String BuildId;
-        /** appended to the end of the command line when starting game servers */
-        public String CommandLineTemplate;
-        /** developer comment(s) for this build */
-        public String Comment;
-        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
-        public Map<String,String> CustomTags;
-        /** path to the game server executable. Defaults to gameserver.exe */
-        public String ExecutablePath;
-        /** maximum number of game server instances that can run on a single host machine */
-        public Integer MaxGamesPerHost;
-        /**
-         * minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
-         * machines (given the number of current running host machines and game server instances)
-         */
-        public Integer MinFreeGameSlots;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class AddServerBuildResult {
-        /** array of regions where this build can used, when it is active */
-        public ArrayList<Region> ActiveRegions;
-        /** unique identifier for this build executable */
-        public String BuildId;
-        /** appended to the end of the command line when starting game servers */
-        public String CommandLineTemplate;
-        /** developer comment(s) for this build */
-        public String Comment;
-        /** path to the game server executable. Defaults to gameserver.exe */
-        public String ExecutablePath;
-        /** maximum number of game server instances that can run on a single host machine */
-        public Integer MaxGamesPerHost;
-        /**
-         * minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
-         * machines (given the number of current running host machines and game server instances)
-         */
-        public Integer MinFreeGameSlots;
-        /** the current status of the build validation and processing steps */
-        public GameBuildStatus Status;
-        /** time this build was last modified (or uploaded, if this build has never been modified) */
-        public Date Timestamp;
-        /**
-         * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
-         * title has been selected.
-         */
-        public String TitleId;
-        
-    }
-
     public static class AddUserVirtualCurrencyRequest {
         /**
          * Amount to be added to the user balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647).
@@ -232,22 +175,6 @@ public class PlayFabAdminModels {
 
     public static enum AuthTokenType {
         Email
-    }
-
-    public static class AzureResourceSystemData {
-        /** The timestamp of resource creation (UTC) */
-        public Date CreatedAt;
-        /** The identity that created the resource */
-        public String CreatedBy;
-        /** The type of identity that created the resource */
-        public String CreatedByType;
-        /** The type of identity that last modified the resource */
-        public Date LastModifiedAt;
-        /** The identity that last modified the resource */
-        public String LastModifiedBy;
-        /** The type of identity that last modified the resource */
-        public String LastModifiedByType;
-        
     }
 
     /** Contains information for a ban. */
@@ -451,6 +378,13 @@ public class PlayFabAdminModels {
         /** The amount of the specified resource remaining. */
         public Integer Amount;
         
+    }
+
+    public static enum ChurnRiskLevel {
+        NoData,
+        LowRisk,
+        MediumRisk,
+        HighRisk
     }
 
     public static class CloudScriptFile {
@@ -1401,6 +1335,21 @@ public class PlayFabAdminModels {
         
     }
 
+    /** Request must contain the Segment ID */
+    public static class ExportPlayersInSegmentRequest {
+        /** Unique identifier of the requested segment. */
+        public String SegmentId;
+        
+    }
+
+    public static class ExportPlayersInSegmentResult {
+        /** Unique identifier of the export for the requested Segment. */
+        public String ExportId;
+        /** Unique identifier of the requested Segment. */
+        public String SegmentId;
+        
+    }
+
     public static class FirstLoginDateSegmentFilter {
         /** First player login date comparison. */
         public SegmentFilterComparison Comparison;
@@ -1962,6 +1911,14 @@ public class PlayFabAdminModels {
         GoogleServiceAccountFailedAuth,
         GoogleAPIServiceUnavailable,
         GoogleAPIServiceUnknownError,
+        NoValidIdentityForAad,
+        PlayerIdentityLinkNotFound,
+        PhotonApplicationIdAlreadyInUse,
+        CloudScriptUnableToDeleteProductionRevision,
+        CustomIdNotFound,
+        AutomationInvalidInput,
+        AutomationInvalidRuleName,
+        AutomationRuleAlreadyExists,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2029,6 +1986,7 @@ public class PlayFabAdminModels {
         ExportCannotParseQuery,
         ExportControlCommandsNotAllowed,
         ExportQueryMissingTableReference,
+        ExportInsightsV1Deprecated,
         ExplorerBasicInvalidQueryName,
         ExplorerBasicInvalidQueryDescription,
         ExplorerBasicInvalidQueryConditions,
@@ -2109,6 +2067,15 @@ public class PlayFabAdminModels {
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
+        EventSinkLimitExceeded,
+        EventSinkSasTokenInvalid,
+        EventSinkNotFound,
+        EventSinkNameInvalid,
+        EventSinkSasTokenPermissionInvalid,
+        EventSinkSecretInvalid,
+        EventSinkTenantNotFound,
+        EventSinkAadNotFound,
+        EventSinkDatabaseNotFound,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
         AllowNonUniquePlayerDisplayNamesDisableNotAllowed
@@ -2382,6 +2349,21 @@ public class PlayFabAdminModels {
         
     }
 
+    /** Request must contain the ExportId */
+    public static class GetPlayersInSegmentExportRequest {
+        /** Unique identifier of the export for the requested Segment. */
+        public String ExportId;
+        
+    }
+
+    public static class GetPlayersInSegmentExportResponse {
+        /** Url from which the index file can be downloaded. */
+        public String IndexUrl;
+        /** Shows the current status of the export */
+        public String State;
+        
+    }
+
     /**
      * Initial request must contain at least a Segment ID. Subsequent requests must contain the Segment ID as well as the
      * Continuation Token. Failure to send the Continuation Token will result in a new player segment list being generated.
@@ -2564,63 +2546,6 @@ public class PlayFabAdminModels {
         public String ErrorMessage;
         /** List of title segments. */
         public ArrayList<SegmentModel> Segments;
-        
-    }
-
-    public static class GetServerBuildInfoRequest {
-        /** unique identifier of the previously uploaded build executable for which information is being requested */
-        public String BuildId;
-        
-    }
-
-    /** Information about a particular server build */
-    public static class GetServerBuildInfoResult implements Comparable<GetServerBuildInfoResult> {
-        /** array of regions where this build can used, when it is active */
-        @Unordered
-        public ArrayList<Region> ActiveRegions;
-        /** unique identifier for this build executable */
-        public String BuildId;
-        /** developer comment(s) for this build */
-        public String Comment;
-        /** error message, if any, about this build */
-        public String ErrorMessage;
-        /** maximum number of game server instances that can run on a single host machine */
-        public Integer MaxGamesPerHost;
-        /**
-         * minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
-         * machines (given the number of current running host machines and game server instances)
-         */
-        public Integer MinFreeGameSlots;
-        /** the current status of the build validation and processing steps */
-        public GameBuildStatus Status;
-        /** time this build was last modified (or uploaded, if this build has never been modified) */
-        public Date Timestamp;
-        /**
-         * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
-         * title has been selected.
-         */
-        public String TitleId;
-        
-        public int compareTo(GetServerBuildInfoResult other) {
-            if (other == null || other.BuildId == null) return 1;
-            if (BuildId == null) return -1;
-            return BuildId.compareTo(other.BuildId);
-        }
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class GetServerBuildUploadURLRequest {
-        /** unique identifier of the game server build to upload */
-        public String BuildId;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class GetServerBuildUploadURLResult {
-        /** pre-authorized URL for uploading the game server build package */
-        public String URL;
         
     }
 
@@ -3081,17 +3006,6 @@ public class PlayFabAdminModels {
         
     }
 
-    public static class ListBuildsRequest {
-        
-    }
-
-    public static class ListBuildsResult {
-        /** array of uploaded game server builds */
-        @Unordered("BuildId")
-        public ArrayList<GetServerBuildInfoResult> Builds;
-        
-    }
-
     public static class ListOpenIdConnectionRequest {
         
     }
@@ -3204,29 +3118,6 @@ public class PlayFabAdminModels {
         public Date OverrideExpiration;
         /** The list of subscriptions that this player has for this membership */
         public ArrayList<SubscriptionModel> Subscriptions;
-        
-    }
-
-    /**
-     * These details are used by the PlayFab matchmaking service to determine if an existing Game Server Instance has room for
-     * additional users, and by the PlayFab game server management service to determine when a new Game Server Host should be
-     * created in order to prevent excess load on existing Hosts. This operation is not additive. Using it will cause the game
-     * mode definition for the game server executable in question to be created from scratch. If there is an existing game
-     * server mode definition for the given BuildVersion, it will be deleted and replaced with the data specified in this call.
-     * @deprecated Do not use
-     */
-    @Deprecated
-    public static class ModifyMatchmakerGameModesRequest {
-        /** previously uploaded build version for which game modes are being specified */
-        public String BuildVersion;
-        /** array of game modes (Note: this will replace all game modes for the indicated build version) */
-        public ArrayList<GameModeInfo> GameModes;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class ModifyMatchmakerGameModesResult {
         
     }
 
@@ -3354,6 +3245,30 @@ public class PlayFabAdminModels {
          * 'pfrn:api--/Client/ConfirmPurchase' for specific apis.
          */
         public String Resource;
+        
+    }
+
+    public static class PlayerChurnPredictionSegmentFilter {
+        /** Comparison */
+        public SegmentFilterComparison Comparison;
+        /** RiskLevel */
+        public ChurnRiskLevel RiskLevel;
+        
+    }
+
+    public static class PlayerChurnPredictionTimeSegmentFilter {
+        /** Comparison */
+        public SegmentFilterComparison Comparison;
+        /** DurationInDays */
+        public Double DurationInDays;
+        
+    }
+
+    public static class PlayerChurnPreviousPredictionSegmentFilter {
+        /** Comparison */
+        public SegmentFilterComparison Comparison;
+        /** RiskLevel */
+        public ChurnRiskLevel RiskLevel;
         
     }
 
@@ -3667,16 +3582,6 @@ public class PlayFabAdminModels {
         
     }
 
-    public static class RemoveServerBuildRequest {
-        /** unique identifier of the previously uploaded build executable to be removed */
-        public String BuildId;
-        
-    }
-
-    public static class RemoveServerBuildResult {
-        
-    }
-
     /**
      * Virtual currencies to be removed cannot have entries in any catalog nor store for the title. Note that this operation
      * will not remove player balances for the removed currencies; if a deleted currency is recreated at any point, user
@@ -3952,6 +3857,12 @@ public class PlayFabAdminModels {
         public LinkedUserAccountHasEmailSegmentFilter LinkedUserAccountHasEmailFilter;
         /** Filter property for location. */
         public LocationSegmentFilter LocationFilter;
+        /** Filter property for current player churn value. */
+        public PlayerChurnPredictionSegmentFilter PlayerChurnPredictionFilter;
+        /** Filter property for player churn timespan. */
+        public PlayerChurnPredictionTimeSegmentFilter PlayerChurnPredictionTimeFilter;
+        /** Filter property for previous player churn value. */
+        public PlayerChurnPreviousPredictionSegmentFilter PlayerChurnPreviousPredictionFilter;
         /** Filter property for push notification. */
         public PushNotificationSegmentFilter PushNotificationFilter;
         /** Filter property for statistics. */
@@ -4423,8 +4334,6 @@ public class PlayFabAdminModels {
     }
 
     public static class SegmentModel {
-        /** ResourceId of Segment resource */
-        public String AzureResourceId;
         /** Segment description. */
         public String Description;
         /** Segment actions for current entered segment players. */
@@ -4574,6 +4483,8 @@ public class PlayFabAdminModels {
      * or not.
      */
     public static class SetTitleDataAndOverridesRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
         /**
          * List of titleData key-value pairs to set/delete. Use an empty value to delete an existing key; use a non-empty value to
          * create/update a key.
@@ -4581,6 +4492,8 @@ public class PlayFabAdminModels {
         public ArrayList<TitleDataKeyValue> KeyValues;
         /** Name of the override. */
         public String OverrideLabel;
+        /** Title Id */
+        public String TitleId;
         
     }
 
@@ -4596,8 +4509,6 @@ public class PlayFabAdminModels {
      * already exists, the Value for that key will be overwritten with the new Value.
      */
     public static class SetTitleDataRequest {
-        /** Id of azure resource */
-        public String AzureResourceId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /**
@@ -4605,8 +4516,6 @@ public class PlayFabAdminModels {
          * name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
          */
         public String Key;
-        /** System Data of the Azure Resource */
-        public AzureResourceSystemData SystemData;
         /**
          * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
          * title has been selected.
@@ -4618,8 +4527,6 @@ public class PlayFabAdminModels {
     }
 
     public static class SetTitleDataResult {
-        /** Id of azure resource */
-        public String AzureResourceId;
         
     }
 
@@ -5476,6 +5383,8 @@ public class PlayFabAdminModels {
     public static class UserXboxInfo {
         /** XBox user ID */
         public String XboxUserId;
+        /** XBox user sandbox */
+        public String XboxUserSandbox;
         
     }
 
