@@ -210,8 +210,6 @@ public class PlayFabAdminModels {
         public Long DurationInHours;
         /** IP address to be banned. May affect multiple players. */
         public String IPAddress;
-        /** MAC address to be banned. May affect multiple players. */
-        public String MACAddress;
         /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
         public String PlayFabId;
         /** The reason for this ban. Maximum 140 characters. */
@@ -1919,6 +1917,9 @@ public class PlayFabAdminModels {
         AutomationInvalidInput,
         AutomationInvalidRuleName,
         AutomationRuleAlreadyExists,
+        AutomationRuleLimitExceeded,
+        InvalidGooglePlayGamesServerAuthCode,
+        StorageAccountNotFound,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2007,6 +2008,7 @@ public class PlayFabAdminModels {
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
         MultiplayerServerBuildReferencedByBuildAlias,
+        MultiplayerServerBuildAliasReferencedByMatchmakingQueue,
         ExperimentationExperimentStopped,
         ExperimentationExperimentRunning,
         ExperimentationExperimentNotFound,
@@ -3068,7 +3070,8 @@ public class PlayFabAdminModels {
         FacebookInstantGames,
         OpenIdConnect,
         Apple,
-        NintendoSwitchAccount
+        NintendoSwitchAccount,
+        GooglePlayGames
     }
 
     public static class LogStatement {
@@ -4492,8 +4495,6 @@ public class PlayFabAdminModels {
         public ArrayList<TitleDataKeyValue> KeyValues;
         /** Name of the override. */
         public String OverrideLabel;
-        /** Title Id */
-        public String TitleId;
         
     }
 
@@ -4516,11 +4517,6 @@ public class PlayFabAdminModels {
          * name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
          */
         public String Key;
-        /**
-         * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
-         * title has been selected.
-         */
-        public String TitleId;
         /** new value to set. Set to null to remove a value */
         public String Value;
         
@@ -4795,8 +4791,6 @@ public class PlayFabAdminModels {
         public Date Expires;
         /** The updated IP address for the ban. Null for no change. */
         public String IPAddress;
-        /** The updated MAC address for the ban. Null for no change. */
-        public String MACAddress;
         /** Whether to make this ban permanent. Set to true to make this ban permanent. This will not modify Active state. */
         public Boolean Permanent;
         /** The updated reason for the ban to be updated. Maximum 140 characters. Null for no change. */
@@ -4821,9 +4815,11 @@ public class PlayFabAdminModels {
     }
 
     /**
-     * This operation is not additive. Using it will cause the indicated catalog version to be created from scratch. If there
-     * is an existing catalog with the version number in question, it will be deleted and replaced with only the items
-     * specified in this call.
+     * When used for SetCatalogItems, this operation is not additive. Using it will cause the indicated catalog version to be
+     * created from scratch. If there is an existing catalog with the version number in question, it will be deleted and
+     * replaced with only the items specified in this call. When used for UpdateCatalogItems, this operation is additive. Items
+     * with ItemId values not currently in the catalog will be added, while those with ItemId values matching items currently
+     * in the catalog will overwrite those items with the given values.
      */
     public static class UpdateCatalogItemsRequest {
         /**
@@ -4997,16 +4993,19 @@ public class PlayFabAdminModels {
     }
 
     /**
-     * This operation is not additive. Using it will cause the indicated virtual store to be created from scratch. If there is
-     * an existing store with the same storeId, it will be deleted and replaced with only the items specified in this call. A
-     * store contains an array of references to items defined inthe catalog, along with the prices for the item, in both real
-     * world and virtual currencies. These prices act as an override to any prices defined in the catalog. In this way, the
-     * base definitions of the items may be defined in the catalog, with all associated properties, while the pricing can be
-     * set for each store, as needed. This allows for subsets of goods to be defined for different purposes (in order to
-     * simplify showing some, but not all catalog items to users, based upon different characteristics), along with unique
-     * prices. Note that all prices defined in the catalog and store definitions for the item are considered valid, and that a
-     * compromised client can be made to send a request for an item based upon any of these definitions. If no price is
-     * specified in the store for an item, the price set in the catalog should be displayed to the user.
+     * When used for SetStoreItems, this operation is not additive. Using it will cause the indicated virtual store to be
+     * created from scratch. If there is an existing store with the same storeId, it will be deleted and replaced with only the
+     * items specified in this call. When used for UpdateStoreItems, this operation is additive. Items with ItemId values not
+     * currently in the store will be added, while those with ItemId values matching items currently in the catalog will
+     * overwrite those items with the given values. In both cases, a store contains an array of references to items defined in
+     * the catalog, along with the prices for the item, in both real world and virtual currencies. These prices act as an
+     * override to any prices defined in the catalog. In this way, the base definitions of the items may be defined in the
+     * catalog, with all associated properties, while the pricing can be set for each store, as needed. This allows for subsets
+     * of goods to be defined for different purposes (in order to simplify showing some, but not all catalog items to users,
+     * based upon different characteristics), along with unique prices. Note that all prices defined in the catalog and store
+     * definitions for the item are considered valid, and that a compromised client can be made to send a request for an item
+     * based upon any of these definitions. If no price is specified in the store for an item, the price set in the catalog
+     * should be displayed to the user.
      */
     public static class UpdateStoreItemsRequest {
         /** Catalog version of the store to update. If null, uses the default catalog. */
@@ -5147,6 +5146,8 @@ public class PlayFabAdminModels {
         public UserGameCenterInfo GameCenterInfo;
         /** User Google account information, if a Google account has been linked */
         public UserGoogleInfo GoogleInfo;
+        /** User Google Play Games account information, if a Google Play Games account has been linked */
+        public UserGooglePlayGamesInfo GooglePlayGamesInfo;
         /** User iOS device information, if an iOS device has been linked */
         public UserIosDeviceInfo IosDeviceInfo;
         /** User Kongregate account information, if a Kongregate account has been linked */
@@ -5161,7 +5162,7 @@ public class PlayFabAdminModels {
         public String PlayFabId;
         /** Personal information for the user which is considered more sensitive */
         public UserPrivateAccountInfo PrivateInfo;
-        /** User PSN account information, if a PSN account has been linked */
+        /** User PlayStation :tm: Network account information, if a PlayStation :tm: Network account has been linked */
         public UserPsnInfo PsnInfo;
         /** User Steam information, if a Steam account has been linked */
         public UserSteamInfo SteamInfo;
@@ -5250,6 +5251,16 @@ public class PlayFabAdminModels {
         
     }
 
+    public static class UserGooglePlayGamesInfo {
+        /** Avatar image url of the Google Play Games player */
+        public String GooglePlayGamesPlayerAvatarImageUrl;
+        /** Display name of the Google Play Games player */
+        public String GooglePlayGamesPlayerDisplayName;
+        /** Google Play Games player ID */
+        public String GooglePlayGamesPlayerId;
+        
+    }
+
     public static class UserIosDeviceInfo {
         /** iOS device ID */
         public String IosDeviceId;
@@ -5309,7 +5320,8 @@ public class PlayFabAdminModels {
         FacebookInstantGamesId,
         OpenIdConnect,
         Apple,
-        NintendoSwitchAccount
+        NintendoSwitchAccount,
+        GooglePlayGames
     }
 
     public static class UserOriginationSegmentFilter {
@@ -5325,9 +5337,9 @@ public class PlayFabAdminModels {
     }
 
     public static class UserPsnInfo {
-        /** PSN account ID */
+        /** PlayStation :tm: Network account ID */
         public String PsnAccountId;
-        /** PSN online ID */
+        /** PlayStation :tm: Network online ID */
         public String PsnOnlineId;
         
     }

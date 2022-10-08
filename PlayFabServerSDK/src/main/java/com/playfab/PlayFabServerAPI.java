@@ -2986,7 +2986,7 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers.
+     * Retrieves the unique PlayFab identifiers for the given set of PlayStation :tm: Network identifiers.
      * @param request GetPlayFabIDsFromPSNAccountIDsRequest
      * @return Async Task will return GetPlayFabIDsFromPSNAccountIDsResult
      */
@@ -3000,7 +3000,7 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers.
+     * Retrieves the unique PlayFab identifiers for the given set of PlayStation :tm: Network identifiers.
      * @param request GetPlayFabIDsFromPSNAccountIDsRequest
      * @return GetPlayFabIDsFromPSNAccountIDsResult
      */
@@ -3021,7 +3021,7 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers. */
+    /** Retrieves the unique PlayFab identifiers for the given set of PlayStation :tm: Network identifiers. */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> privateGetPlayFabIDsFromPSNAccountIDsAsync(final GetPlayFabIDsFromPSNAccountIDsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -3110,6 +3110,76 @@ public class PlayFabServerAPI {
         GetPlayFabIDsFromSteamIDsResult result = resultData.data;
 
         PlayFabResult<GetPlayFabIDsFromSteamIDsResult> pfResult = new PlayFabResult<GetPlayFabIDsFromSteamIDsResult>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
+     * Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for
+     * the user accounts, available as "_id" from the Twitch API methods (ex:
+     * https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser).
+     * @param request GetPlayFabIDsFromTwitchIDsRequest
+     * @return Async Task will return GetPlayFabIDsFromTwitchIDsResult
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>> GetPlayFabIDsFromTwitchIDsAsync(final GetPlayFabIDsFromTwitchIDsRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>>() {
+            public PlayFabResult<GetPlayFabIDsFromTwitchIDsResult> call() throws Exception {
+                return privateGetPlayFabIDsFromTwitchIDsAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for
+     * the user accounts, available as "_id" from the Twitch API methods (ex:
+     * https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser).
+     * @param request GetPlayFabIDsFromTwitchIDsRequest
+     * @return GetPlayFabIDsFromTwitchIDsResult
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<GetPlayFabIDsFromTwitchIDsResult> GetPlayFabIDsFromTwitchIDs(final GetPlayFabIDsFromTwitchIDsRequest request) {
+        FutureTask<PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>> task = new FutureTask(new Callable<PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>>() {
+            public PlayFabResult<GetPlayFabIDsFromTwitchIDsResult> call() throws Exception {
+                return privateGetPlayFabIDsFromTwitchIDsAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<GetPlayFabIDsFromTwitchIDsResult> exceptionResult = new PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /**
+     * Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for
+     * the user accounts, available as "_id" from the Twitch API methods (ex:
+     * https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser).
+     */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<GetPlayFabIDsFromTwitchIDsResult> privateGetPlayFabIDsFromTwitchIDsAsync(final GetPlayFabIDsFromTwitchIDsRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/GetPlayFabIDsFromTwitchIDs"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<GetPlayFabIDsFromTwitchIDsResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<GetPlayFabIDsFromTwitchIDsResult>>(){}.getType());
+        GetPlayFabIDsFromTwitchIDsResult result = resultData.data;
+
+        PlayFabResult<GetPlayFabIDsFromTwitchIDsResult> pfResult = new PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>();
         pfResult.Result = result;
         return pfResult;
     }
@@ -4559,7 +4629,131 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Links the PlayStation Network account associated with the provided access code to the user's PlayFab account
+     * Links the Nintendo account associated with the token to the user's PlayFab account
+     * @param request LinkNintendoServiceAccountRequest
+     * @return Async Task will return EmptyResult
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<EmptyResult>> LinkNintendoServiceAccountAsync(final LinkNintendoServiceAccountRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<EmptyResult>>() {
+            public PlayFabResult<EmptyResult> call() throws Exception {
+                return privateLinkNintendoServiceAccountAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Links the Nintendo account associated with the token to the user's PlayFab account
+     * @param request LinkNintendoServiceAccountRequest
+     * @return EmptyResult
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<EmptyResult> LinkNintendoServiceAccount(final LinkNintendoServiceAccountRequest request) {
+        FutureTask<PlayFabResult<EmptyResult>> task = new FutureTask(new Callable<PlayFabResult<EmptyResult>>() {
+            public PlayFabResult<EmptyResult> call() throws Exception {
+                return privateLinkNintendoServiceAccountAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<EmptyResult> exceptionResult = new PlayFabResult<EmptyResult>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /** Links the Nintendo account associated with the token to the user's PlayFab account */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<EmptyResult> privateLinkNintendoServiceAccountAsync(final LinkNintendoServiceAccountRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/LinkNintendoServiceAccount"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<EmptyResult>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<EmptyResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<EmptyResult>>(){}.getType());
+        EmptyResult result = resultData.data;
+
+        PlayFabResult<EmptyResult> pfResult = new PlayFabResult<EmptyResult>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
+     * Links the NintendoSwitchDeviceId to the user's PlayFab account
+     * @param request LinkNintendoSwitchDeviceIdRequest
+     * @return Async Task will return LinkNintendoSwitchDeviceIdResult
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<LinkNintendoSwitchDeviceIdResult>> LinkNintendoSwitchDeviceIdAsync(final LinkNintendoSwitchDeviceIdRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<LinkNintendoSwitchDeviceIdResult>>() {
+            public PlayFabResult<LinkNintendoSwitchDeviceIdResult> call() throws Exception {
+                return privateLinkNintendoSwitchDeviceIdAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Links the NintendoSwitchDeviceId to the user's PlayFab account
+     * @param request LinkNintendoSwitchDeviceIdRequest
+     * @return LinkNintendoSwitchDeviceIdResult
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<LinkNintendoSwitchDeviceIdResult> LinkNintendoSwitchDeviceId(final LinkNintendoSwitchDeviceIdRequest request) {
+        FutureTask<PlayFabResult<LinkNintendoSwitchDeviceIdResult>> task = new FutureTask(new Callable<PlayFabResult<LinkNintendoSwitchDeviceIdResult>>() {
+            public PlayFabResult<LinkNintendoSwitchDeviceIdResult> call() throws Exception {
+                return privateLinkNintendoSwitchDeviceIdAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<LinkNintendoSwitchDeviceIdResult> exceptionResult = new PlayFabResult<LinkNintendoSwitchDeviceIdResult>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /** Links the NintendoSwitchDeviceId to the user's PlayFab account */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<LinkNintendoSwitchDeviceIdResult> privateLinkNintendoSwitchDeviceIdAsync(final LinkNintendoSwitchDeviceIdRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/LinkNintendoSwitchDeviceId"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<LinkNintendoSwitchDeviceIdResult>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<LinkNintendoSwitchDeviceIdResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<LinkNintendoSwitchDeviceIdResult>>(){}.getType());
+        LinkNintendoSwitchDeviceIdResult result = resultData.data;
+
+        PlayFabResult<LinkNintendoSwitchDeviceIdResult> pfResult = new PlayFabResult<LinkNintendoSwitchDeviceIdResult>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
+     * Links the PlayStation :tm: Network account associated with the provided access code to the user's PlayFab account
      * @param request LinkPSNAccountRequest
      * @return Async Task will return LinkPSNAccountResult
      */
@@ -4573,7 +4767,7 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Links the PlayStation Network account associated with the provided access code to the user's PlayFab account
+     * Links the PlayStation :tm: Network account associated with the provided access code to the user's PlayFab account
      * @param request LinkPSNAccountRequest
      * @return LinkPSNAccountResult
      */
@@ -4594,7 +4788,7 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Links the PlayStation Network account associated with the provided access code to the user's PlayFab account */
+    /** Links the PlayStation :tm: Network account associated with the provided access code to the user's PlayFab account */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<LinkPSNAccountResult> privateLinkPSNAccountAsync(final LinkPSNAccountRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -7110,7 +7304,131 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Unlinks the related PSN account from the user's PlayFab account
+     * Unlinks the related Nintendo account from the user's PlayFab account
+     * @param request UnlinkNintendoServiceAccountRequest
+     * @return Async Task will return EmptyResponse
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<EmptyResponse>> UnlinkNintendoServiceAccountAsync(final UnlinkNintendoServiceAccountRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<EmptyResponse>>() {
+            public PlayFabResult<EmptyResponse> call() throws Exception {
+                return privateUnlinkNintendoServiceAccountAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Unlinks the related Nintendo account from the user's PlayFab account
+     * @param request UnlinkNintendoServiceAccountRequest
+     * @return EmptyResponse
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<EmptyResponse> UnlinkNintendoServiceAccount(final UnlinkNintendoServiceAccountRequest request) {
+        FutureTask<PlayFabResult<EmptyResponse>> task = new FutureTask(new Callable<PlayFabResult<EmptyResponse>>() {
+            public PlayFabResult<EmptyResponse> call() throws Exception {
+                return privateUnlinkNintendoServiceAccountAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<EmptyResponse> exceptionResult = new PlayFabResult<EmptyResponse>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /** Unlinks the related Nintendo account from the user's PlayFab account */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<EmptyResponse> privateUnlinkNintendoServiceAccountAsync(final UnlinkNintendoServiceAccountRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/UnlinkNintendoServiceAccount"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<EmptyResponse>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<EmptyResponse> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<EmptyResponse>>(){}.getType());
+        EmptyResponse result = resultData.data;
+
+        PlayFabResult<EmptyResponse> pfResult = new PlayFabResult<EmptyResponse>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
+     * Unlinks the related NintendoSwitchDeviceId from the user's PlayFab account
+     * @param request UnlinkNintendoSwitchDeviceIdRequest
+     * @return Async Task will return UnlinkNintendoSwitchDeviceIdResult
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<UnlinkNintendoSwitchDeviceIdResult>> UnlinkNintendoSwitchDeviceIdAsync(final UnlinkNintendoSwitchDeviceIdRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<UnlinkNintendoSwitchDeviceIdResult>>() {
+            public PlayFabResult<UnlinkNintendoSwitchDeviceIdResult> call() throws Exception {
+                return privateUnlinkNintendoSwitchDeviceIdAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Unlinks the related NintendoSwitchDeviceId from the user's PlayFab account
+     * @param request UnlinkNintendoSwitchDeviceIdRequest
+     * @return UnlinkNintendoSwitchDeviceIdResult
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<UnlinkNintendoSwitchDeviceIdResult> UnlinkNintendoSwitchDeviceId(final UnlinkNintendoSwitchDeviceIdRequest request) {
+        FutureTask<PlayFabResult<UnlinkNintendoSwitchDeviceIdResult>> task = new FutureTask(new Callable<PlayFabResult<UnlinkNintendoSwitchDeviceIdResult>>() {
+            public PlayFabResult<UnlinkNintendoSwitchDeviceIdResult> call() throws Exception {
+                return privateUnlinkNintendoSwitchDeviceIdAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<UnlinkNintendoSwitchDeviceIdResult> exceptionResult = new PlayFabResult<UnlinkNintendoSwitchDeviceIdResult>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /** Unlinks the related NintendoSwitchDeviceId from the user's PlayFab account */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<UnlinkNintendoSwitchDeviceIdResult> privateUnlinkNintendoSwitchDeviceIdAsync(final UnlinkNintendoSwitchDeviceIdRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/UnlinkNintendoSwitchDeviceId"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<UnlinkNintendoSwitchDeviceIdResult>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<UnlinkNintendoSwitchDeviceIdResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<UnlinkNintendoSwitchDeviceIdResult>>(){}.getType());
+        UnlinkNintendoSwitchDeviceIdResult result = resultData.data;
+
+        PlayFabResult<UnlinkNintendoSwitchDeviceIdResult> pfResult = new PlayFabResult<UnlinkNintendoSwitchDeviceIdResult>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
+     * Unlinks the related PlayStation :tm: Network account from the user's PlayFab account
      * @param request UnlinkPSNAccountRequest
      * @return Async Task will return UnlinkPSNAccountResult
      */
@@ -7124,7 +7442,7 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Unlinks the related PSN account from the user's PlayFab account
+     * Unlinks the related PlayStation :tm: Network account from the user's PlayFab account
      * @param request UnlinkPSNAccountRequest
      * @return UnlinkPSNAccountResult
      */
@@ -7145,7 +7463,7 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Unlinks the related PSN account from the user's PlayFab account */
+    /** Unlinks the related PlayStation :tm: Network account from the user's PlayFab account */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<UnlinkPSNAccountResult> privateUnlinkPSNAccountAsync(final UnlinkPSNAccountRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");

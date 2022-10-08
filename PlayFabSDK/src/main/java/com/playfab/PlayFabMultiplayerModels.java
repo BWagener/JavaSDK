@@ -434,6 +434,8 @@ public class PlayFabMultiplayerModels {
         public ArrayList<Port> Ports;
         /** The region configurations for the build. */
         public ArrayList<BuildRegionParams> RegionConfigurations;
+        /** The resource constraints to apply to each server on the VM (EXPERIMENTAL API) */
+        public ServerResourceConstraintParams ServerResourceConstraints;
         /**
          * When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
          * disc.
@@ -480,6 +482,8 @@ public class PlayFabMultiplayerModels {
         public ArrayList<Port> Ports;
         /** The region configuration for the build. */
         public ArrayList<BuildRegion> RegionConfigurations;
+        /** The resource constraints to apply to each server on the VM (EXPERIMENTAL API) */
+        public ServerResourceConstraintParams ServerResourceConstraints;
         /** The type of game server being hosted. */
         public String ServerType;
         /**
@@ -529,6 +533,8 @@ public class PlayFabMultiplayerModels {
         public ArrayList<Port> Ports;
         /** The region configurations for the build. */
         public ArrayList<BuildRegionParams> RegionConfigurations;
+        /** The resource constraints to apply to each server on the VM (EXPERIMENTAL API) */
+        public ServerResourceConstraintParams ServerResourceConstraints;
         /** The command to run when the multiplayer server is started, including any arguments. */
         public String StartMultiplayerServerCommand;
         /**
@@ -580,6 +586,8 @@ public class PlayFabMultiplayerModels {
         public ArrayList<Port> Ports;
         /** The region configuration for the build. */
         public ArrayList<BuildRegion> RegionConfigurations;
+        /** The resource constraints to apply to each server on the VM (EXPERIMENTAL API) */
+        public ServerResourceConstraintParams ServerResourceConstraints;
         /** The type of game server being hosted. */
         public String ServerType;
         /** The command to run when the multiplayer server has been allocated, including any arguments. */
@@ -1043,12 +1051,21 @@ public class PlayFabMultiplayerModels {
         public Boolean ExcludeFacebookFriends;
         /** Controls whether this query should link to friends made on the Steam network. Defaults to false */
         public Boolean ExcludeSteamFriends;
-        /** OData style string that contains one or more filters. The OR and grouping operators are not allowed. */
+        /**
+         * OData style string that contains one or more filters. Only the following operators are supported: "and" (logical and),
+         * "eq" (equal), "ne" (not equals), "ge" (greater than or equal), "gt" (greater than), "le" (less than or equal), and "lt"
+         * (less than). The left-hand side of each OData logical expression should be either a search property key (e.g.
+         * string_key1, number_key3, etc) or one of the pre-defined search keys all of which must be prefixed by "lobby/":
+         * lobby/memberCount (number of players in a lobby), lobby/maxMemberCount (maximum number of players allowed in a lobby),
+         * lobby/membershipLock (must equal 'Unlocked' or 'Locked'), lobby/amOwner (required to equal "true"), lobby/amMember
+         * (required to equal "true").
+         */
         public String Filter;
         /**
-         * OData style string that contains sorting for this query. To sort by closest, a moniker `distance{number_key1 = 5}` can
-         * be used to sort by distance from the given number. This field only supports either one sort clause or one distance
-         * clause.
+         * OData style string that contains sorting for this query in either ascending ("asc") or descending ("desc") order.
+         * OrderBy clauses are of the form "number_key1 asc" or the pre-defined search key "lobby/memberCount asc" and
+         * "lobby/maxMemberCount desc". To sort by closest, a moniker `distance{number_key1 = 5}` can be used to sort by distance
+         * from the given number. This field only supports either one sort clause or one distance clause.
          */
         public String OrderBy;
         /** Request pagination information. */
@@ -1070,12 +1087,21 @@ public class PlayFabMultiplayerModels {
     public static class FindLobbiesRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** OData style string that contains one or more filters. The OR and grouping operators are not allowed. */
+        /**
+         * OData style string that contains one or more filters. Only the following operators are supported: "and" (logical and),
+         * "eq" (equal), "ne" (not equals), "ge" (greater than or equal), "gt" (greater than), "le" (less than or equal), and "lt"
+         * (less than). The left-hand side of each OData logical expression should be either a search property key (e.g.
+         * string_key1, number_key3, etc) or one of the pre-defined search keys all of which must be prefixed by "lobby/":
+         * lobby/memberCount (number of players in a lobby), lobby/maxMemberCount (maximum number of players allowed in a lobby),
+         * lobby/membershipLock (must equal 'Unlocked' or 'Locked'), lobby/amOwner (required to equal "true"), lobby/amMember
+         * (required to equal "true").
+         */
         public String Filter;
         /**
-         * OData style string that contains sorting for this query. To sort by closest, a moniker `distance{number_key1 = 5}` can
-         * be used to sort by distance from the given number. This field only supports either one sort clause or one distance
-         * clause.
+         * OData style string that contains sorting for this query in either ascending ("asc") or descending ("desc") order.
+         * OrderBy clauses are of the form "number_key1 asc" or the pre-defined search key "lobby/memberCount asc" and
+         * "lobby/maxMemberCount desc". To sort by closest, a moniker `distance{number_key1 = 5}` can be used to sort by distance
+         * from the given number. This field only supports either one sort clause or one distance clause.
          */
         public String OrderBy;
         /** Request pagination information. */
@@ -1105,6 +1131,8 @@ public class PlayFabMultiplayerModels {
         public String LobbyId;
         /** The maximum number of players allowed in the lobby. */
         public Long MaxPlayers;
+        /** A setting indicating whether members are allowed to join this lobby. When Locked new members are prevented from joining. */
+        public MembershipLock MembershipLock;
         /** The client or server entity which owns this lobby. */
         public EntityKey Owner;
         /** Search data. */
@@ -1236,6 +1264,8 @@ public class PlayFabMultiplayerModels {
         public ArrayList<Port> Ports;
         /** The region configuration for the build. */
         public ArrayList<BuildRegion> RegionConfigurations;
+        /** The resource constraints to apply to each server on the VM. */
+        public ServerResourceConstraintParams ServerResourceConstraints;
         /** The type of game server being hosted. */
         public String ServerType;
         /**
@@ -1372,12 +1402,8 @@ public class PlayFabMultiplayerModels {
 
     /** Gets multiplayer server session details for a build in a specific region. */
     public static class GetMultiplayerServerDetailsRequest {
-        /** The guid string build ID of the multiplayer server to get details for. */
-        public String BuildId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** The region the multiplayer server is located in to get details for. */
-        public String Region;
         /**
          * The title generated guid string session ID of the multiplayer server to get details for. This is to keep track of
          * multiplayer server sessions.
@@ -2020,6 +2046,8 @@ public class PlayFabMultiplayerModels {
         public String LobbyId;
         /** The maximum number of players allowed in the lobby. */
         public Long MaxPlayers;
+        /** A setting indicating whether members are allowed to join this lobby. When Locked new members are prevented from joining. */
+        public MembershipLock MembershipLock;
         /** The client or server entity which owns this lobby. */
         public EntityKey Owner;
         /** Search data. */
@@ -2314,6 +2342,17 @@ public class PlayFabMultiplayerModels {
         
     }
 
+    public static class ServerResourceConstraintParams {
+        /** The maximum number of cores that each server is allowed to use. */
+        public Double CpuLimit;
+        /**
+         * The maximum number of GiB of memory that each server is allowed to use. WARNING: After exceeding this limit, the server
+         * will be killed
+         */
+        public Double MemoryLimitGB;
+        
+    }
+
     public static enum ServerType {
         Container,
         Process
@@ -2384,7 +2423,7 @@ public class PlayFabMultiplayerModels {
         
     }
 
-    /** Request to unsubscribe from lobby notifications. Only a client can unsubscribe from notifications. */
+    /** Request to unsubscribe from lobby notifications. */
     public static class UnsubscribeFromLobbyResourceRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;

@@ -189,8 +189,6 @@ public class PlayFabServerModels {
         public Long DurationInHours;
         /** IP address to be banned. May affect multiple players. */
         public String IPAddress;
-        /** MAC address to be banned. May affect multiple players. */
-        public String MACAddress;
         /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
         public String PlayFabId;
         /** The reason for this ban. Maximum 140 characters. */
@@ -1082,7 +1080,10 @@ public class PlayFabServerModels {
         public UserGameCenterInfo GameCenterInfo;
         /** The profile of the user, if requested. */
         public PlayerProfileModel Profile;
-        /** Available PSN information, if the user and PlayFab friend are both connected to PSN. */
+        /**
+         * Available PlayStation :tm: Network information, if the user and PlayFab friend are both connected to PlayStation :tm:
+         * Network.
+         */
         public UserPsnInfo PSNInfo;
         /** Available Steam information (if the user and PlayFab friend are also connected in Steam). */
         public UserSteamInfo SteamInfo;
@@ -1635,6 +1636,9 @@ public class PlayFabServerModels {
         AutomationInvalidInput,
         AutomationInvalidRuleName,
         AutomationRuleAlreadyExists,
+        AutomationRuleLimitExceeded,
+        InvalidGooglePlayGamesServerAuthCode,
+        StorageAccountNotFound,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1723,6 +1727,7 @@ public class PlayFabServerModels {
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
         MultiplayerServerBuildReferencedByBuildAlias,
+        MultiplayerServerBuildAliasReferencedByMatchmakingQueue,
         ExperimentationExperimentStopped,
         ExperimentationExperimentRunning,
         ExperimentationExperimentNotFound,
@@ -1904,7 +1909,11 @@ public class PlayFabServerModels {
     }
 
     public static class GetCharacterLeaderboardRequest {
-        /** Optional character type on which to filter the leaderboard entries. */
+        /**
+         * Optional character type on which to filter the leaderboard entries.
+         * @deprecated Do not use
+         */
+        @Deprecated
         public String CharacterType;
         /** Maximum number of entries to retrieve. */
         public Integer MaxResultsCount;
@@ -2027,7 +2036,11 @@ public class PlayFabServerModels {
     public static class GetLeaderboardAroundCharacterRequest {
         /** Unique PlayFab assigned ID for a specific character owned by a user */
         public String CharacterId;
-        /** Optional character type on which to filter the leaderboard entries. */
+        /**
+         * Optional character type on which to filter the leaderboard entries.
+         * @deprecated Do not use
+         */
+        @Deprecated
         public String CharacterType;
         /** Maximum number of entries to retrieve. */
         public Integer MaxResultsCount;
@@ -2430,16 +2443,16 @@ public class PlayFabServerModels {
     }
 
     public static class GetPlayFabIDsFromPSNAccountIDsRequest {
-        /** Id of the PSN issuer environment. If null, defaults to production environment. */
+        /** Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment. */
         public Integer IssuerId;
-        /** Array of unique PlayStation Network identifiers for which the title needs to get PlayFab identifiers. */
+        /** Array of unique PlayStation :tm: Network identifiers for which the title needs to get PlayFab identifiers. */
         public ArrayList<String> PSNAccountIDs;
         
     }
 
-    /** For PlayStation Network identifiers which have not been linked to PlayFab accounts, null will be returned. */
+    /** For PlayStation :tm: Network identifiers which have not been linked to PlayFab accounts, null will be returned. */
     public static class GetPlayFabIDsFromPSNAccountIDsResult {
-        /** Mapping of PlayStation Network identifiers to PlayFab identifiers. */
+        /** Mapping of PlayStation :tm: Network identifiers to PlayFab identifiers. */
         public ArrayList<PSNAccountPlayFabIdPair> Data;
         
     }
@@ -2457,6 +2470,19 @@ public class PlayFabServerModels {
         
     }
 
+    public static class GetPlayFabIDsFromTwitchIDsRequest {
+        /** Array of unique Twitch identifiers (Twitch's _id) for which the title needs to get PlayFab identifiers. */
+        public ArrayList<String> TwitchIds;
+        
+    }
+
+    /** For Twitch identifiers which have not been linked to PlayFab accounts, null will be returned. */
+    public static class GetPlayFabIDsFromTwitchIDsResult {
+        /** Mapping of Twitch identifiers to PlayFab identifiers. */
+        public ArrayList<TwitchPlayFabIdPair> Data;
+        
+    }
+
     public static class GetPlayFabIDsFromXboxLiveIDsRequest {
         /** The ID of Xbox Live sandbox. */
         public String Sandbox;
@@ -2467,7 +2493,7 @@ public class PlayFabServerModels {
 
     /** For XboxLive identifiers which have not been linked to PlayFab accounts, null will be returned. */
     public static class GetPlayFabIDsFromXboxLiveIDsResult {
-        /** Mapping of PlayStation Network identifiers to PlayFab identifiers. */
+        /** Mapping of Xbox Live identifiers to PlayFab identifiers. */
         public ArrayList<XboxLiveAccountPlayFabIdPair> Data;
         
     }
@@ -2980,18 +3006,49 @@ public class PlayFabServerModels {
         
     }
 
+    public static class LinkNintendoServiceAccountRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** If another user is already linked to a specific Nintendo Switch account, unlink the other user and re-link. */
+        public Boolean ForceLink;
+        /**
+         * The JSON Web token (JWT) returned by Nintendo after login. Used to validate the request and find the user ID (Nintendo
+         * Switch subject) to link with.
+         */
+        public String IdentityToken;
+        /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+        public String PlayFabId;
+        
+    }
+
+    public static class LinkNintendoSwitchDeviceIdRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** If another user is already linked to the Nintendo Switch Device ID, unlink the other user and re-link. */
+        public Boolean ForceLink;
+        /** Nintendo Switch unique identifier for the user's device. */
+        public String NintendoSwitchDeviceId;
+        /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+        public String PlayFabId;
+        
+    }
+
+    public static class LinkNintendoSwitchDeviceIdResult {
+        
+    }
+
     public static class LinkPSNAccountRequest {
-        /** Authentication code provided by the PlayStation Network. */
+        /** Authentication code provided by the PlayStation :tm: Network. */
         public String AuthCode;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** If another user is already linked to the account, unlink the other user and re-link. */
         public Boolean ForceLink;
-        /** Id of the PSN issuer environment. If null, defaults to production environment. */
+        /** Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment. */
         public Integer IssuerId;
         /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
         public String PlayFabId;
-        /** Redirect URI supplied to PSN when requesting an auth code */
+        /** Redirect URI supplied to PlayStation :tm: Network when requesting an auth code */
         public String RedirectUri;
         
     }
@@ -3089,7 +3146,8 @@ public class PlayFabServerModels {
         FacebookInstantGames,
         OpenIdConnect,
         Apple,
-        NintendoSwitchAccount
+        NintendoSwitchAccount,
+        GooglePlayGames
     }
 
     public static class LoginWithServerCustomIdRequest {
@@ -3540,9 +3598,12 @@ public class PlayFabServerModels {
     }
 
     public static class PSNAccountPlayFabIdPair {
-        /** Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation Network identifier. */
+        /**
+         * Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation :tm: Network
+         * identifier.
+         */
         public String PlayFabId;
-        /** Unique PlayStation Network identifier for a user. */
+        /** Unique PlayStation :tm: Network identifier for a user. */
         public String PSNAccountId;
         
     }
@@ -4128,11 +4189,6 @@ public class PlayFabServerModels {
          * name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
          */
         public String Key;
-        /**
-         * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
-         * title has been selected.
-         */
-        public String TitleId;
         /** new value to set. Set to null to remove a value */
         public String Value;
         
@@ -4336,6 +4392,36 @@ public class PlayFabServerModels {
         
     }
 
+    public static class TwitchPlayFabIdPair {
+        /** Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Twitch identifier. */
+        public String PlayFabId;
+        /** Unique Twitch identifier for a user. */
+        public String TwitchId;
+        
+    }
+
+    public static class UnlinkNintendoServiceAccountRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+        public String PlayFabId;
+        
+    }
+
+    public static class UnlinkNintendoSwitchDeviceIdRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** Nintendo Switch Device identifier for the user. If not specified, the most recently signed in device ID will be used. */
+        public String NintendoSwitchDeviceId;
+        /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+        public String PlayFabId;
+        
+    }
+
+    public static class UnlinkNintendoSwitchDeviceIdResult {
+        
+    }
+
     public static class UnlinkPSNAccountRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -4446,8 +4532,6 @@ public class PlayFabServerModels {
         public Date Expires;
         /** The updated IP address for the ban. Null for no change. */
         public String IPAddress;
-        /** The updated MAC address for the ban. Null for no change. */
-        public String MACAddress;
         /** Whether to make this ban permanent. Set to true to make this ban permanent. This will not modify Active state. */
         public Boolean Permanent;
         /** The updated reason for the ban to be updated. Maximum 140 characters. Null for no change. */
@@ -4683,6 +4767,8 @@ public class PlayFabServerModels {
         public UserGameCenterInfo GameCenterInfo;
         /** User Google account information, if a Google account has been linked */
         public UserGoogleInfo GoogleInfo;
+        /** User Google Play Games account information, if a Google Play Games account has been linked */
+        public UserGooglePlayGamesInfo GooglePlayGamesInfo;
         /** User iOS device information, if an iOS device has been linked */
         public UserIosDeviceInfo IosDeviceInfo;
         /** User Kongregate account information, if a Kongregate account has been linked */
@@ -4697,7 +4783,7 @@ public class PlayFabServerModels {
         public String PlayFabId;
         /** Personal information for the user which is considered more sensitive */
         public UserPrivateAccountInfo PrivateInfo;
-        /** User PSN account information, if a PSN account has been linked */
+        /** User PlayStation :tm: Network account information, if a PlayStation :tm: Network account has been linked */
         public UserPsnInfo PsnInfo;
         /** User Steam information, if a Steam account has been linked */
         public UserSteamInfo SteamInfo;
@@ -4786,6 +4872,16 @@ public class PlayFabServerModels {
         
     }
 
+    public static class UserGooglePlayGamesInfo {
+        /** Avatar image url of the Google Play Games player */
+        public String GooglePlayGamesPlayerAvatarImageUrl;
+        /** Display name of the Google Play Games player */
+        public String GooglePlayGamesPlayerDisplayName;
+        /** Google Play Games player ID */
+        public String GooglePlayGamesPlayerId;
+        
+    }
+
     public static class UserIosDeviceInfo {
         /** iOS device ID */
         public String IosDeviceId;
@@ -4845,7 +4941,8 @@ public class PlayFabServerModels {
         FacebookInstantGamesId,
         OpenIdConnect,
         Apple,
-        NintendoSwitchAccount
+        NintendoSwitchAccount,
+        GooglePlayGames
     }
 
     public static class UserPrivateAccountInfo {
@@ -4855,9 +4952,9 @@ public class PlayFabServerModels {
     }
 
     public static class UserPsnInfo {
-        /** PSN account ID */
+        /** PlayStation :tm: Network account ID */
         public String PsnAccountId;
-        /** PSN online ID */
+        /** PlayStation :tm: Network online ID */
         public String PsnOnlineId;
         
     }

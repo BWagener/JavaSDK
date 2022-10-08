@@ -436,8 +436,6 @@ public class PlayFabCloudScriptModels {
         public Map<String,String> CustomTags;
         /** The name of the function to register */
         public String FunctionName;
-        /** The Id of the parent Title */
-        public String TitleId;
         
     }
 
@@ -480,8 +478,6 @@ public class PlayFabCloudScriptModels {
     public static class ListFunctionsRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** The Id of the parent Title */
-        public String TitleId;
         
     }
 
@@ -538,7 +534,8 @@ public class PlayFabCloudScriptModels {
         FacebookInstantGames,
         OpenIdConnect,
         Apple,
-        NintendoSwitchAccount
+        NintendoSwitchAccount,
+        GooglePlayGames
     }
 
     public static class LogStatement {
@@ -722,8 +719,6 @@ public class PlayFabCloudScriptModels {
         public String FunctionName;
         /** Full URL for Azure Function that implements the function. */
         public String FunctionUrl;
-        /** The Id of the parent Title */
-        public String TitleId;
         
     }
 
@@ -740,8 +735,6 @@ public class PlayFabCloudScriptModels {
         public String FunctionName;
         /** The name of the queue for the Azure Function. */
         public String QueueName;
-        /** The Id of the parent Title */
-        public String TitleId;
         
     }
 
@@ -813,8 +806,6 @@ public class PlayFabCloudScriptModels {
         public Map<String,String> CustomTags;
         /** The name of the function to register */
         public String FunctionName;
-        /** The Id of the parent Title */
-        public String TitleId;
         
     }
 
