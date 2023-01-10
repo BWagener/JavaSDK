@@ -374,6 +374,13 @@ public class PlayFabServerModels {
         
     }
 
+    public static enum ChurnRiskLevel {
+        NoData,
+        LowRisk,
+        MediumRisk,
+        HighRisk
+    }
+
     public static enum CloudScriptRevisionOption {
         Live,
         Latest,
@@ -1055,6 +1062,15 @@ public class PlayFabServerModels {
         
     }
 
+    public static enum ExternalFriendSources {
+        None,
+        Steam,
+        Facebook,
+        Xbox,
+        Psn,
+        All
+    }
+
     public static class FacebookInstantGamesPlayFabIdPair {
         /** Unique Facebook Instant Games identifier for a user. */
         public String FacebookInstantGamesId;
@@ -1638,7 +1654,9 @@ public class PlayFabServerModels {
         AutomationRuleAlreadyExists,
         AutomationRuleLimitExceeded,
         InvalidGooglePlayGamesServerAuthCode,
-        StorageAccountNotFound,
+        PlayStreamConnectionFailed,
+        InvalidEventContents,
+        InsightsV1Deprecated,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1909,12 +1927,6 @@ public class PlayFabServerModels {
     }
 
     public static class GetCharacterLeaderboardRequest {
-        /**
-         * Optional character type on which to filter the leaderboard entries.
-         * @deprecated Do not use
-         */
-        @Deprecated
-        public String CharacterType;
         /** Maximum number of entries to retrieve. */
         public Integer MaxResultsCount;
         /** First entry in the leaderboard to be retrieved. */
@@ -1976,9 +1988,22 @@ public class PlayFabServerModels {
     public static class GetFriendLeaderboardRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** Indicates whether Facebook friends should be included in the response. Default is true. */
+        /**
+         * Indicates which other platforms' friends should be included in the response. In HTTP, it is represented as a
+         * comma-separated list of platforms.
+         */
+        public ExternalFriendSources ExternalPlatformFriends;
+        /**
+         * Indicates whether Facebook friends should be included in the response. Default is true.
+         * @deprecated Please use ExternalPlatformFriends instead.
+         */
+        @Deprecated
         public Boolean IncludeFacebookFriends;
-        /** Indicates whether Steam service friends should be included in the response. Default is true. */
+        /**
+         * Indicates whether Steam service friends should be included in the response. Default is true.
+         * @deprecated Please use ExternalPlatformFriends instead.
+         */
+        @Deprecated
         public Boolean IncludeSteamFriends;
         /** Maximum number of entries to retrieve. */
         public Integer MaxResultsCount;
@@ -2004,9 +2029,22 @@ public class PlayFabServerModels {
     public static class GetFriendsListRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** Indicates whether Facebook friends should be included in the response. Default is true. */
+        /**
+         * Indicates which other platforms' friends should be included in the response. In HTTP, it is represented as a
+         * comma-separated list of platforms.
+         */
+        public ExternalFriendSources ExternalPlatformFriends;
+        /**
+         * Indicates whether Facebook friends should be included in the response. Default is true.
+         * @deprecated Please use ExternalPlatformFriends instead.
+         */
+        @Deprecated
         public Boolean IncludeFacebookFriends;
-        /** Indicates whether Steam service friends should be included in the response. Default is true. */
+        /**
+         * Indicates whether Steam service friends should be included in the response. Default is true.
+         * @deprecated Please use ExternalPlatformFriends instead.
+         */
+        @Deprecated
         public Boolean IncludeSteamFriends;
         /** PlayFab identifier of the player whose friend list to get. */
         public String PlayFabId;
@@ -2036,12 +2074,6 @@ public class PlayFabServerModels {
     public static class GetLeaderboardAroundCharacterRequest {
         /** Unique PlayFab assigned ID for a specific character owned by a user */
         public String CharacterId;
-        /**
-         * Optional character type on which to filter the leaderboard entries.
-         * @deprecated Do not use
-         */
-        @Deprecated
-        public String CharacterType;
         /** Maximum number of entries to retrieve. */
         public Integer MaxResultsCount;
         /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
@@ -2283,7 +2315,16 @@ public class PlayFabServerModels {
         public String ContinuationToken;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /** Maximum number of profiles to load. Default is 1,000. Maximum is 10,000. */
+        /**
+         * If set to true, the profiles are loaded asynchronously and the response will include a continuation token and
+         * approximate profile count until the first batch of profiles is loaded. Use this parameter to help avoid network
+         * timeouts.
+         */
+        public Boolean GetProfilesAsync;
+        /**
+         * Maximum is 10,000. The value 0 will prevent loading any profiles and return only the count of profiles matching this
+         * segment.
+         */
         public Long MaxBatchSize;
         /**
          * Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging
@@ -2375,7 +2416,10 @@ public class PlayFabServerModels {
     }
 
     public static class GetPlayFabIDsFromFacebookIDsRequest {
-        /** Array of unique Facebook identifiers for which the title needs to get PlayFab identifiers. */
+        /**
+         * Array of unique Facebook identifiers for which the title needs to get PlayFab identifiers. The array cannot exceed 2,000
+         * in length.
+         */
         public ArrayList<String> FacebookIDs;
         
     }
@@ -2388,7 +2432,10 @@ public class PlayFabServerModels {
     }
 
     public static class GetPlayFabIDsFromFacebookInstantGamesIdsRequest {
-        /** Array of unique Facebook Instant Games identifiers for which the title needs to get PlayFab identifiers. */
+        /**
+         * Array of unique Facebook Instant Games identifiers for which the title needs to get PlayFab identifiers. The array
+         * cannot exceed 25 in length.
+         */
         public ArrayList<String> FacebookInstantGamesIds;
         
     }
@@ -2417,7 +2464,10 @@ public class PlayFabServerModels {
     }
 
     public static class GetPlayFabIDsFromNintendoServiceAccountIdsRequest {
-        /** Array of unique Nintendo Switch Account identifiers for which the title needs to get PlayFab identifiers. */
+        /**
+         * Array of unique Nintendo Switch Account identifiers for which the title needs to get PlayFab identifiers. The array
+         * cannot exceed 2,000 in length.
+         */
         public ArrayList<String> NintendoAccountIds;
         
     }
@@ -2430,7 +2480,10 @@ public class PlayFabServerModels {
     }
 
     public static class GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest {
-        /** Array of unique Nintendo Switch Device identifiers for which the title needs to get PlayFab identifiers. */
+        /**
+         * Array of unique Nintendo Switch Device identifiers for which the title needs to get PlayFab identifiers. The array
+         * cannot exceed 2,000 in length.
+         */
         public ArrayList<String> NintendoSwitchDeviceIds;
         
     }
@@ -2445,7 +2498,10 @@ public class PlayFabServerModels {
     public static class GetPlayFabIDsFromPSNAccountIDsRequest {
         /** Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment. */
         public Integer IssuerId;
-        /** Array of unique PlayStation :tm: Network identifiers for which the title needs to get PlayFab identifiers. */
+        /**
+         * Array of unique PlayStation :tm: Network identifiers for which the title needs to get PlayFab identifiers. The array
+         * cannot exceed 2,000 in length.
+         */
         public ArrayList<String> PSNAccountIDs;
         
     }
@@ -2458,7 +2514,10 @@ public class PlayFabServerModels {
     }
 
     public static class GetPlayFabIDsFromSteamIDsRequest {
-        /** Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. */
+        /**
+         * Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. The array
+         * cannot exceed 2,000 in length.
+         */
         public ArrayList<String> SteamStringIDs;
         
     }
@@ -2471,7 +2530,10 @@ public class PlayFabServerModels {
     }
 
     public static class GetPlayFabIDsFromTwitchIDsRequest {
-        /** Array of unique Twitch identifiers (Twitch's _id) for which the title needs to get PlayFab identifiers. */
+        /**
+         * Array of unique Twitch identifiers (Twitch's _id) for which the title needs to get PlayFab identifiers. The array cannot
+         * exceed 2,000 in length.
+         */
         public ArrayList<String> TwitchIds;
         
     }
@@ -2486,7 +2548,10 @@ public class PlayFabServerModels {
     public static class GetPlayFabIDsFromXboxLiveIDsRequest {
         /** The ID of Xbox Live sandbox. */
         public String Sandbox;
-        /** Array of unique Xbox Live account identifiers for which the title needs to get PlayFab identifiers. */
+        /**
+         * Array of unique Xbox Live account identifiers for which the title needs to get PlayFab identifiers. The array cannot
+         * exceed 2,000 in length.
+         */
         public ArrayList<String> XboxLiveAccountIDs;
         
     }
@@ -3441,6 +3506,8 @@ public class PlayFabServerModels {
         public String AvatarUrl;
         /** Banned until UTC Date. If permanent ban this is set for 20 years after the original ban date. */
         public Date BannedUntil;
+        /** The prediction of the player to churn within the next seven days. */
+        public ChurnRiskLevel ChurnPrediction;
         /** Array of contact email addresses associated with the player */
         public ArrayList<ContactEmailInfo> ContactEmailAddresses;
         /** Player record created */
@@ -4182,8 +4249,6 @@ public class PlayFabServerModels {
      * Value. If it already exists, the Value for that key will be overwritten with the new Value.
      */
     public static class SetTitleDataRequest {
-        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
-        public Map<String,String> CustomTags;
         /**
          * key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
          * name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
