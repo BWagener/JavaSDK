@@ -378,6 +378,14 @@ public class PlayFabAdminModels {
         
     }
 
+    public static class ChurnPredictionSegmentFilter {
+        /** Comparison */
+        public SegmentFilterComparison Comparison;
+        /** RiskLevel */
+        public ChurnRiskLevel RiskLevel;
+        
+    }
+
     public static enum ChurnRiskLevel {
         NoData,
         LowRisk,
@@ -1364,6 +1372,8 @@ public class PlayFabAdminModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum GameBuildStatus {
         Available,
         Validating,
@@ -1372,6 +1382,8 @@ public class PlayFabAdminModels {
         FailedToProcess
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GameModeInfo {
         /** specific game mode type */
         public String Gamemode;
@@ -1922,6 +1934,18 @@ public class PlayFabAdminModels {
         PlayStreamConnectionFailed,
         InvalidEventContents,
         InsightsV1Deprecated,
+        AnalysisSubscriptionNotFound,
+        AnalysisSubscriptionFailed,
+        AnalysisSubscriptionFoundAlready,
+        AnalysisSubscriptionManagementInvalidInput,
+        InvalidGameCenterId,
+        InvalidNintendoSwitchAccountId,
+        EntityAPIKeysNotSupported,
+        IpAddressBanned,
+        EntityLineageBanned,
+        NamespaceMismatch,
+        InvalidServiceConfiguration,
+        InvalidNamespaceMismatch,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2050,6 +2074,7 @@ public class PlayFabAdminModels {
         AsyncExportNotInFlight,
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
+        AnalyticsSegmentCountOverLimit,
         SnapshotNotFound,
         InventoryApiNotImplemented,
         LobbyDoesNotExist,
@@ -2068,6 +2093,12 @@ public class PlayFabAdminModels {
         EventSamplingInvalidEventNamespace,
         EventSamplingInvalidEventName,
         EventSamplingRatioNotFound,
+        TelemetryKeyNotFound,
+        TelemetryKeyInvalidName,
+        TelemetryKeyAlreadyExists,
+        TelemetryKeyInvalid,
+        TelemetryKeyCountOverLimit,
+        TelemetryKeyDeactivated,
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
@@ -2221,12 +2252,16 @@ public class PlayFabAdminModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GetMatchmakerGameInfoRequest {
         /** unique identifier of the lobby for which info is being requested */
         public String LobbyId;
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GetMatchmakerGameInfoResult {
         /** version identifier of the game server executable binary being run */
         public String BuildVersion;
@@ -2260,13 +2295,17 @@ public class PlayFabAdminModels {
      * These details are used by the PlayFab matchmaking service to determine if an existing Game Server Instance has room for
      * additional users, and by the PlayFab game server management service to determine when a new Game Server Host should be
      * created in order to prevent excess load on existing Hosts.
+     * @deprecated Do not use
      */
+    @Deprecated
     public static class GetMatchmakerGameModesRequest {
         /** previously uploaded build version for which game modes are being requested */
         public String BuildVersion;
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GetMatchmakerGameModesResult {
         /** array of game modes available for the specified build */
         public ArrayList<GameModeInfo> GameModes;
@@ -2395,7 +2434,7 @@ public class PlayFabAdminModels {
         public Long MaxBatchSize;
         /**
          * Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging
-         * results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes).
+         * results. Default is 300 (5 minutes). Maximum is 5,400 (90 minutes).
          */
         public Long SecondsToLive;
         /** Unique identifier for this segment. */
@@ -3135,6 +3174,8 @@ public class PlayFabAdminModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class ModifyServerBuildRequest {
         /** array of regions where this build can used, when it is active */
         public ArrayList<Region> ActiveRegions;
@@ -3160,6 +3201,8 @@ public class PlayFabAdminModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class ModifyServerBuildResult {
         /** array of regions where this build can used, when it is active */
         public ArrayList<Region> ActiveRegions;
@@ -3570,6 +3613,8 @@ public class PlayFabAdminModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum Region {
         USCentral,
         USEast,
@@ -3859,6 +3904,8 @@ public class PlayFabAdminModels {
         public AdCampaignSegmentFilter AdCampaignFilter;
         /** property for all player filter. */
         public AllPlayersSegmentFilter AllPlayersFilter;
+        /** Filter property for player churn risk level. */
+        public ChurnPredictionSegmentFilter ChurnPredictionFilter;
         /** Filter property for first login date. */
         public FirstLoginDateSegmentFilter FirstLoginDateFilter;
         /** Filter property for first login timespan. */
@@ -4514,11 +4561,8 @@ public class PlayFabAdminModels {
     }
 
     /**
-     * This API method is designed to store title specific values which can be read by the client. For example, a developer
-     * could choose to store values which modify the user experience, such as enemy spawn rates, weapon strengths, movement
-     * speeds, etc. This allows a developer to update the title without the need to create, test, and ship a new build. This
-     * operation is additive. If a Key does not exist in the current dataset, it will be added with the specified Value. If it
-     * already exists, the Value for that key will be overwritten with the new Value.
+     * This operation is additive. If a Key does not exist in the current dataset, it will be added with the specified Value.
+     * If it already exists, the Value for that key will be overwritten with the new Value.
      */
     public static class SetTitleDataRequest {
         /**

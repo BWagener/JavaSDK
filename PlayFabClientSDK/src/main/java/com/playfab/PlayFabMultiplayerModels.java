@@ -437,12 +437,16 @@ public class PlayFabMultiplayerModels {
         /** The resource constraints to apply to each server on the VM (EXPERIMENTAL API) */
         public ServerResourceConstraintParams ServerResourceConstraints;
         /**
-         * When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
-         * disc.
+         * DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
+         * written first to disc.
+         * @deprecated Please use  instead.
          */
+        @Deprecated
         public Boolean UseStreamingForAssetDownloads;
         /** The VM size to create the build on. */
         public AzureVmSize VmSize;
+        /** The configuration for the VmStartupScript for the build */
+        public VmStartupScriptParams VmStartupScriptConfiguration;
         
     }
 
@@ -493,6 +497,8 @@ public class PlayFabMultiplayerModels {
         public Boolean UseStreamingForAssetDownloads;
         /** The VM size the build was created on. */
         public AzureVmSize VmSize;
+        /** The configuration for the VmStartupScript feature for the build */
+        public VmStartupScriptConfiguration VmStartupScriptConfiguration;
         
     }
 
@@ -538,12 +544,16 @@ public class PlayFabMultiplayerModels {
         /** The command to run when the multiplayer server is started, including any arguments. */
         public String StartMultiplayerServerCommand;
         /**
-         * When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
-         * disc.
+         * DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
+         * written first to disc.
+         * @deprecated Please use  instead.
          */
+        @Deprecated
         public Boolean UseStreamingForAssetDownloads;
         /** The VM size to create the build on. */
         public AzureVmSize VmSize;
+        /** The configuration for the VmStartupScript for the build */
+        public VmStartupScriptParams VmStartupScriptConfiguration;
         /** The crash dump configuration for the build. */
         public WindowsCrashDumpConfiguration WindowsCrashDumpConfiguration;
         
@@ -599,6 +609,8 @@ public class PlayFabMultiplayerModels {
         public Boolean UseStreamingForAssetDownloads;
         /** The VM size the build was created on. */
         public AzureVmSize VmSize;
+        /** The configuration for the VmStartupScript feature for the build */
+        public VmStartupScriptConfiguration VmStartupScriptConfiguration;
         
     }
 
@@ -653,12 +665,16 @@ public class PlayFabMultiplayerModels {
          */
         public String StartMultiplayerServerCommand;
         /**
-         * When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
-         * disc.
+         * DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
+         * written first to disc.
+         * @deprecated Please use  instead.
          */
+        @Deprecated
         public Boolean UseStreamingForAssetDownloads;
         /** The VM size to create the build on. */
         public AzureVmSize VmSize;
+        /** The configuration for the VmStartupScript for the build */
+        public VmStartupScriptParams VmStartupScriptConfiguration;
         
     }
 
@@ -718,6 +734,8 @@ public class PlayFabMultiplayerModels {
         public Boolean UseStreamingForAssetDownloads;
         /** The VM size the build was created on. */
         public AzureVmSize VmSize;
+        /** The configuration for the VmStartupScript feature for the build */
+        public VmStartupScriptConfiguration VmStartupScriptConfiguration;
         
     }
 
@@ -1352,7 +1370,10 @@ public class PlayFabMultiplayerModels {
     }
 
     public static class GetMatchmakingTicketResult {
-        /** The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state. */
+        /**
+         * The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state. Please retry
+         * if CancellationReason is RetryRequired.
+         */
         public String CancellationReasonString;
         /** Change number used for differentiating older matchmaking status updates from newer ones. */
         public Long ChangeNumber;
@@ -2615,6 +2636,18 @@ public class PlayFabMultiplayerModels {
         public String State;
         /** The virtual machine ID. */
         public String VmId;
+        
+    }
+
+    public static class VmStartupScriptConfiguration {
+        /** Asset which contains the VmStartupScript script and any other required files. */
+        public AssetReference VmStartupScriptAssetReference;
+        
+    }
+
+    public static class VmStartupScriptParams {
+        /** Asset which contains the VmStartupScript script and any other required files. */
+        public AssetReferenceParams VmStartupScriptAssetReference;
         
     }
 

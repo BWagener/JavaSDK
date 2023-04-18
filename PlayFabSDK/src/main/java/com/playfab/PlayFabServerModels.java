@@ -933,6 +933,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class DeregisterGameRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -941,6 +943,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class DeregisterGameResponse {
         
     }
@@ -1114,6 +1118,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum GameInstanceState {
         Open,
         Closed
@@ -1657,6 +1663,18 @@ public class PlayFabServerModels {
         PlayStreamConnectionFailed,
         InvalidEventContents,
         InsightsV1Deprecated,
+        AnalysisSubscriptionNotFound,
+        AnalysisSubscriptionFailed,
+        AnalysisSubscriptionFoundAlready,
+        AnalysisSubscriptionManagementInvalidInput,
+        InvalidGameCenterId,
+        InvalidNintendoSwitchAccountId,
+        EntityAPIKeysNotSupported,
+        IpAddressBanned,
+        EntityLineageBanned,
+        NamespaceMismatch,
+        InvalidServiceConfiguration,
+        InvalidNamespaceMismatch,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1785,6 +1803,7 @@ public class PlayFabServerModels {
         AsyncExportNotInFlight,
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
+        AnalyticsSegmentCountOverLimit,
         SnapshotNotFound,
         InventoryApiNotImplemented,
         LobbyDoesNotExist,
@@ -1803,6 +1822,12 @@ public class PlayFabServerModels {
         EventSamplingInvalidEventNamespace,
         EventSamplingInvalidEventName,
         EventSamplingRatioNotFound,
+        TelemetryKeyNotFound,
+        TelemetryKeyInvalidName,
+        TelemetryKeyAlreadyExists,
+        TelemetryKeyInvalid,
+        TelemetryKeyCountOverLimit,
+        TelemetryKeyDeactivated,
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
@@ -2328,7 +2353,7 @@ public class PlayFabServerModels {
         public Long MaxBatchSize;
         /**
          * Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging
-         * results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes).
+         * results. Default is 300 (5 minutes). Maximum is 5,400 (90 minutes).
          */
         public Long SecondsToLive;
         /** Unique identifier for this segment. */
@@ -3138,6 +3163,22 @@ public class PlayFabServerModels {
         
     }
 
+    public static class LinkSteamIdRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** If another user is already linked to the account, unlink the other user and re-link. */
+        public Boolean ForceLink;
+        /** Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Xbox Live identifier. */
+        public String PlayFabId;
+        /** Unique Steam identifier for a user. */
+        public String SteamId;
+        
+    }
+
+    public static class LinkSteamIdResult {
+        
+    }
+
     public static class LinkXboxAccountRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -3244,7 +3285,7 @@ public class PlayFabServerModels {
         public Map<String,String> CustomTags;
         /** Flags for which pieces of info to return for the user. */
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
-        /** Unique Steam identifier for a user */
+        /** Unique Steam identifier for a user. */
         public String SteamId;
         
     }
@@ -3264,7 +3305,7 @@ public class PlayFabServerModels {
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
         /** The id of Xbox Live sandbox. */
         public String Sandbox;
-        /** Unique Xbox identifier for a user */
+        /** Unique Xbox identifier for a user. */
         public String XboxId;
         
     }
@@ -3436,6 +3477,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class NotifyMatchmakerPlayerLeftRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -3446,12 +3489,16 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class NotifyMatchmakerPlayerLeftResult {
         /** State of user leaving the Game Server Instance. */
         public PlayerConnectionState PlayerState;
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum PlayerConnectionState {
         Unassigned,
         Connecting,
@@ -3755,7 +3802,9 @@ public class PlayFabServerModels {
      * Identifying Information (PII), such as email address, and so care should be taken in how this data is stored and
      * managed. Since this call will always return the relevant information for users who have accessed the title, the
      * recommendation is to not store this data locally.
+     * @deprecated Do not use
      */
+    @Deprecated
     public static class RedeemMatchmakerTicketRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -3766,6 +3815,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class RedeemMatchmakerTicketResult {
         /** Error value if the ticket was not validated. */
         public String Error;
@@ -3776,16 +3827,22 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class RefreshGameServerInstanceHeartbeatRequest {
         /** Unique identifier of the Game Server Instance for which the heartbeat is updated. */
         public String LobbyId;
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class RefreshGameServerInstanceHeartbeatResult {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum Region {
         USCentral,
         USEast,
@@ -3796,6 +3853,8 @@ public class PlayFabServerModels {
         Australia
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class RegisterGameRequest {
         /** Unique identifier of the build running on the Game Server Instance. */
         public String Build;
@@ -3826,6 +3885,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class RegisterGameResponse {
         /**
          * Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the
@@ -4160,6 +4221,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class SetGameServerInstanceDataRequest {
         /** Custom data to set for the specified game server instance. */
         public String GameServerData;
@@ -4168,10 +4231,14 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class SetGameServerInstanceDataResult {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class SetGameServerInstanceStateRequest {
         /** Unique identifier of the Game Instance to be updated, in decimal format. */
         public String LobbyId;
@@ -4180,10 +4247,14 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class SetGameServerInstanceStateResult {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class SetGameServerInstanceTagsRequest {
         /** Unique identifier of the Game Server Instance to be updated. */
         public String LobbyId;
@@ -4195,6 +4266,8 @@ public class PlayFabServerModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class SetGameServerInstanceTagsResult {
         
     }
@@ -4510,6 +4583,18 @@ public class PlayFabServerModels {
     }
 
     public static class UnlinkServerCustomIdResult {
+        
+    }
+
+    public static class UnlinkSteamIdRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Steam account. */
+        public String PlayFabId;
+        
+    }
+
+    public static class UnlinkSteamIdResult {
         
     }
 

@@ -8,6 +8,8 @@ public class PlayFabEconomyModels {
     public static class AddInventoryItemsOperation {
         /** The amount to add to the current item amount. */
         public Integer Amount;
+        /** The duration to add to the current item expiration date. */
+        public Double DurationInSeconds;
         /** The inventory item the operation applies to. */
         public InventoryItemReference Item;
         /** The values to apply to a stack newly created by this operation. */
@@ -19,15 +21,26 @@ public class PlayFabEconomyModels {
     public static class AddInventoryItemsRequest {
         /** The amount to add for the current item. */
         public Integer Amount;
-        /** The id of the entity's collection to perform this action on. (Default="default") */
+        /**
+         * The id of the entity's collection to perform this action on. (Default="default"). The number of inventory collections is
+         * unlimited.
+         */
         public String CollectionId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
+        /** The duration to add to the current item expiration date. */
+        public Double DurationInSeconds;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
-        /** The Idempotency ID for this request. */
+        /**
+         * The Idempotency ID for this request. Idempotency IDs can be used to prevent operation replay in the medium term but will
+         * be garbage collected eventually.
+         */
         public String IdempotencyId;
         /** The inventory item the request applies to. */
         public InventoryItemReference Item;
@@ -37,7 +50,10 @@ public class PlayFabEconomyModels {
     }
 
     public static class AddInventoryItemsResponse {
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
         /** The idempotency id used in the request. */
         public String IdempotencyId;
@@ -63,13 +79,17 @@ public class PlayFabEconomyModels {
     }
 
     public static class CatalogConfig {
-        /** A list of player entity keys that will have admin permissions. */
+        /** A list of player entity keys that will have admin permissions. There is a maximum of 64 entities that can be added. */
         public ArrayList<EntityKey> AdminEntities;
         /** The set of configuration that only applies to catalog items. */
         public CatalogSpecificConfig Catalog;
-        /** A list of deep link formats. */
+        /** A list of deep link formats. Up to 10 can be added. */
         public ArrayList<DeepLinkFormat> DeepLinkFormats;
-        /** A list of display properties to index. */
+        /**
+         * A list of display properties to index. Up to 5 mappings can be added per Display Property Type. More info on display
+         * properties can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/content-types-tags-and-properties#displayproperties
+         */
         public ArrayList<DisplayPropertyIndexInfo> DisplayPropertyIndexInfos;
         /** The set of configuration that only applies to Files. */
         public FileConfig File;
@@ -77,9 +97,12 @@ public class PlayFabEconomyModels {
         public ImageConfig Image;
         /** Flag defining whether catalog is enabled. */
         public Boolean IsCatalogEnabled;
-        /** A list of Platforms that can be applied to catalog items. */
+        /**
+         * A list of Platforms that can be applied to catalog items. Each platform can have a maximum character length of 40 and up
+         * to 128 platforms can be listed.
+         */
         public ArrayList<String> Platforms;
-        /** A set of player entity keys that are allowed to review content. */
+        /** A set of player entity keys that are allowed to review content. There is a maximum of 64 entities that can be added. */
         public ArrayList<EntityKey> ReviewerEntities;
         /** The set of configuration that only applies to user generated contents. */
         public UserGeneratedContentSpecificConfig UserGeneratedContent;
@@ -87,9 +110,12 @@ public class PlayFabEconomyModels {
     }
 
     public static class CatalogItem {
-        /** The alternate IDs associated with this item. */
+        /**
+         * The alternate IDs associated with this item. An alternate ID can be set to 'FriendlyId' or any of the supported
+         * marketplace names.
+         */
         public ArrayList<CatalogAlternateId> AlternateIds;
-        /** The set of contents associated with this item. */
+        /** The set of content/files associated with this item. Up to 100 files can be added to an item. */
         public ArrayList<Content> Contents;
         /** The client-defined type of the item. */
         public String ContentType;
@@ -100,13 +126,22 @@ public class PlayFabEconomyModels {
         /** The set of platform specific deep links for this item. */
         public ArrayList<DeepLink> DeepLinks;
         /**
-         * A dictionary of localized descriptions. Key is language code and localized string is the value. The neutral locale is
-         * required.
+         * The Stack Id that will be used as default for this item in Inventory when an explicit one is not provided. This
+         * DefaultStackId can be a static stack id or '{guid}', which will generate a unique stack id for the item. If null,
+         * Inventory's default stack id will be used.
+         */
+        public String DefaultStackId;
+        /**
+         * A dictionary of localized descriptions. Key is language code and localized string is the value. The NEUTRAL locale is
+         * required. Descriptions have a 10000 character limit per country code.
          */
         public Map<String,String> Description;
-        /** Game specific properties for display purposes. This is an arbitrary JSON blob. */
+        /**
+         * Game specific properties for display purposes. This is an arbitrary JSON blob. The Display Properties field has a 10000
+         * byte limit per item.
+         */
         public Object DisplayProperties;
-        /** The user provided version of the item for display purposes. */
+        /** The user provided version of the item for display purposes. Maximum character length of 50. */
         public String DisplayVersion;
         /** The date of when the item will cease to be available. If not provided then the product will be available indefinitely. */
         public Date EndDate;
@@ -114,13 +149,22 @@ public class PlayFabEconomyModels {
         public String ETag;
         /** The unique ID of the item. */
         public String Id;
-        /** The images associated with this item. Images can be thumbnails or screenshots. */
+        /**
+         * The images associated with this item. Images can be thumbnails or screenshots. Up to 100 images can be added to an item.
+         * Only .png, .jpg, .gif, and .bmp file types can be uploaded
+         */
         public ArrayList<Image> Images;
         /** Indicates if the item is hidden. */
         public Boolean IsHidden;
-        /** The item references associated with this item. */
+        /**
+         * The item references associated with this item. For example, the items in a Bundle/Store/Subscription. Every item can
+         * have up to 50 item references.
+         */
         public ArrayList<CatalogItemReference> ItemReferences;
-        /** A dictionary of localized keywords. Key is language code and localized list of keywords is the value. */
+        /**
+         * A dictionary of localized keywords. Key is language code and localized list of keywords is the value. Keywords have a 50
+         * character limit per keyword and up to 32 keywords can be added per country code.
+         */
         public Map<String,KeywordSet> Keywords;
         /** The date and time this item was last updated. */
         public Date LastModifiedDate;
@@ -128,7 +172,7 @@ public class PlayFabEconomyModels {
         public ModerationState Moderation;
         /** The platforms supported by this item. */
         public ArrayList<String> Platforms;
-        /** The base price of this item. */
+        /** The prices the item can be purchased for. */
         public CatalogPriceOptions PriceOptions;
         /** Rating summary for this item. */
         public Rating Rating;
@@ -136,11 +180,11 @@ public class PlayFabEconomyModels {
         public Date StartDate;
         /** Optional details for stores items. */
         public StoreDetails StoreDetails;
-        /** The list of tags that are associated with this item. */
+        /** The list of tags that are associated with this item. Up to 32 tags can be added to an item. */
         public ArrayList<String> Tags;
         /**
-         * A dictionary of localized titles. Key is language code and localized string is the value. The neutral locale is
-         * required.
+         * A dictionary of localized titles. Key is language code and localized string is the value. The NEUTRAL locale is
+         * required. Titles have a 512 character limit per country code.
          */
         public Map<String,String> Title;
         /** The high-level type of the item. The following item types are supported: bundle, catalogItem, currency, store, ugc. */
@@ -159,8 +203,10 @@ public class PlayFabEconomyModels {
     }
 
     public static class CatalogPrice {
-        /** The amounts of the catalog item price. */
+        /** The amounts of the catalog item price. Each price can have up to 15 item amounts. */
         public ArrayList<CatalogPriceAmount> Amounts;
+        /** The per-unit duration this price can be used to purchase. The maximum duration is 100 years. */
+        public Double UnitDurationInSeconds;
         
     }
 
@@ -186,7 +232,7 @@ public class PlayFabEconomyModels {
     }
 
     public static class CatalogPriceOptions {
-        /** Prices of the catalog item. */
+        /** Prices of the catalog item. An item can have up to 15 prices */
         public ArrayList<CatalogPrice> Prices;
         
     }
@@ -204,9 +250,15 @@ public class PlayFabEconomyModels {
     }
 
     public static class CatalogSpecificConfig {
-        /** The set of content types that will be used for validation. */
+        /**
+         * The set of content types that will be used for validation. Each content type can have a maximum character length of 40
+         * and up to 128 types can be listed.
+         */
         public ArrayList<String> ContentTypes;
-        /** The set of tags that will be used for validation. */
+        /**
+         * The set of tags that will be used for validation. Each tag can have a maximum character length of 32 and up to 1024 tags
+         * can be listed.
+         */
         public ArrayList<String> Tags;
         
     }
@@ -227,13 +279,22 @@ public class PlayFabEconomyModels {
     public static class Content {
         /** The content unique ID. */
         public String Id;
-        /** The maximum client version that this content is compatible with. */
+        /**
+         * The maximum client version that this content is compatible with. Client Versions can be up to 3 segments separated by
+         * periods(.) and each segment can have a maximum value of 65535.
+         */
         public String MaxClientVersion;
-        /** The minimum client version that this content is compatible with. */
+        /**
+         * The minimum client version that this content is compatible with. Client Versions can be up to 3 segments separated by
+         * periods(.) and each segment can have a maximum value of 65535.
+         */
         public String MinClientVersion;
-        /** The list of tags that are associated with this content. */
+        /**
+         * The list of tags that are associated with this content. Tags must be defined in the Catalog Config before being used in
+         * content.
+         */
         public ArrayList<String> Tags;
-        /** The client-defined type of the content. */
+        /** The client-defined type of the content. Content Types must be defined in the Catalog Config before being used. */
         public String Type;
         /** The Azure CDN URL for retrieval of the catalog item binary content. */
         public String Url;
@@ -502,7 +563,7 @@ public class PlayFabEconomyModels {
         public Map<String,String> CustomTags;
         /** Metadata describing the new catalog item to be created. */
         public CatalogItem Item;
-        /** Whether the item should be published immediately. */
+        /** Whether the item should be published immediately. This value is optional, defaults to false. */
         public Boolean Publish;
         
     }
@@ -568,7 +629,10 @@ public class PlayFabEconomyModels {
         public Map<String,String> CustomTags;
         /** The entity the request is about. Set to the caller by default. */
         public EntityKey Entity;
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
         
     }
@@ -585,15 +649,24 @@ public class PlayFabEconomyModels {
 
     /** Given an entity type, entity identifier and container details, will delete the entity's inventory items */
     public static class DeleteInventoryItemsRequest {
-        /** The id of the entity's collection to perform this action on. (Default="default") */
+        /**
+         * The id of the entity's collection to perform this action on. (Default="default"). The number of inventory collections is
+         * unlimited.
+         */
         public String CollectionId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
-        /** The Idempotency ID for this request. */
+        /**
+         * The Idempotency ID for this request. Idempotency IDs can be used to prevent operation replay in the medium term but will
+         * be garbage collected eventually.
+         */
         public String IdempotencyId;
         /** The inventory item the request applies to. */
         public InventoryItemReference Item;
@@ -653,26 +726,38 @@ public class PlayFabEconomyModels {
 
     /** Execute a list of Inventory Operations for an Entity */
     public static class ExecuteInventoryOperationsRequest {
-        /** The id of the entity's collection to perform this action on. (Default="default") */
+        /**
+         * The id of the entity's collection to perform this action on. (Default="default"). The number of inventory collections is
+         * unlimited.
+         */
         public String CollectionId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
-        /** The Idempotency ID for this request. */
+        /**
+         * The Idempotency ID for this request. Idempotency IDs can be used to prevent operation replay in the medium term but will
+         * be garbage collected eventually.
+         */
         public String IdempotencyId;
         /**
          * The operations to run transactionally. The operations will be executed in-order sequentially and will succeed or fail as
-         * a batch.
+         * a batch. Up to 10 operations can be added.
          */
         public ArrayList<InventoryOperation> Operations;
         
     }
 
     public static class ExecuteInventoryOperationsResponse {
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
         /** The idempotency id used in the request. */
         public String IdempotencyId;
@@ -682,15 +767,24 @@ public class PlayFabEconomyModels {
     }
 
     public static class FileConfig {
-        /** The set of content types that will be used for validation. */
+        /**
+         * The set of content types that will be used for validation. Each content type can have a maximum character length of 40
+         * and up to 128 types can be listed.
+         */
         public ArrayList<String> ContentTypes;
-        /** The set of tags that will be used for validation. */
+        /**
+         * The set of tags that will be used for validation. Each tag can have a maximum character length of 32 and up to 1024 tags
+         * can be listed.
+         */
         public ArrayList<String> Tags;
         
     }
 
     public static class FilterOptions {
-        /** The OData filter utilized. Mutually exclusive with 'IncludeAllItems'. */
+        /**
+         * The OData filter utilized. Mutually exclusive with 'IncludeAllItems'. More info about Filter Complexity limits can be
+         * found here: https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/search#limits
+         */
         public String Filter;
         /** The flag that overrides the filter and allows for returning all catalog items. Mutually exclusive with 'Filter'. */
         public Boolean IncludeAllItems;
@@ -753,13 +847,16 @@ public class PlayFabEconomyModels {
          * initial request.
          */
         public String ContinuationToken;
-        /** Number of items to retrieve. Maximum page size is 10. */
+        /** Number of items to retrieve. This value is optional. Default value is 10. */
         public Integer Count;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** OData Filter to specify ItemType. */
+        /**
+         * OData Filter to refine the items returned. CatalogItem properties 'type' can be used in the filter. For example: "type
+         * eq 'ugc'"
+         */
         public String Filter;
         
     }
@@ -794,7 +891,7 @@ public class PlayFabEconomyModels {
     public static class GetInventoryCollectionIdsRequest {
         /** An opaque token used to retrieve the next page of collection ids, if any are available. */
         public String ContinuationToken;
-        /** Number of items to retrieve. (Default = 10) */
+        /** Number of items to retrieve. This value is optional. The default value is 10 */
         public Integer Count;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -820,13 +917,16 @@ public class PlayFabEconomyModels {
          * initial request.
          */
         public String ContinuationToken;
-        /** Number of items to retrieve. Maximum page size is 50. (Default=10) */
+        /** Number of items to retrieve. This value is optional. Maximum page size is 50. The default value is 10 */
         public Integer Count;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** The filters to limit what is returned to the client. */
+        /**
+         * OData Filter to refine the items returned. InventoryItem properties 'type', 'id', and 'stackId' can be used in the
+         * filter. For example: "type eq 'currency'"
+         */
         public String Filter;
         
     }
@@ -834,7 +934,10 @@ public class PlayFabEconomyModels {
     public static class GetInventoryItemsResponse {
         /** An opaque token used to retrieve the next page of items, if any are available. */
         public String ContinuationToken;
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
         /** The requested inventory items. */
         public ArrayList<InventoryItem> Items;
@@ -850,7 +953,7 @@ public class PlayFabEconomyModels {
          * initial request.
          */
         public String ContinuationToken;
-        /** Number of items to retrieve. Maximum page size is 25. */
+        /** Number of items to retrieve. This value is optional. Default value is 10. */
         public Integer Count;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -929,13 +1032,16 @@ public class PlayFabEconomyModels {
         public CatalogAlternateId AlternateId;
         /** An opaque token used to retrieve the next page of items, if any are available. */
         public String ContinuationToken;
-        /** Number of items to retrieve. Maximum page size is 200. If not specified, defaults to 10. */
+        /** Number of items to retrieve. This value is optional. Default value is 10. */
         public Integer Count;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** The unique ID of the item. */
         public String Id;
-        /** An OData orderBy used to order the results of the query. */
+        /**
+         * An OData orderBy used to order the results of the query. Possible values are Helpfulness, Rating, and Submitted (For
+         * example: "Submitted desc")
+         */
         public String OrderBy;
         
     }
@@ -1012,13 +1118,16 @@ public class PlayFabEconomyModels {
         public String CollectionId;
         /** An opaque token used to retrieve the next page of items, if any are available. Should be null on initial request. */
         public String ContinuationToken;
-        /** Number of items to retrieve. (Default = 10) */
+        /** Number of items to retrieve. This value is optional. The default value is 10 */
         public Integer Count;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** An OData filter used to refine the query. */
+        /**
+         * An OData filter used to refine the TransactionHistory. Transaction property 'timestamp' can be used in the filter. For
+         * example: "timestamp ge 'timestamp ge'" By default, a 6 month timespan from the current date is used.
+         */
         public String Filter;
         
     }
@@ -1048,9 +1157,12 @@ public class PlayFabEconomyModels {
     public static class Image {
         /** The image unique ID. */
         public String Id;
-        /** The client-defined tag associated with this image. */
+        /**
+         * The client-defined tag associated with this image. Tags must be defined in the Catalog Config before being used in
+         * images
+         */
         public String Tag;
-        /** The client-defined type of this image. */
+        /** Images can be defined as either a "thumbnail" or "screenshot". There can only be one "thumbnail" image per item. */
         public String Type;
         /** The URL for retrieval of the image. */
         public String Url;
@@ -1058,13 +1170,16 @@ public class PlayFabEconomyModels {
     }
 
     public static class ImageConfig {
-        /** The set of tags that will be used for validation. */
+        /**
+         * The set of tags that will be used for validation. Each tag can have a maximum character length of 32 and up to 1024 tags
+         * can be listed.
+         */
         public ArrayList<String> Tags;
         
     }
 
     public static class InitialValues {
-        /** Game specific properties for display purposes. */
+        /** Game specific properties for display purposes. The Display Properties field has a 1000 byte limit. */
         public Object DisplayProperties;
         
     }
@@ -1072,8 +1187,13 @@ public class PlayFabEconomyModels {
     public static class InventoryItem {
         /** The amount of the item. */
         public Integer Amount;
-        /** Game specific properties for display purposes. This is an arbitrary JSON blob. */
+        /**
+         * Game specific properties for display purposes. This is an arbitrary JSON blob. The Display Properties field has a 1000
+         * byte limit.
+         */
         public Object DisplayProperties;
+        /** Only used for subscriptions. The date of when the item will expire in UTC. */
+        public Date ExpirationDate;
         /** The id of the item. This should correspond to the item id in the catalog. */
         public String Id;
         /** The stack id of the item. */
@@ -1178,6 +1298,8 @@ public class PlayFabEconomyModels {
          * false)
          */
         public Boolean DeleteEmptyStacks;
+        /** The duration to purchase. */
+        public Double DurationInSeconds;
         /** The inventory item the operation applies to. */
         public InventoryItemReference Item;
         /** The values to apply to a stack newly created by this operation. */
@@ -1196,7 +1318,10 @@ public class PlayFabEconomyModels {
     public static class PurchaseInventoryItemsRequest {
         /** The amount to purchase. */
         public Integer Amount;
-        /** The id of the entity's collection to perform this action on. (Default="default") */
+        /**
+         * The id of the entity's collection to perform this action on. (Default="default"). The number of inventory collections is
+         * unlimited.
+         */
         public String CollectionId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -1205,11 +1330,19 @@ public class PlayFabEconomyModels {
          * (Default=false)
          */
         public Boolean DeleteEmptyStacks;
+        /** The duration to purchase. */
+        public Double DurationInSeconds;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
-        /** The Idempotency ID for this request. */
+        /**
+         * The Idempotency ID for this request. Idempotency IDs can be used to prevent operation replay in the medium term but will
+         * be garbage collected eventually.
+         */
         public String IdempotencyId;
         /** The inventory item the request applies to. */
         public InventoryItemReference Item;
@@ -1226,7 +1359,10 @@ public class PlayFabEconomyModels {
     }
 
     public static class PurchaseInventoryItemsResponse {
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
         /** The idempotency id used in the request. */
         public String IdempotencyId;
@@ -1363,7 +1499,7 @@ public class PlayFabEconomyModels {
 
     /** Redeem items from the PlayStation Store. */
     public static class RedeemPlayStationStoreInventoryItemsRequest {
-        /** Authorization code provided by the PlayStation OAuth provider. */
+        /** Auth code returned by PlayStation :tm: Network OAuth system. */
         public String AuthorizationCode;
         /** The id of the entity's collection to perform this action on. (Default="default") */
         public String CollectionId;
@@ -1371,6 +1507,8 @@ public class PlayFabEconomyModels {
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
+        /** Redirect URI supplied to PlayStation :tm: Network when requesting an auth code */
+        public String RedirectUri;
         /** Optional Service Label to pass into the request. */
         public String ServiceLabel;
         
@@ -1539,15 +1677,18 @@ public class PlayFabEconomyModels {
     public static class SearchItemsRequest {
         /** An opaque token used to retrieve the next page of items, if any are available. */
         public String ContinuationToken;
-        /** Number of items to retrieve. Maximum page size is 50. Default value is 10. */
+        /** Number of items to retrieve. This value is optional. Maximum page size is 50. Default value is 10. */
         public Integer Count;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** An OData filter used to refine the search query. */
+        /**
+         * An OData filter used to refine the search query (For example: "type eq 'ugc'"). More info about Filter Complexity limits
+         * can be found here: https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/search#limits
+         */
         public String Filter;
-        /** An OData orderBy used to order the results of the search query. */
+        /** An OData orderBy used to order the results of the search query. For example: "rating/average asc" */
         public String OrderBy;
         /** The text to search for. */
         public String Search;
@@ -1637,6 +1778,8 @@ public class PlayFabEconomyModels {
          * false).
          */
         public Boolean DeleteEmptyStacks;
+        /** The duration to subtract from the current item expiration date. */
+        public Double DurationInSeconds;
         /** The inventory item the operation applies to. */
         public InventoryItemReference Item;
         
@@ -1644,9 +1787,12 @@ public class PlayFabEconomyModels {
 
     /** Given an entity type, entity identifier and container details, will subtract the specified inventory items. */
     public static class SubtractInventoryItemsRequest {
-        /** The amount to add for the current item. */
+        /** The amount to subtract for the current item. */
         public Integer Amount;
-        /** The id of the entity's collection to perform this action on. (Default="default") */
+        /**
+         * The id of the entity's collection to perform this action on. (Default="default"). The number of inventory collections is
+         * unlimited.
+         */
         public String CollectionId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -1655,11 +1801,19 @@ public class PlayFabEconomyModels {
          * (Default=false)
          */
         public Boolean DeleteEmptyStacks;
+        /** The duration to subtract from the current item expiration date. */
+        public Double DurationInSeconds;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
-        /** The Idempotency ID for this request. */
+        /**
+         * The Idempotency ID for this request. Idempotency IDs can be used to prevent operation replay in the medium term but will
+         * be garbage collected eventually.
+         */
         public String IdempotencyId;
         /** The inventory item the request applies to. */
         public InventoryItemReference Item;
@@ -1667,7 +1821,10 @@ public class PlayFabEconomyModels {
     }
 
     public static class SubtractInventoryItemsResponse {
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
         /** The idempotency id used in the request. */
         public String IdempotencyId;
@@ -1717,6 +1874,8 @@ public class PlayFabEconomyModels {
     public static class TransactionOperation {
         /** The amount of items in this transaction. */
         public Integer Amount;
+        /** The duration modified in this transaction. */
+        public Double DurationInSeconds;
         /** The item id of the items in this transaction. */
         public String ItemId;
         /** The type of item that the operation occurred on. */
@@ -1790,7 +1949,10 @@ public class PlayFabEconomyModels {
         public String GivingCollectionId;
         /** The entity the request is transferring from. Set to the caller by default. */
         public EntityKey GivingEntity;
-        /** ETags are used for concurrency checking when updating resources (before transferring from). */
+        /**
+         * ETags are used for concurrency checking when updating resources (before transferring from). More information about using
+         * ETags can be found here: https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String GivingETag;
         /** The inventory item the request is transferring from. */
         public InventoryItemReference GivingItem;
@@ -1808,7 +1970,10 @@ public class PlayFabEconomyModels {
     }
 
     public static class TransferInventoryItemsResponse {
-        /** ETags are used for concurrency checking when updating resources (after transferring from). */
+        /**
+         * ETags are used for concurrency checking when updating resources (after transferring from). More information about using
+         * ETags can be found here: https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String GivingETag;
         /** The ids of transactions that occurred as a result of the request's giving action. */
         public ArrayList<String> GivingTransactionIds;
@@ -1836,7 +2001,7 @@ public class PlayFabEconomyModels {
         public Map<String,String> CustomTags;
         /** Updated metadata describing the catalog item to be updated. */
         public CatalogItem Item;
-        /** Whether the item should be published immediately. */
+        /** Whether the item should be published immediately. This value is optional, defaults to false. */
         public Boolean Publish;
         
     }
@@ -1855,15 +2020,24 @@ public class PlayFabEconomyModels {
 
     /** Given an entity type, entity identifier and container details, will update the entity's inventory items */
     public static class UpdateInventoryItemsRequest {
-        /** The id of the entity's collection to perform this action on. (Default="default") */
+        /**
+         * The id of the entity's collection to perform this action on. (Default="default"). The number of inventory collections is
+         * unlimited.
+         */
         public String CollectionId;
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
-        /** The Idempotency ID for this request. */
+        /**
+         * The Idempotency ID for this request. Idempotency IDs can be used to prevent operation replay in the medium term but will
+         * be garbage collected eventually.
+         */
         public String IdempotencyId;
         /** The inventory item to update with the specified values. */
         public InventoryItem Item;
@@ -1871,7 +2045,10 @@ public class PlayFabEconomyModels {
     }
 
     public static class UpdateInventoryItemsResponse {
-        /** ETags are used for concurrency checking when updating resources. */
+        /**
+         * ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+         * https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+         */
         public String ETag;
         /** The idempotency id used in the request. */
         public String IdempotencyId;

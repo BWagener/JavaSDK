@@ -418,7 +418,9 @@ public class PlayFabClientModels {
      * Collection filter to include and/or exclude collections with certain key-value pairs. The filter generates a collection
      * set defined by Includes rules and then remove collections that matches the Excludes rules. A collection is considered
      * matching a rule if the rule describes a subset of the collection.
+     * @deprecated Do not use
      */
+    @Deprecated
     public static class CollectionFilter {
         /** List of Exclude rules, with any of which if a collection matches, it is excluded by the filter. */
         public ArrayList<Container_Dictionary_String_String> Excludes;
@@ -556,7 +558,11 @@ public class PlayFabClientModels {
         
     }
 
-    /** A data container */
+    /**
+     * A data container
+     * @deprecated Do not use
+     */
+    @Deprecated
     public static class Container_Dictionary_String_String {
         /** Content of data */
         public Map<String,String> Data;
@@ -1006,6 +1012,8 @@ public class PlayFabClientModels {
         ZWD
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class CurrentGamesRequest {
         /** Build to match against. */
         public String BuildVersion;
@@ -1020,6 +1028,8 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class CurrentGamesResult {
         /** number of games running */
         public Integer GameCount;
@@ -1191,6 +1201,8 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GameInfo {
         /** build version this server is running */
         public String BuildVersion;
@@ -1227,11 +1239,15 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum GameInstanceState {
         Open,
         Closed
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GameServerRegionsRequest {
         /** version of game server for which stats are being requested */
         public String BuildVersion;
@@ -1243,6 +1259,8 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class GameServerRegionsResult {
         /** array of regions found matching the request parameters */
         public ArrayList<RegionInfo> Regions;
@@ -3053,7 +3071,8 @@ public class PlayFabClientModels {
      * this is the first time a user has signed in with Game Center and CreateAccount is set to true, a new PlayFab account
      * will be created and linked to the Game Center identifier. In this case, no email or username will be associated with the
      * PlayFab account. Otherwise, if no PlayFab account is linked to the Game Center account, an error indicating this will be
-     * returned, so that the title can guide the user through creation of a PlayFab account.
+     * returned, so that the title can guide the user through creation of a PlayFab account. If an invalid iOS Game Center
+     * player identifier is used, an error indicating this will be returned.
      */
     public static class LoginWithGameCenterRequest {
         /** Automatically create a PlayFab account if one is not currently linked to this ID. */
@@ -3119,6 +3138,8 @@ public class PlayFabClientModels {
          * (https://developers.google.com/identity/sign-in/android/offline-access) Google client API.
          */
         public String ServerAuthCode;
+        /** Optional boolean to opt out of setting the MPA email when creating a Google account, defaults to true. */
+        public Boolean SetEmail;
         /**
          * Unique identifier for the title, found in the Settings &gt; Game Properties section of the PlayFab developer site when a
          * title has been selected.
@@ -3456,6 +3477,8 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class MatchmakeRequest {
         /** Build version to match against. [Note: Required if LobbyId is not specified] */
         public String BuildVersion;
@@ -3478,6 +3501,8 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class MatchmakeResult {
         /** timestamp for when the server will expire, if applicable */
         public String Expires;
@@ -3500,6 +3525,8 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum MatchmakeStatus {
         Complete,
         Waiting,
@@ -3892,6 +3919,8 @@ public class PlayFabClientModels {
         
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static enum Region {
         USCentral,
         USEast,
@@ -3902,6 +3931,8 @@ public class PlayFabClientModels {
         Australia
     }
 
+    /** @deprecated Do not use */
+    @Deprecated
     public static class RegionInfo {
         /** indicates whether the server specified is available in this region */
         public Boolean Available;
