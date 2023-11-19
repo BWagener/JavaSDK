@@ -436,7 +436,8 @@ public class PlayFabServerModels {
         EU,
         NA,
         OC,
-        SA
+        SA,
+        Unknown
     }
 
     public static enum CountryCode {
@@ -688,7 +689,8 @@ public class PlayFabServerModels {
         EH,
         YE,
         ZM,
-        ZW
+        ZW,
+        Unknown
     }
 
     /**
@@ -933,22 +935,6 @@ public class PlayFabServerModels {
         
     }
 
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class DeregisterGameRequest {
-        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
-        public Map<String,String> CustomTags;
-        /** Unique identifier for the Game Server Instance that is being deregistered. */
-        public String LobbyId;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class DeregisterGameResponse {
-        
-    }
-
     public static enum EmailVerificationStatus {
         Unverified,
         Pending,
@@ -1116,13 +1102,6 @@ public class PlayFabServerModels {
         /** Available Xbox information, if the user and PlayFab friend are both connected to Xbox Live. */
         public UserXboxInfo XboxInfo;
         
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static enum GameInstanceState {
-        Open,
-        Closed
     }
 
     public static enum GenericErrorCodes {
@@ -1675,6 +1654,9 @@ public class PlayFabServerModels {
         NamespaceMismatch,
         InvalidServiceConfiguration,
         InvalidNamespaceMismatch,
+        LeaderboardColumnLengthMismatch,
+        InvalidStatisticScore,
+        LeaderboardColumnsNotSpecified,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -1764,6 +1746,7 @@ public class PlayFabServerModels {
         MultiplayerServerBuildReferencedByMatchmakingQueue,
         MultiplayerServerBuildReferencedByBuildAlias,
         MultiplayerServerBuildAliasReferencedByMatchmakingQueue,
+        PartySerializationError,
         ExperimentationExperimentStopped,
         ExperimentationExperimentRunning,
         ExperimentationExperimentNotFound,
@@ -1818,6 +1801,12 @@ public class PlayFabServerModels {
         LobbyNewOwnerMustBeConnected,
         LobbyCurrentOwnerStillConnected,
         LobbyMemberIsNotOwner,
+        LobbyAssociatedServerMismatch,
+        LobbyAssociatedServerNotFound,
+        LobbyAssociatedToDifferentServer,
+        LobbyServerAlreadyAssociated,
+        LobbyIsNotClientOwned,
+        LobbyDoesNotUseConnections,
         EventSamplingInvalidRatio,
         EventSamplingInvalidEventNamespace,
         EventSamplingInvalidEventName,
@@ -1828,6 +1817,7 @@ public class PlayFabServerModels {
         TelemetryKeyInvalid,
         TelemetryKeyCountOverLimit,
         TelemetryKeyDeactivated,
+        TelemetryKeyLongInsightsRetentionNotAllowed,
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
@@ -1840,9 +1830,29 @@ public class PlayFabServerModels {
         EventSinkTenantNotFound,
         EventSinkAadNotFound,
         EventSinkDatabaseNotFound,
+        EventSinkTitleUnauthorized,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
-        AllowNonUniquePlayerDisplayNamesDisableNotAllowed
+        AllowNonUniquePlayerDisplayNamesDisableNotAllowed,
+        PartitionedEventInvalid,
+        PartitionedEventCountOverLimit,
+        ManageEventNamespaceInvalid,
+        ManageEventNameInvalid,
+        ManagedEventNotFound,
+        ManageEventsInvalidRatio,
+        ManagedEventInvalid,
+        PlayerCustomPropertiesPropertyNameTooLong,
+        PlayerCustomPropertiesPropertyNameIsInvalid,
+        PlayerCustomPropertiesStringPropertyValueTooLong,
+        PlayerCustomPropertiesValueIsInvalidType,
+        PlayerCustomPropertiesVersionMismatch,
+        PlayerCustomPropertiesPropertyCountTooHigh,
+        PlayerCustomPropertiesDuplicatePropertyName,
+        PlayerCustomPropertiesPropertyDoesNotExist,
+        AddonAlreadyExists,
+        AddonDoesntExist,
+        CopilotDisabled,
+        CopilotInvalidRequest
     }
 
     public static class GenericPlayFabIdPair {
@@ -2018,18 +2028,6 @@ public class PlayFabServerModels {
          * comma-separated list of platforms.
          */
         public ExternalFriendSources ExternalPlatformFriends;
-        /**
-         * Indicates whether Facebook friends should be included in the response. Default is true.
-         * @deprecated Please use ExternalPlatformFriends instead.
-         */
-        @Deprecated
-        public Boolean IncludeFacebookFriends;
-        /**
-         * Indicates whether Steam service friends should be included in the response. Default is true.
-         * @deprecated Please use ExternalPlatformFriends instead.
-         */
-        @Deprecated
-        public Boolean IncludeSteamFriends;
         /** Maximum number of entries to retrieve. */
         public Integer MaxResultsCount;
         /** The player whose friend leaderboard to get */
@@ -2059,18 +2057,6 @@ public class PlayFabServerModels {
          * comma-separated list of platforms.
          */
         public ExternalFriendSources ExternalPlatformFriends;
-        /**
-         * Indicates whether Facebook friends should be included in the response. Default is true.
-         * @deprecated Please use ExternalPlatformFriends instead.
-         */
-        @Deprecated
-        public Boolean IncludeFacebookFriends;
-        /**
-         * Indicates whether Steam service friends should be included in the response. Default is true.
-         * @deprecated Please use ExternalPlatformFriends instead.
-         */
-        @Deprecated
-        public Boolean IncludeSteamFriends;
         /** PlayFab identifier of the player whose friend list to get. */
         public String PlayFabId;
         /**
@@ -3111,6 +3097,18 @@ public class PlayFabServerModels {
         
     }
 
+    public static class LinkNintendoServiceAccountSubjectRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** If another user is already linked to a specific Nintendo Service Account, unlink the other user and re-link. */
+        public Boolean ForceLink;
+        /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+        public String PlayFabId;
+        /** The Nintendo Service Account subject or id to link to the PlayFab user. */
+        public String Subject;
+        
+    }
+
     public static class LinkNintendoSwitchDeviceIdRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
@@ -3144,6 +3142,24 @@ public class PlayFabServerModels {
     }
 
     public static class LinkPSNAccountResult {
+        
+    }
+
+    public static class LinkPSNIdRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** If another user is already linked to the account, unlink the other user and re-link. */
+        public Boolean ForceLink;
+        /** Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment. */
+        public Integer IssuerId;
+        /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+        public String PlayFabId;
+        /** Id of the PlayStation :tm: Network user. */
+        public String PSNUserId;
+        
+    }
+
+    public static class LinkPSNIdResponse {
         
     }
 
@@ -3477,35 +3493,6 @@ public class PlayFabServerModels {
         
     }
 
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class NotifyMatchmakerPlayerLeftRequest {
-        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
-        public Map<String,String> CustomTags;
-        /** Unique identifier of the Game Instance the user is leaving. */
-        public String LobbyId;
-        /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
-        public String PlayFabId;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class NotifyMatchmakerPlayerLeftResult {
-        /** State of user leaving the Game Server Instance. */
-        public PlayerConnectionState PlayerState;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static enum PlayerConnectionState {
-        Unassigned,
-        Connecting,
-        Participating,
-        Participated
-    }
-
     public static class PlayerLeaderboardEntry {
         /** Title-specific display name of the user for this leaderboard entry. */
         public String DisplayName;
@@ -3791,108 +3778,6 @@ public class PlayFabServerModels {
     public static class RedeemCouponResult {
         /** Items granted to the player as a result of redeeming the coupon. */
         public ArrayList<ItemInstance> GrantedItems;
-        
-    }
-
-    /**
-     * This function is used by a Game Server Instance to validate with the PlayFab service that a user has been registered as
-     * connected to the server. The Ticket is provided to the client either as a result of a call to StartGame or Matchmake,
-     * each of which return a Ticket specific to the Game Server Instance. This function will fail in any case where the Ticket
-     * presented is not valid for the specific Game Server Instance making the call. Note that data returned may be Personally
-     * Identifying Information (PII), such as email address, and so care should be taken in how this data is stored and
-     * managed. Since this call will always return the relevant information for users who have accessed the title, the
-     * recommendation is to not store this data locally.
-     * @deprecated Do not use
-     */
-    @Deprecated
-    public static class RedeemMatchmakerTicketRequest {
-        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
-        public Map<String,String> CustomTags;
-        /** Unique identifier of the Game Server Instance that is asking for validation of the authorization ticket. */
-        public String LobbyId;
-        /** Server authorization ticket passed back from a call to Matchmake or StartGame. */
-        public String Ticket;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class RedeemMatchmakerTicketResult {
-        /** Error value if the ticket was not validated. */
-        public String Error;
-        /** Boolean indicating whether the ticket was validated by the PlayFab service. */
-        public Boolean TicketIsValid;
-        /** User account information for the user validated. */
-        public UserAccountInfo UserInfo;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class RefreshGameServerInstanceHeartbeatRequest {
-        /** Unique identifier of the Game Server Instance for which the heartbeat is updated. */
-        public String LobbyId;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class RefreshGameServerInstanceHeartbeatResult {
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static enum Region {
-        USCentral,
-        USEast,
-        EUWest,
-        Singapore,
-        Japan,
-        Brazil,
-        Australia
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class RegisterGameRequest {
-        /** Unique identifier of the build running on the Game Server Instance. */
-        public String Build;
-        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
-        public Map<String,String> CustomTags;
-        /**
-         * Game Mode the Game Server instance is running. Note that this must be defined in the Game Modes tab in the PlayFab Game
-         * Manager, along with the Build ID (the same Game Mode can be defined for multiple Build IDs).
-         */
-        public String GameMode;
-        /** Previous lobby id if re-registering an existing game. */
-        public String LobbyId;
-        /**
-         * Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS
-         * region and use Tags (below) to specify your custom region.
-         */
-        public Region Region;
-        /** IPV4 address of the game server instance. */
-        public String ServerIPV4Address;
-        /** IPV6 address (if any) of the game server instance. */
-        public String ServerIPV6Address;
-        /** Port number for communication with the Game Server Instance. */
-        public String ServerPort;
-        /** Public DNS name (if any) of the server */
-        public String ServerPublicDNSName;
-        /** Tags for the Game Server Instance */
-        public Map<String,String> Tags;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class RegisterGameResponse {
-        /**
-         * Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the
-         * game still exists in PlayFab, the LobbyId in request is returned. Otherwise a new lobby id will be returned.
-         */
-        public String LobbyId;
         
     }
 
@@ -4218,57 +4103,6 @@ public class PlayFabServerModels {
         public String PlayFabId;
         /** Array of tags to set on the friend account. */
         public ArrayList<String> Tags;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class SetGameServerInstanceDataRequest {
-        /** Custom data to set for the specified game server instance. */
-        public String GameServerData;
-        /** Unique identifier of the Game Instance to be updated, in decimal format. */
-        public String LobbyId;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class SetGameServerInstanceDataResult {
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class SetGameServerInstanceStateRequest {
-        /** Unique identifier of the Game Instance to be updated, in decimal format. */
-        public String LobbyId;
-        /** State to set for the specified game server instance. */
-        public GameInstanceState State;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class SetGameServerInstanceStateResult {
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class SetGameServerInstanceTagsRequest {
-        /** Unique identifier of the Game Server Instance to be updated. */
-        public String LobbyId;
-        /**
-         * Tags to set for the specified Game Server Instance. Note that this is the complete list of tags to be associated with
-         * the Game Server Instance.
-         */
-        public Map<String,String> Tags;
-        
-    }
-
-    /** @deprecated Do not use */
-    @Deprecated
-    public static class SetGameServerInstanceTagsResult {
         
     }
 
@@ -4935,6 +4769,8 @@ public class PlayFabServerModels {
         public UserPrivateAccountInfo PrivateInfo;
         /** User PlayStation :tm: Network account information, if a PlayStation :tm: Network account has been linked */
         public UserPsnInfo PsnInfo;
+        /** Server Custom ID information, if a server custom ID has been assigned */
+        public UserServerCustomIdInfo ServerCustomIdInfo;
         /** User Steam information, if a Steam account has been linked */
         public UserSteamInfo SteamInfo;
         /** Title-specific information for the user account */
@@ -5106,6 +4942,12 @@ public class PlayFabServerModels {
         public String PsnAccountId;
         /** PlayStation :tm: Network online ID */
         public String PsnOnlineId;
+        
+    }
+
+    public static class UserServerCustomIdInfo {
+        /** Custom ID */
+        public String CustomId;
         
     }
 

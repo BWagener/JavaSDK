@@ -17,7 +17,8 @@ public class PlayFabServerAPI {
     private static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
 
     /**
-     * Increments the character's balance of the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the character's balance of the specified virtual currency by the stated amount
      * @param request AddCharacterVirtualCurrencyRequest
      * @return Async Task will return ModifyCharacterVirtualCurrencyResult
      */
@@ -31,7 +32,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Increments the character's balance of the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the character's balance of the specified virtual currency by the stated amount
      * @param request AddCharacterVirtualCurrencyRequest
      * @return ModifyCharacterVirtualCurrencyResult
      */
@@ -52,7 +54,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Increments the character's balance of the specified virtual currency by the stated amount */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the character's balance of the specified virtual currency by the stated amount
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyCharacterVirtualCurrencyResult> privateAddCharacterVirtualCurrencyAsync(final AddCharacterVirtualCurrencyRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -351,7 +356,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Increments the user's balance of the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the user's balance of the specified virtual currency by the stated amount
      * @param request AddUserVirtualCurrencyRequest
      * @return Async Task will return ModifyUserVirtualCurrencyResult
      */
@@ -365,7 +371,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Increments the user's balance of the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the user's balance of the specified virtual currency by the stated amount
      * @param request AddUserVirtualCurrencyRequest
      * @return ModifyUserVirtualCurrencyResult
      */
@@ -386,7 +393,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Increments the user's balance of the specified virtual currency by the stated amount */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the user's balance of the specified virtual currency by the stated amount
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyUserVirtualCurrencyResult> privateAddUserVirtualCurrencyAsync(final AddUserVirtualCurrencyRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -599,7 +609,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's
+     * inventory.
      * @param request ConsumeItemRequest
      * @return Async Task will return ConsumeItemResult
      */
@@ -613,7 +625,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's
+     * inventory.
      * @param request ConsumeItemRequest
      * @return ConsumeItemResult
      */
@@ -634,7 +648,11 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's
+     * inventory.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ConsumeItemResult> privateConsumeItemAsync(final ConsumeItemRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -990,78 +1008,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Inform the matchmaker that a Game Server Instance is removed.
-     * @deprecated Do not use
-     * @param request DeregisterGameRequest
-     * @return Async Task will return DeregisterGameResponse
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<DeregisterGameResponse>> DeregisterGameAsync(final DeregisterGameRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<DeregisterGameResponse>>() {
-            public PlayFabResult<DeregisterGameResponse> call() throws Exception {
-                return privateDeregisterGameAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Inform the matchmaker that a Game Server Instance is removed.
-     * @deprecated Do not use
-     * @param request DeregisterGameRequest
-     * @return DeregisterGameResponse
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<DeregisterGameResponse> DeregisterGame(final DeregisterGameRequest request) {
-        FutureTask<PlayFabResult<DeregisterGameResponse>> task = new FutureTask(new Callable<PlayFabResult<DeregisterGameResponse>>() {
-            public PlayFabResult<DeregisterGameResponse> call() throws Exception {
-                return privateDeregisterGameAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<DeregisterGameResponse> exceptionResult = new PlayFabResult<DeregisterGameResponse>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Inform the matchmaker that a Game Server Instance is removed.
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<DeregisterGameResponse> privateDeregisterGameAsync(final DeregisterGameRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/DeregisterGame"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<DeregisterGameResponse>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<DeregisterGameResponse> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<DeregisterGameResponse>>(){}.getType());
-        DeregisterGameResponse result = resultData.data;
-
-        PlayFabResult<DeregisterGameResponse> pfResult = new PlayFabResult<DeregisterGameResponse>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would have been
-     * added to the player inventory, if the Random Result Table were added via a Bundle or a call to UnlockContainer.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would
+     * have been added to the player inventory, if the Random Result Table were added via a Bundle or a call to
+     * UnlockContainer.
      * @param request EvaluateRandomResultTableRequest
      * @return Async Task will return EvaluateRandomResultTableResult
      */
@@ -1075,8 +1025,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would have been
-     * added to the player inventory, if the Random Result Table were added via a Bundle or a call to UnlockContainer.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would
+     * have been added to the player inventory, if the Random Result Table were added via a Bundle or a call to
+     * UnlockContainer.
      * @param request EvaluateRandomResultTableRequest
      * @return EvaluateRandomResultTableResult
      */
@@ -1098,8 +1050,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would have been
-     * added to the player inventory, if the Random Result Table were added via a Bundle or a call to UnlockContainer.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would
+     * have been added to the player inventory, if the Random Result Table were added via a Bundle or a call to
+     * UnlockContainer.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<EvaluateRandomResultTableResult> privateEvaluateRandomResultTableAsync(final EvaluateRandomResultTableRequest request) throws Exception {
@@ -1328,7 +1282,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
      * @param request GetCatalogItemsRequest
      * @return Async Task will return GetCatalogItemsResult
      */
@@ -1342,7 +1297,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
      * @param request GetCatalogItemsRequest
      * @return GetCatalogItemsResult
      */
@@ -1363,7 +1319,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Retrieves the specified version of the title's catalog of virtual goods, including all defined properties */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetCatalogItemsResult> privateGetCatalogItemsAsync(final GetCatalogItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -1514,7 +1473,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the specified character's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified character's current inventory of virtual goods
      * @param request GetCharacterInventoryRequest
      * @return Async Task will return GetCharacterInventoryResult
      */
@@ -1528,7 +1488,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the specified character's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified character's current inventory of virtual goods
      * @param request GetCharacterInventoryRequest
      * @return GetCharacterInventoryResult
      */
@@ -1549,7 +1510,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Retrieves the specified character's current inventory of virtual goods */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified character's current inventory of virtual goods
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetCharacterInventoryResult> privateGetCharacterInventoryAsync(final GetCharacterInventoryRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -3317,8 +3281,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the configuration information for the specified random results tables for the title, including all ItemId
-     * values and weights
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the configuration information for the specified random results tables for the title, including all
+     * ItemId values and weights
      * @param request GetRandomResultTablesRequest
      * @return Async Task will return GetRandomResultTablesResult
      */
@@ -3332,8 +3297,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the configuration information for the specified random results tables for the title, including all ItemId
-     * values and weights
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the configuration information for the specified random results tables for the title, including all
+     * ItemId values and weights
      * @param request GetRandomResultTablesRequest
      * @return GetRandomResultTablesResult
      */
@@ -3355,8 +3321,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the configuration information for the specified random results tables for the title, including all ItemId
-     * values and weights
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the configuration information for the specified random results tables for the title, including all
+     * ItemId values and weights
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetRandomResultTablesResult> privateGetRandomResultTablesAsync(final GetRandomResultTablesRequest request) throws Exception {
@@ -3516,7 +3483,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the set of items defined for the specified store, including all prices defined, for the specified player
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined, for the specified
+     * player
      * @param request GetStoreItemsServerRequest
      * @return Async Task will return GetStoreItemsResult
      */
@@ -3530,7 +3499,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the set of items defined for the specified store, including all prices defined, for the specified player
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined, for the specified
+     * player
      * @param request GetStoreItemsServerRequest
      * @return GetStoreItemsResult
      */
@@ -3551,7 +3522,11 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Retrieves the set of items defined for the specified store, including all prices defined, for the specified player */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined, for the specified
+     * player
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetStoreItemsResult> privateGetStoreItemsAsync(final GetStoreItemsServerRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4074,7 +4049,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the specified user's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified user's current inventory of virtual goods
      * @param request GetUserInventoryRequest
      * @return Async Task will return GetUserInventoryResult
      */
@@ -4088,7 +4064,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Retrieves the specified user's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified user's current inventory of virtual goods
      * @param request GetUserInventoryRequest
      * @return GetUserInventoryResult
      */
@@ -4109,7 +4086,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Retrieves the specified user's current inventory of virtual goods */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified user's current inventory of virtual goods
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetUserInventoryResult> privateGetUserInventoryAsync(final GetUserInventoryRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4451,7 +4431,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Adds the specified items to the specified character's inventory
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified character's inventory
      * @param request GrantItemsToCharacterRequest
      * @return Async Task will return GrantItemsToCharacterResult
      */
@@ -4465,7 +4446,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Adds the specified items to the specified character's inventory
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified character's inventory
      * @param request GrantItemsToCharacterRequest
      * @return GrantItemsToCharacterResult
      */
@@ -4486,7 +4468,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Adds the specified items to the specified character's inventory */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified character's inventory
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GrantItemsToCharacterResult> privateGrantItemsToCharacterAsync(final GrantItemsToCharacterRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4513,7 +4498,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Adds the specified items to the specified user's inventory
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user's inventory
      * @param request GrantItemsToUserRequest
      * @return Async Task will return GrantItemsToUserResult
      */
@@ -4527,7 +4513,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Adds the specified items to the specified user's inventory
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user's inventory
      * @param request GrantItemsToUserRequest
      * @return GrantItemsToUserResult
      */
@@ -4548,7 +4535,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Adds the specified items to the specified user's inventory */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user's inventory
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GrantItemsToUserResult> privateGrantItemsToUserAsync(final GrantItemsToUserRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4575,7 +4565,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Adds the specified items to the specified user inventories
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user inventories
      * @param request GrantItemsToUsersRequest
      * @return Async Task will return GrantItemsToUsersResult
      */
@@ -4589,7 +4580,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Adds the specified items to the specified user inventories
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user inventories
      * @param request GrantItemsToUsersRequest
      * @return GrantItemsToUsersResult
      */
@@ -4610,7 +4602,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Adds the specified items to the specified user inventories */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user inventories
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GrantItemsToUsersResult> privateGrantItemsToUsersAsync(final GrantItemsToUsersRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4678,6 +4673,68 @@ public class PlayFabServerAPI {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
         FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/LinkNintendoServiceAccount"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<EmptyResult>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<EmptyResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<EmptyResult>>(){}.getType());
+        EmptyResult result = resultData.data;
+
+        PlayFabResult<EmptyResult> pfResult = new PlayFabResult<EmptyResult>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
+     * Links the Nintendo account associated with the Nintendo Service Account subject or id to the user's PlayFab account
+     * @param request LinkNintendoServiceAccountSubjectRequest
+     * @return Async Task will return EmptyResult
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<EmptyResult>> LinkNintendoServiceAccountSubjectAsync(final LinkNintendoServiceAccountSubjectRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<EmptyResult>>() {
+            public PlayFabResult<EmptyResult> call() throws Exception {
+                return privateLinkNintendoServiceAccountSubjectAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Links the Nintendo account associated with the Nintendo Service Account subject or id to the user's PlayFab account
+     * @param request LinkNintendoServiceAccountSubjectRequest
+     * @return EmptyResult
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<EmptyResult> LinkNintendoServiceAccountSubject(final LinkNintendoServiceAccountSubjectRequest request) {
+        FutureTask<PlayFabResult<EmptyResult>> task = new FutureTask(new Callable<PlayFabResult<EmptyResult>>() {
+            public PlayFabResult<EmptyResult> call() throws Exception {
+                return privateLinkNintendoServiceAccountSubjectAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<EmptyResult> exceptionResult = new PlayFabResult<EmptyResult>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /** Links the Nintendo account associated with the Nintendo Service Account subject or id to the user's PlayFab account */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<EmptyResult> privateLinkNintendoServiceAccountSubjectAsync(final LinkNintendoServiceAccountSubjectRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/LinkNintendoServiceAccountSubject"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
         task.run();
         Object httpResult = task.get();
         if (httpResult instanceof PlayFabError) {
@@ -4818,6 +4875,68 @@ public class PlayFabServerAPI {
         LinkPSNAccountResult result = resultData.data;
 
         PlayFabResult<LinkPSNAccountResult> pfResult = new PlayFabResult<LinkPSNAccountResult>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
+     * Links the PlayStation :tm: Network account associated with the provided user id to the user's PlayFab account
+     * @param request LinkPSNIdRequest
+     * @return Async Task will return LinkPSNIdResponse
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<LinkPSNIdResponse>> LinkPSNIdAsync(final LinkPSNIdRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<LinkPSNIdResponse>>() {
+            public PlayFabResult<LinkPSNIdResponse> call() throws Exception {
+                return privateLinkPSNIdAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Links the PlayStation :tm: Network account associated with the provided user id to the user's PlayFab account
+     * @param request LinkPSNIdRequest
+     * @return LinkPSNIdResponse
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<LinkPSNIdResponse> LinkPSNId(final LinkPSNIdRequest request) {
+        FutureTask<PlayFabResult<LinkPSNIdResponse>> task = new FutureTask(new Callable<PlayFabResult<LinkPSNIdResponse>>() {
+            public PlayFabResult<LinkPSNIdResponse> call() throws Exception {
+                return privateLinkPSNIdAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<LinkPSNIdResponse> exceptionResult = new PlayFabResult<LinkPSNIdResponse>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /** Links the PlayStation :tm: Network account associated with the provided user id to the user's PlayFab account */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<LinkPSNIdResponse> privateLinkPSNIdAsync(final LinkPSNIdRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/LinkPSNId"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<LinkPSNIdResponse>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<LinkPSNIdResponse> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<LinkPSNIdResponse>>(){}.getType());
+        LinkPSNIdResponse result = resultData.data;
+
+        PlayFabResult<LinkPSNIdResponse> pfResult = new PlayFabResult<LinkPSNIdResponse>();
         pfResult.Result = result;
         return pfResult;
     }
@@ -5277,7 +5396,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Modifies the number of remaining uses of a player's inventory item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Modifies the number of remaining uses of a player's inventory item
      * @param request ModifyItemUsesRequest
      * @return Async Task will return ModifyItemUsesResult
      */
@@ -5291,7 +5411,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Modifies the number of remaining uses of a player's inventory item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Modifies the number of remaining uses of a player's inventory item
      * @param request ModifyItemUsesRequest
      * @return ModifyItemUsesResult
      */
@@ -5312,7 +5433,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Modifies the number of remaining uses of a player's inventory item */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Modifies the number of remaining uses of a player's inventory item
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyItemUsesResult> privateModifyItemUsesAsync(final ModifyItemUsesRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5339,7 +5463,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Moves an item from a character's inventory into another of the users's character's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a character's inventory into another of the users's character's inventory.
      * @param request MoveItemToCharacterFromCharacterRequest
      * @return Async Task will return MoveItemToCharacterFromCharacterResult
      */
@@ -5353,7 +5478,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Moves an item from a character's inventory into another of the users's character's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a character's inventory into another of the users's character's inventory.
      * @param request MoveItemToCharacterFromCharacterRequest
      * @return MoveItemToCharacterFromCharacterResult
      */
@@ -5374,7 +5500,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Moves an item from a character's inventory into another of the users's character's inventory. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a character's inventory into another of the users's character's inventory.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<MoveItemToCharacterFromCharacterResult> privateMoveItemToCharacterFromCharacterAsync(final MoveItemToCharacterFromCharacterRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5401,7 +5530,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Moves an item from a user's inventory into their character's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a user's inventory into their character's inventory.
      * @param request MoveItemToCharacterFromUserRequest
      * @return Async Task will return MoveItemToCharacterFromUserResult
      */
@@ -5415,7 +5545,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Moves an item from a user's inventory into their character's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a user's inventory into their character's inventory.
      * @param request MoveItemToCharacterFromUserRequest
      * @return MoveItemToCharacterFromUserResult
      */
@@ -5436,7 +5567,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Moves an item from a user's inventory into their character's inventory. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a user's inventory into their character's inventory.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<MoveItemToCharacterFromUserResult> privateMoveItemToCharacterFromUserAsync(final MoveItemToCharacterFromUserRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5463,7 +5597,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Moves an item from a character's inventory into the owning user's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a character's inventory into the owning user's inventory.
      * @param request MoveItemToUserFromCharacterRequest
      * @return Async Task will return MoveItemToUserFromCharacterResult
      */
@@ -5477,7 +5612,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Moves an item from a character's inventory into the owning user's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a character's inventory into the owning user's inventory.
      * @param request MoveItemToUserFromCharacterRequest
      * @return MoveItemToUserFromCharacterResult
      */
@@ -5498,7 +5634,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Moves an item from a character's inventory into the owning user's inventory. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Moves an item from a character's inventory into the owning user's inventory.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<MoveItemToUserFromCharacterResult> privateMoveItemToUserFromCharacterAsync(final MoveItemToUserFromCharacterRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5525,77 +5664,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Informs the PlayFab match-making service that the user specified has left the Game Server Instance
-     * @deprecated Do not use
-     * @param request NotifyMatchmakerPlayerLeftRequest
-     * @return Async Task will return NotifyMatchmakerPlayerLeftResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<NotifyMatchmakerPlayerLeftResult>> NotifyMatchmakerPlayerLeftAsync(final NotifyMatchmakerPlayerLeftRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<NotifyMatchmakerPlayerLeftResult>>() {
-            public PlayFabResult<NotifyMatchmakerPlayerLeftResult> call() throws Exception {
-                return privateNotifyMatchmakerPlayerLeftAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Informs the PlayFab match-making service that the user specified has left the Game Server Instance
-     * @deprecated Do not use
-     * @param request NotifyMatchmakerPlayerLeftRequest
-     * @return NotifyMatchmakerPlayerLeftResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<NotifyMatchmakerPlayerLeftResult> NotifyMatchmakerPlayerLeft(final NotifyMatchmakerPlayerLeftRequest request) {
-        FutureTask<PlayFabResult<NotifyMatchmakerPlayerLeftResult>> task = new FutureTask(new Callable<PlayFabResult<NotifyMatchmakerPlayerLeftResult>>() {
-            public PlayFabResult<NotifyMatchmakerPlayerLeftResult> call() throws Exception {
-                return privateNotifyMatchmakerPlayerLeftAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<NotifyMatchmakerPlayerLeftResult> exceptionResult = new PlayFabResult<NotifyMatchmakerPlayerLeftResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Informs the PlayFab match-making service that the user specified has left the Game Server Instance
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<NotifyMatchmakerPlayerLeftResult> privateNotifyMatchmakerPlayerLeftAsync(final NotifyMatchmakerPlayerLeftRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/NotifyMatchmakerPlayerLeft"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<NotifyMatchmakerPlayerLeftResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<NotifyMatchmakerPlayerLeftResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<NotifyMatchmakerPlayerLeftResult>>(){}.getType());
-        NotifyMatchmakerPlayerLeftResult result = resultData.data;
-
-        PlayFabResult<NotifyMatchmakerPlayerLeftResult> pfResult = new PlayFabResult<NotifyMatchmakerPlayerLeftResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
      * Economy-&gt;Catalogs tab in the PlayFab Game Manager.
      * @param request RedeemCouponRequest
      * @return Async Task will return RedeemCouponResult
@@ -5610,7 +5680,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
      * Economy-&gt;Catalogs tab in the PlayFab Game Manager.
      * @param request RedeemCouponRequest
      * @return RedeemCouponResult
@@ -5633,7 +5704,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
      * Economy-&gt;Catalogs tab in the PlayFab Game Manager.
      */
     @SuppressWarnings("unchecked")
@@ -5657,216 +5729,6 @@ public class PlayFabServerAPI {
         RedeemCouponResult result = resultData.data;
 
         PlayFabResult<RedeemCouponResult> pfResult = new PlayFabResult<RedeemCouponResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Validates a Game Server session ticket and returns details about the user
-     * @deprecated Do not use
-     * @param request RedeemMatchmakerTicketRequest
-     * @return Async Task will return RedeemMatchmakerTicketResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<RedeemMatchmakerTicketResult>> RedeemMatchmakerTicketAsync(final RedeemMatchmakerTicketRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<RedeemMatchmakerTicketResult>>() {
-            public PlayFabResult<RedeemMatchmakerTicketResult> call() throws Exception {
-                return privateRedeemMatchmakerTicketAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Validates a Game Server session ticket and returns details about the user
-     * @deprecated Do not use
-     * @param request RedeemMatchmakerTicketRequest
-     * @return RedeemMatchmakerTicketResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<RedeemMatchmakerTicketResult> RedeemMatchmakerTicket(final RedeemMatchmakerTicketRequest request) {
-        FutureTask<PlayFabResult<RedeemMatchmakerTicketResult>> task = new FutureTask(new Callable<PlayFabResult<RedeemMatchmakerTicketResult>>() {
-            public PlayFabResult<RedeemMatchmakerTicketResult> call() throws Exception {
-                return privateRedeemMatchmakerTicketAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<RedeemMatchmakerTicketResult> exceptionResult = new PlayFabResult<RedeemMatchmakerTicketResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Validates a Game Server session ticket and returns details about the user
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<RedeemMatchmakerTicketResult> privateRedeemMatchmakerTicketAsync(final RedeemMatchmakerTicketRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/RedeemMatchmakerTicket"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<RedeemMatchmakerTicketResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<RedeemMatchmakerTicketResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<RedeemMatchmakerTicketResult>>(){}.getType());
-        RedeemMatchmakerTicketResult result = resultData.data;
-
-        PlayFabResult<RedeemMatchmakerTicketResult> pfResult = new PlayFabResult<RedeemMatchmakerTicketResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Set the state of the indicated Game Server Instance. Also update the heartbeat for the instance.
-     * @deprecated Do not use
-     * @param request RefreshGameServerInstanceHeartbeatRequest
-     * @return Async Task will return RefreshGameServerInstanceHeartbeatResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<RefreshGameServerInstanceHeartbeatResult>> RefreshGameServerInstanceHeartbeatAsync(final RefreshGameServerInstanceHeartbeatRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<RefreshGameServerInstanceHeartbeatResult>>() {
-            public PlayFabResult<RefreshGameServerInstanceHeartbeatResult> call() throws Exception {
-                return privateRefreshGameServerInstanceHeartbeatAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Set the state of the indicated Game Server Instance. Also update the heartbeat for the instance.
-     * @deprecated Do not use
-     * @param request RefreshGameServerInstanceHeartbeatRequest
-     * @return RefreshGameServerInstanceHeartbeatResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<RefreshGameServerInstanceHeartbeatResult> RefreshGameServerInstanceHeartbeat(final RefreshGameServerInstanceHeartbeatRequest request) {
-        FutureTask<PlayFabResult<RefreshGameServerInstanceHeartbeatResult>> task = new FutureTask(new Callable<PlayFabResult<RefreshGameServerInstanceHeartbeatResult>>() {
-            public PlayFabResult<RefreshGameServerInstanceHeartbeatResult> call() throws Exception {
-                return privateRefreshGameServerInstanceHeartbeatAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<RefreshGameServerInstanceHeartbeatResult> exceptionResult = new PlayFabResult<RefreshGameServerInstanceHeartbeatResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Set the state of the indicated Game Server Instance. Also update the heartbeat for the instance.
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<RefreshGameServerInstanceHeartbeatResult> privateRefreshGameServerInstanceHeartbeatAsync(final RefreshGameServerInstanceHeartbeatRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/RefreshGameServerInstanceHeartbeat"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<RefreshGameServerInstanceHeartbeatResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<RefreshGameServerInstanceHeartbeatResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<RefreshGameServerInstanceHeartbeatResult>>(){}.getType());
-        RefreshGameServerInstanceHeartbeatResult result = resultData.data;
-
-        PlayFabResult<RefreshGameServerInstanceHeartbeatResult> pfResult = new PlayFabResult<RefreshGameServerInstanceHeartbeatResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Inform the matchmaker that a new Game Server Instance is added.
-     * @deprecated Do not use
-     * @param request RegisterGameRequest
-     * @return Async Task will return RegisterGameResponse
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<RegisterGameResponse>> RegisterGameAsync(final RegisterGameRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<RegisterGameResponse>>() {
-            public PlayFabResult<RegisterGameResponse> call() throws Exception {
-                return privateRegisterGameAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Inform the matchmaker that a new Game Server Instance is added.
-     * @deprecated Do not use
-     * @param request RegisterGameRequest
-     * @return RegisterGameResponse
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<RegisterGameResponse> RegisterGame(final RegisterGameRequest request) {
-        FutureTask<PlayFabResult<RegisterGameResponse>> task = new FutureTask(new Callable<PlayFabResult<RegisterGameResponse>>() {
-            public PlayFabResult<RegisterGameResponse> call() throws Exception {
-                return privateRegisterGameAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<RegisterGameResponse> exceptionResult = new PlayFabResult<RegisterGameResponse>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Inform the matchmaker that a new Game Server Instance is added.
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<RegisterGameResponse> privateRegisterGameAsync(final RegisterGameRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/RegisterGame"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<RegisterGameResponse>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<RegisterGameResponse> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<RegisterGameResponse>>(){}.getType());
-        RegisterGameResponse result = resultData.data;
-
-        PlayFabResult<RegisterGameResponse> pfResult = new PlayFabResult<RegisterGameResponse>();
         pfResult.Result = result;
         return pfResult;
     }
@@ -6322,7 +6184,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Revokes access to an item in a user's inventory
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access to an item in a user's inventory
      * @param request RevokeInventoryItemRequest
      * @return Async Task will return RevokeInventoryResult
      */
@@ -6336,7 +6199,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Revokes access to an item in a user's inventory
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access to an item in a user's inventory
      * @param request RevokeInventoryItemRequest
      * @return RevokeInventoryResult
      */
@@ -6357,7 +6221,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Revokes access to an item in a user's inventory */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access to an item in a user's inventory
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<RevokeInventoryResult> privateRevokeInventoryItemAsync(final RevokeInventoryItemRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -6384,7 +6251,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Revokes access for up to 25 items across multiple users and characters.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access for up to 25 items across multiple users and characters.
      * @param request RevokeInventoryItemsRequest
      * @return Async Task will return RevokeInventoryItemsResult
      */
@@ -6398,7 +6266,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Revokes access for up to 25 items across multiple users and characters.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access for up to 25 items across multiple users and characters.
      * @param request RevokeInventoryItemsRequest
      * @return RevokeInventoryItemsResult
      */
@@ -6419,7 +6288,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Revokes access for up to 25 items across multiple users and characters. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access for up to 25 items across multiple users and characters.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<RevokeInventoryItemsResult> privateRevokeInventoryItemsAsync(final RevokeInventoryItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -6833,216 +6705,6 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Sets the custom data of the indicated Game Server Instance
-     * @deprecated Do not use
-     * @param request SetGameServerInstanceDataRequest
-     * @return Async Task will return SetGameServerInstanceDataResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<SetGameServerInstanceDataResult>> SetGameServerInstanceDataAsync(final SetGameServerInstanceDataRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<SetGameServerInstanceDataResult>>() {
-            public PlayFabResult<SetGameServerInstanceDataResult> call() throws Exception {
-                return privateSetGameServerInstanceDataAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Sets the custom data of the indicated Game Server Instance
-     * @deprecated Do not use
-     * @param request SetGameServerInstanceDataRequest
-     * @return SetGameServerInstanceDataResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<SetGameServerInstanceDataResult> SetGameServerInstanceData(final SetGameServerInstanceDataRequest request) {
-        FutureTask<PlayFabResult<SetGameServerInstanceDataResult>> task = new FutureTask(new Callable<PlayFabResult<SetGameServerInstanceDataResult>>() {
-            public PlayFabResult<SetGameServerInstanceDataResult> call() throws Exception {
-                return privateSetGameServerInstanceDataAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<SetGameServerInstanceDataResult> exceptionResult = new PlayFabResult<SetGameServerInstanceDataResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Sets the custom data of the indicated Game Server Instance
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<SetGameServerInstanceDataResult> privateSetGameServerInstanceDataAsync(final SetGameServerInstanceDataRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/SetGameServerInstanceData"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<SetGameServerInstanceDataResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<SetGameServerInstanceDataResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<SetGameServerInstanceDataResult>>(){}.getType());
-        SetGameServerInstanceDataResult result = resultData.data;
-
-        PlayFabResult<SetGameServerInstanceDataResult> pfResult = new PlayFabResult<SetGameServerInstanceDataResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Set the state of the indicated Game Server Instance.
-     * @deprecated Do not use
-     * @param request SetGameServerInstanceStateRequest
-     * @return Async Task will return SetGameServerInstanceStateResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<SetGameServerInstanceStateResult>> SetGameServerInstanceStateAsync(final SetGameServerInstanceStateRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<SetGameServerInstanceStateResult>>() {
-            public PlayFabResult<SetGameServerInstanceStateResult> call() throws Exception {
-                return privateSetGameServerInstanceStateAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Set the state of the indicated Game Server Instance.
-     * @deprecated Do not use
-     * @param request SetGameServerInstanceStateRequest
-     * @return SetGameServerInstanceStateResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<SetGameServerInstanceStateResult> SetGameServerInstanceState(final SetGameServerInstanceStateRequest request) {
-        FutureTask<PlayFabResult<SetGameServerInstanceStateResult>> task = new FutureTask(new Callable<PlayFabResult<SetGameServerInstanceStateResult>>() {
-            public PlayFabResult<SetGameServerInstanceStateResult> call() throws Exception {
-                return privateSetGameServerInstanceStateAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<SetGameServerInstanceStateResult> exceptionResult = new PlayFabResult<SetGameServerInstanceStateResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Set the state of the indicated Game Server Instance.
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<SetGameServerInstanceStateResult> privateSetGameServerInstanceStateAsync(final SetGameServerInstanceStateRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/SetGameServerInstanceState"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<SetGameServerInstanceStateResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<SetGameServerInstanceStateResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<SetGameServerInstanceStateResult>>(){}.getType());
-        SetGameServerInstanceStateResult result = resultData.data;
-
-        PlayFabResult<SetGameServerInstanceStateResult> pfResult = new PlayFabResult<SetGameServerInstanceStateResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Set custom tags for the specified Game Server Instance
-     * @deprecated Do not use
-     * @param request SetGameServerInstanceTagsRequest
-     * @return Async Task will return SetGameServerInstanceTagsResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<SetGameServerInstanceTagsResult>> SetGameServerInstanceTagsAsync(final SetGameServerInstanceTagsRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<SetGameServerInstanceTagsResult>>() {
-            public PlayFabResult<SetGameServerInstanceTagsResult> call() throws Exception {
-                return privateSetGameServerInstanceTagsAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Set custom tags for the specified Game Server Instance
-     * @deprecated Do not use
-     * @param request SetGameServerInstanceTagsRequest
-     * @return SetGameServerInstanceTagsResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<SetGameServerInstanceTagsResult> SetGameServerInstanceTags(final SetGameServerInstanceTagsRequest request) {
-        FutureTask<PlayFabResult<SetGameServerInstanceTagsResult>> task = new FutureTask(new Callable<PlayFabResult<SetGameServerInstanceTagsResult>>() {
-            public PlayFabResult<SetGameServerInstanceTagsResult> call() throws Exception {
-                return privateSetGameServerInstanceTagsAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<SetGameServerInstanceTagsResult> exceptionResult = new PlayFabResult<SetGameServerInstanceTagsResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Set custom tags for the specified Game Server Instance
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<SetGameServerInstanceTagsResult> privateSetGameServerInstanceTagsAsync(final SetGameServerInstanceTagsRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Server/SetGameServerInstanceTags"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<SetGameServerInstanceTagsResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<SetGameServerInstanceTagsResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<SetGameServerInstanceTagsResult>>(){}.getType());
-        SetGameServerInstanceTagsResult result = resultData.data;
-
-        PlayFabResult<SetGameServerInstanceTagsResult> pfResult = new PlayFabResult<SetGameServerInstanceTagsResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
      * Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's
      * secret use the Admin or Server API method SetPlayerSecret.
      * @param request SetPlayerSecretRequest
@@ -7296,8 +6958,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Decrements the character's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the character's balance of the specified virtual currency by the stated amount. It is possible to
+     * make a VC balance negative with this API.
      * @param request SubtractCharacterVirtualCurrencyRequest
      * @return Async Task will return ModifyCharacterVirtualCurrencyResult
      */
@@ -7311,8 +6974,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Decrements the character's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the character's balance of the specified virtual currency by the stated amount. It is possible to
+     * make a VC balance negative with this API.
      * @param request SubtractCharacterVirtualCurrencyRequest
      * @return ModifyCharacterVirtualCurrencyResult
      */
@@ -7334,8 +6998,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Decrements the character's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the character's balance of the specified virtual currency by the stated amount. It is possible to
+     * make a VC balance negative with this API.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyCharacterVirtualCurrencyResult> privateSubtractCharacterVirtualCurrencyAsync(final SubtractCharacterVirtualCurrencyRequest request) throws Exception {
@@ -7363,8 +7028,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make
+     * a VC balance negative with this API.
      * @param request SubtractUserVirtualCurrencyRequest
      * @return Async Task will return ModifyUserVirtualCurrencyResult
      */
@@ -7378,8 +7044,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make
+     * a VC balance negative with this API.
      * @param request SubtractUserVirtualCurrencyRequest
      * @return ModifyUserVirtualCurrencyResult
      */
@@ -7401,8 +7068,9 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make
+     * a VC balance negative with this API.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyUserVirtualCurrencyResult> privateSubtractUserVirtualCurrencyAsync(final SubtractUserVirtualCurrencyRequest request) throws Exception {
@@ -7802,9 +7470,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when required), and
-     * returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses &gt;
-     * 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when
+     * required), and returns the contents of the opened container. If the container (and key when relevant) are consumable
+     * (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
      * @param request UnlockContainerInstanceRequest
      * @return Async Task will return UnlockContainerItemResult
      */
@@ -7818,9 +7487,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when required), and
-     * returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses &gt;
-     * 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when
+     * required), and returns the contents of the opened container. If the container (and key when relevant) are consumable
+     * (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
      * @param request UnlockContainerInstanceRequest
      * @return UnlockContainerItemResult
      */
@@ -7842,9 +7512,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when required), and
-     * returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses &gt;
-     * 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when
+     * required), and returns the contents of the opened container. If the container (and key when relevant) are consumable
+     * (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<UnlockContainerItemResult> privateUnlockContainerInstanceAsync(final UnlockContainerInstanceRequest request) throws Exception {
@@ -7872,9 +7543,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary unlocks it
-     * using any appropriate key, and returns the contents of the opened container. If the container (and key when relevant)
-     * are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary
+     * unlocks it using any appropriate key, and returns the contents of the opened container. If the container (and key when
+     * relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of
      * ConsumeItem.
      * @param request UnlockContainerItemRequest
      * @return Async Task will return UnlockContainerItemResult
@@ -7889,9 +7561,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary unlocks it
-     * using any appropriate key, and returns the contents of the opened container. If the container (and key when relevant)
-     * are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary
+     * unlocks it using any appropriate key, and returns the contents of the opened container. If the container (and key when
+     * relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of
      * ConsumeItem.
      * @param request UnlockContainerItemRequest
      * @return UnlockContainerItemResult
@@ -7914,9 +7587,10 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary unlocks it
-     * using any appropriate key, and returns the contents of the opened container. If the container (and key when relevant)
-     * are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary
+     * unlocks it using any appropriate key, and returns the contents of the opened container. If the container (and key when
+     * relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of
      * ConsumeItem.
      */
     @SuppressWarnings("unchecked")
@@ -8579,7 +8253,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Updates the key-value pair data tagged to the specified item, which is read-only from the client.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the key-value pair data tagged to the specified item, which is read-only from the client.
      * @param request UpdateUserInventoryItemDataRequest
      * @return Async Task will return EmptyResponse
      */
@@ -8593,7 +8268,8 @@ public class PlayFabServerAPI {
     }
 
     /**
-     * Updates the key-value pair data tagged to the specified item, which is read-only from the client.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the key-value pair data tagged to the specified item, which is read-only from the client.
      * @param request UpdateUserInventoryItemDataRequest
      * @return EmptyResponse
      */
@@ -8614,7 +8290,10 @@ public class PlayFabServerAPI {
         }
     }
 
-    /** Updates the key-value pair data tagged to the specified item, which is read-only from the client. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the key-value pair data tagged to the specified item, which is read-only from the client.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<EmptyResponse> privateUpdateUserInventoryItemCustomDataAsync(final UpdateUserInventoryItemDataRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");

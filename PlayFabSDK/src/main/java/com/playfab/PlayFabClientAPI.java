@@ -423,7 +423,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Increments the user's balance of the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the user's balance of the specified virtual currency by the stated amount
      * @param request AddUserVirtualCurrencyRequest
      * @return Async Task will return ModifyUserVirtualCurrencyResult
      */
@@ -437,7 +438,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Increments the user's balance of the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the user's balance of the specified virtual currency by the stated amount
      * @param request AddUserVirtualCurrencyRequest
      * @return ModifyUserVirtualCurrencyResult
      */
@@ -458,7 +460,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Increments the user's balance of the specified virtual currency by the stated amount */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the user's balance of the specified virtual currency by the stated amount
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyUserVirtualCurrencyResult> privateAddUserVirtualCurrencyAsync(final AddUserVirtualCurrencyRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -679,8 +684,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and virtual
-     * currency balances as appropriate
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and
+     * virtual currency balances as appropriate
      * @param request ConfirmPurchaseRequest
      * @return Async Task will return ConfirmPurchaseResult
      */
@@ -694,8 +700,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and virtual
-     * currency balances as appropriate
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and
+     * virtual currency balances as appropriate
      * @param request ConfirmPurchaseRequest
      * @return ConfirmPurchaseResult
      */
@@ -717,8 +724,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and virtual
-     * currency balances as appropriate
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and
+     * virtual currency balances as appropriate
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ConfirmPurchaseResult> privateConfirmPurchaseAsync(final ConfirmPurchaseRequest request) throws Exception {
@@ -746,7 +754,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's
+     * inventory.
      * @param request ConsumeItemRequest
      * @return Async Task will return ConsumeItemResult
      */
@@ -760,7 +770,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's
+     * inventory.
      * @param request ConsumeItemRequest
      * @return ConsumeItemResult
      */
@@ -781,7 +793,11 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's
+     * inventory.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ConsumeItemResult> privateConsumeItemAsync(final ConsumeItemRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -1397,7 +1413,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
      * @param request GetCatalogItemsRequest
      * @return Async Task will return GetCatalogItemsResult
      */
@@ -1411,7 +1428,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
      * @param request GetCatalogItemsRequest
      * @return GetCatalogItemsResult
      */
@@ -1432,7 +1450,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Retrieves the specified version of the title's catalog of virtual goods, including all defined properties */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetCatalogItemsResult> privateGetCatalogItemsAsync(final GetCatalogItemsRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -1521,7 +1542,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves the specified character's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified character's current inventory of virtual goods
      * @param request GetCharacterInventoryRequest
      * @return Async Task will return GetCharacterInventoryResult
      */
@@ -1535,7 +1557,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves the specified character's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified character's current inventory of virtual goods
      * @param request GetCharacterInventoryRequest
      * @return GetCharacterInventoryResult
      */
@@ -1556,7 +1579,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Retrieves the specified character's current inventory of virtual goods */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified character's current inventory of virtual goods
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetCharacterInventoryResult> privateGetCharacterInventoryAsync(final GetCharacterInventoryRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -1848,76 +1874,6 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Get details about all current running game servers matching the given parameters.
-     * @deprecated Please use MultiplayerServer/ListMultiplayerServers instead.
-     * @param request CurrentGamesRequest
-     * @return Async Task will return CurrentGamesResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<CurrentGamesResult>> GetCurrentGamesAsync(final CurrentGamesRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<CurrentGamesResult>>() {
-            public PlayFabResult<CurrentGamesResult> call() throws Exception {
-                return privateGetCurrentGamesAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Get details about all current running game servers matching the given parameters.
-     * @deprecated Please use MultiplayerServer/ListMultiplayerServers instead.
-     * @param request CurrentGamesRequest
-     * @return CurrentGamesResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<CurrentGamesResult> GetCurrentGames(final CurrentGamesRequest request) {
-        FutureTask<PlayFabResult<CurrentGamesResult>> task = new FutureTask(new Callable<PlayFabResult<CurrentGamesResult>>() {
-            public PlayFabResult<CurrentGamesResult> call() throws Exception {
-                return privateGetCurrentGamesAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<CurrentGamesResult> exceptionResult = new PlayFabResult<CurrentGamesResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Get details about all current running game servers matching the given parameters.
-     * @deprecated Please use MultiplayerServer/ListMultiplayerServers instead.
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<CurrentGamesResult> privateGetCurrentGamesAsync(final CurrentGamesRequest request) throws Exception {
-        if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Client/GetCurrentGames"), request, "X-Authorization", PlayFabSettings.ClientSessionTicket);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<CurrentGamesResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<CurrentGamesResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<CurrentGamesResult>>(){}.getType());
-        CurrentGamesResult result = resultData.data;
-
-        PlayFabResult<CurrentGamesResult> pfResult = new PlayFabResult<CurrentGamesResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
      * Retrieves a list of ranked friends of the current player for the given statistic, starting from the indicated point in
      * the leaderboard
      * @param request GetFriendLeaderboardRequest
@@ -2114,76 +2070,6 @@ public class PlayFabClientAPI {
         GetFriendsListResult result = resultData.data;
 
         PlayFabResult<GetFriendsListResult> pfResult = new PlayFabResult<GetFriendsListResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Get details about the regions hosting game servers matching the given parameters.
-     * @deprecated Please use MultiplayerServer/ListMultiplayerServers instead.
-     * @param request GameServerRegionsRequest
-     * @return Async Task will return GameServerRegionsResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<GameServerRegionsResult>> GetGameServerRegionsAsync(final GameServerRegionsRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<GameServerRegionsResult>>() {
-            public PlayFabResult<GameServerRegionsResult> call() throws Exception {
-                return privateGetGameServerRegionsAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Get details about the regions hosting game servers matching the given parameters.
-     * @deprecated Please use MultiplayerServer/ListMultiplayerServers instead.
-     * @param request GameServerRegionsRequest
-     * @return GameServerRegionsResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<GameServerRegionsResult> GetGameServerRegions(final GameServerRegionsRequest request) {
-        FutureTask<PlayFabResult<GameServerRegionsResult>> task = new FutureTask(new Callable<PlayFabResult<GameServerRegionsResult>>() {
-            public PlayFabResult<GameServerRegionsResult> call() throws Exception {
-                return privateGetGameServerRegionsAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<GameServerRegionsResult> exceptionResult = new PlayFabResult<GameServerRegionsResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Get details about the regions hosting game servers matching the given parameters.
-     * @deprecated Please use MultiplayerServer/ListMultiplayerServers instead.
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<GameServerRegionsResult> privateGetGameServerRegionsAsync(final GameServerRegionsRequest request) throws Exception {
-        if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Client/GetGameServerRegions"), request, "X-Authorization", PlayFabSettings.ClientSessionTicket);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<GameServerRegionsResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<GameServerRegionsResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<GameServerRegionsResult>>(){}.getType());
-        GameServerRegionsResult result = resultData.data;
-
-        PlayFabResult<GameServerRegionsResult> pfResult = new PlayFabResult<GameServerRegionsResult>();
         pfResult.Result = result;
         return pfResult;
     }
@@ -2442,9 +2328,10 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * For payments flows where the provider requires playfab (the fulfiller) to initiate the transaction, but the client
-     * completes the rest of the flow. In the Xsolla case, the token returned here will be passed to Xsolla by the client to
-     * create a cart. Poll GetPurchase using the returned OrderId once you've completed the payment.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ For payments flows where the provider requires playfab (the fulfiller) to initiate the transaction, but the
+     * client completes the rest of the flow. In the Xsolla case, the token returned here will be passed to Xsolla by the
+     * client to create a cart. Poll GetPurchase using the returned OrderId once you've completed the payment.
      * @param request GetPaymentTokenRequest
      * @return Async Task will return GetPaymentTokenResult
      */
@@ -2458,9 +2345,10 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * For payments flows where the provider requires playfab (the fulfiller) to initiate the transaction, but the client
-     * completes the rest of the flow. In the Xsolla case, the token returned here will be passed to Xsolla by the client to
-     * create a cart. Poll GetPurchase using the returned OrderId once you've completed the payment.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ For payments flows where the provider requires playfab (the fulfiller) to initiate the transaction, but the
+     * client completes the rest of the flow. In the Xsolla case, the token returned here will be passed to Xsolla by the
+     * client to create a cart. Poll GetPurchase using the returned OrderId once you've completed the payment.
      * @param request GetPaymentTokenRequest
      * @return GetPaymentTokenResult
      */
@@ -2482,9 +2370,10 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * For payments flows where the provider requires playfab (the fulfiller) to initiate the transaction, but the client
-     * completes the rest of the flow. In the Xsolla case, the token returned here will be passed to Xsolla by the client to
-     * create a cart. Poll GetPurchase using the returned OrderId once you've completed the payment.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ For payments flows where the provider requires playfab (the fulfiller) to initiate the transaction, but the
+     * client completes the rest of the flow. In the Xsolla case, the token returned here will be passed to Xsolla by the
+     * client to create a cart. Poll GetPurchase using the returned OrderId once you've completed the payment.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetPaymentTokenResult> privateGetPaymentTokenAsync(final GetPaymentTokenRequest request) throws Exception {
@@ -3933,8 +3822,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that are still
-     * active.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that
+     * are still active.
      * @param request GetPurchaseRequest
      * @return Async Task will return GetPurchaseResult
      */
@@ -3948,8 +3838,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that are still
-     * active.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that
+     * are still active.
      * @param request GetPurchaseRequest
      * @return GetPurchaseResult
      */
@@ -3971,8 +3862,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that are still
-     * active.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that
+     * are still active.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetPurchaseResult> privateGetPurchaseAsync(final GetPurchaseRequest request) throws Exception {
@@ -4073,7 +3965,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves the set of items defined for the specified store, including all prices defined
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined
      * @param request GetStoreItemsRequest
      * @return Async Task will return GetStoreItemsResult
      */
@@ -4087,7 +3980,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves the set of items defined for the specified store, including all prices defined
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined
      * @param request GetStoreItemsRequest
      * @return GetStoreItemsResult
      */
@@ -4108,7 +4002,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Retrieves the set of items defined for the specified store, including all prices defined */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetStoreItemsResult> privateGetStoreItemsAsync(final GetStoreItemsRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -4506,7 +4403,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves the user's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the user's current inventory of virtual goods
      * @param request GetUserInventoryRequest
      * @return Async Task will return GetUserInventoryResult
      */
@@ -4520,7 +4418,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Retrieves the user's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the user's current inventory of virtual goods
      * @param request GetUserInventoryRequest
      * @return GetUserInventoryResult
      */
@@ -4541,7 +4440,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Retrieves the user's current inventory of virtual goods */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the user's current inventory of virtual goods
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetUserInventoryResult> privateGetUserInventoryAsync(final GetUserInventoryRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -7217,91 +7119,6 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific
-     * active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required
-     * parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is
-     * found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the
-     * availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be
-     * GameNotFound.
-     * @deprecated Please use Match/CreateMatchmakingTicket instead.
-     * @param request MatchmakeRequest
-     * @return Async Task will return MatchmakeResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<MatchmakeResult>> MatchmakeAsync(final MatchmakeRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<MatchmakeResult>>() {
-            public PlayFabResult<MatchmakeResult> call() throws Exception {
-                return privateMatchmakeAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific
-     * active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required
-     * parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is
-     * found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the
-     * availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be
-     * GameNotFound.
-     * @deprecated Please use Match/CreateMatchmakingTicket instead.
-     * @param request MatchmakeRequest
-     * @return MatchmakeResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<MatchmakeResult> Matchmake(final MatchmakeRequest request) {
-        FutureTask<PlayFabResult<MatchmakeResult>> task = new FutureTask(new Callable<PlayFabResult<MatchmakeResult>>() {
-            public PlayFabResult<MatchmakeResult> call() throws Exception {
-                return privateMatchmakeAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<MatchmakeResult> exceptionResult = new PlayFabResult<MatchmakeResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific
-     * active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required
-     * parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is
-     * found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the
-     * availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be
-     * GameNotFound.
-     * @deprecated Please use Match/CreateMatchmakingTicket instead.
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<MatchmakeResult> privateMatchmakeAsync(final MatchmakeRequest request) throws Exception {
-        if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Client/Matchmake"), request, "X-Authorization", PlayFabSettings.ClientSessionTicket);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<MatchmakeResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<MatchmakeResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<MatchmakeResult>>(){}.getType());
-        MatchmakeResult result = resultData.data;
-
-        PlayFabResult<MatchmakeResult> pfResult = new PlayFabResult<MatchmakeResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
      * Opens a new outstanding trade. Note that a given item instance may only be in one open trade at a time.
      * @param request OpenTradeRequest
      * @return Async Task will return OpenTradeResponse
@@ -7364,7 +7181,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Selects a payment option for purchase order created via StartPurchase
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Selects a payment option for purchase order created via StartPurchase
      * @param request PayForPurchaseRequest
      * @return Async Task will return PayForPurchaseResult
      */
@@ -7378,7 +7196,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Selects a payment option for purchase order created via StartPurchase
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Selects a payment option for purchase order created via StartPurchase
      * @param request PayForPurchaseRequest
      * @return PayForPurchaseResult
      */
@@ -7399,7 +7218,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Selects a payment option for purchase order created via StartPurchase */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Selects a payment option for purchase order created via StartPurchase
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<PayForPurchaseResult> privatePayForPurchaseAsync(final PayForPurchaseRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -7426,8 +7248,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase, as well as what
-     * the client believes the price to be. This lets the server fail the purchase if the price has changed.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase, as
+     * well as what the client believes the price to be. This lets the server fail the purchase if the price has changed.
      * @param request PurchaseItemRequest
      * @return Async Task will return PurchaseItemResult
      */
@@ -7441,8 +7264,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase, as well as what
-     * the client believes the price to be. This lets the server fail the purchase if the price has changed.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase, as
+     * well as what the client believes the price to be. This lets the server fail the purchase if the price has changed.
      * @param request PurchaseItemRequest
      * @return PurchaseItemResult
      */
@@ -7464,8 +7288,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase, as well as what
-     * the client believes the price to be. This lets the server fail the purchase if the price has changed.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase, as
+     * well as what the client believes the price to be. This lets the server fail the purchase if the price has changed.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<PurchaseItemResult> privatePurchaseItemAsync(final PurchaseItemRequest request) throws Exception {
@@ -7493,7 +7318,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
      * Economy-&gt;Catalogs tab in the PlayFab Game Manager.
      * @param request RedeemCouponRequest
      * @return Async Task will return RedeemCouponResult
@@ -7508,7 +7334,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
      * Economy-&gt;Catalogs tab in the PlayFab Game Manager.
      * @param request RedeemCouponRequest
      * @return RedeemCouponResult
@@ -7531,7 +7358,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
      * Economy-&gt;Catalogs tab in the PlayFab Game Manager.
      */
     @SuppressWarnings("unchecked")
@@ -7685,7 +7513,7 @@ public class PlayFabClientAPI {
 
     /**
      * Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which
-     * require an authenticated user. You must supply either a username or an email address.
+     * require an authenticated user. You must supply a username and an email address.
      * @param request RegisterPlayFabUserRequest
      * @return Async Task will return RegisterPlayFabUserResult
      */
@@ -7700,7 +7528,7 @@ public class PlayFabClientAPI {
 
     /**
      * Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which
-     * require an authenticated user. You must supply either a username or an email address.
+     * require an authenticated user. You must supply a username and an email address.
      * @param request RegisterPlayFabUserRequest
      * @return RegisterPlayFabUserResult
      */
@@ -7723,7 +7551,7 @@ public class PlayFabClientAPI {
 
     /**
      * Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which
-     * require an authenticated user. You must supply either a username or an email address.
+     * require an authenticated user. You must supply a username and an email address.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<RegisterPlayFabUserResult> privateRegisterPlayFabUserAsync(final RegisterPlayFabUserRequest request) throws Exception {
@@ -7746,6 +7574,7 @@ public class PlayFabClientAPI {
         PlayFabJsonSuccess<RegisterPlayFabUserResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<RegisterPlayFabUserResult>>(){}.getType());
         RegisterPlayFabUserResult result = resultData.data;
         PlayFabSettings.ClientSessionTicket = result.SessionTicket != null ? result.SessionTicket : PlayFabSettings.ClientSessionTicket;
+        if (result.EntityToken != null) PlayFabSettings.EntityToken = result.EntityToken.EntityToken != null ? result.EntityToken.EntityToken : PlayFabSettings.EntityToken;
 
         PlayFabResult<RegisterPlayFabUserResult> pfResult = new PlayFabResult<RegisterPlayFabUserResult>();
         pfResult.Result = result;
@@ -8208,7 +8037,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Restores all in-app purchases based on the given restore receipt
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Restores all in-app purchases based on the given restore receipt
      * @param request RestoreIOSPurchasesRequest
      * @return Async Task will return RestoreIOSPurchasesResult
      */
@@ -8222,7 +8052,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Restores all in-app purchases based on the given restore receipt
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Restores all in-app purchases based on the given restore receipt
      * @param request RestoreIOSPurchasesRequest
      * @return RestoreIOSPurchasesResult
      */
@@ -8243,7 +8074,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Restores all in-app purchases based on the given restore receipt */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Restores all in-app purchases based on the given restore receipt
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<RestoreIOSPurchasesResult> privateRestoreIOSPurchasesAsync(final RestoreIOSPurchasesRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -8530,7 +8364,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Creates an order for a list of items from the title catalog
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Creates an order for a list of items from the title catalog
      * @param request StartPurchaseRequest
      * @return Async Task will return StartPurchaseResult
      */
@@ -8544,7 +8379,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Creates an order for a list of items from the title catalog
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Creates an order for a list of items from the title catalog
      * @param request StartPurchaseRequest
      * @return StartPurchaseResult
      */
@@ -8565,7 +8401,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Creates an order for a list of items from the title catalog */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Creates an order for a list of items from the title catalog
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<StartPurchaseResult> privateStartPurchaseAsync(final StartPurchaseRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -8592,8 +8431,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make
+     * a VC balance negative with this API.
      * @param request SubtractUserVirtualCurrencyRequest
      * @return Async Task will return ModifyUserVirtualCurrencyResult
      */
@@ -8607,8 +8447,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make
+     * a VC balance negative with this API.
      * @param request SubtractUserVirtualCurrencyRequest
      * @return ModifyUserVirtualCurrencyResult
      */
@@ -8630,8 +8471,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make a VC
-     * balance negative with this API.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make
+     * a VC balance negative with this API.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyUserVirtualCurrencyResult> privateSubtractUserVirtualCurrencyAsync(final SubtractUserVirtualCurrencyRequest request) throws Exception {
@@ -9723,9 +9565,10 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Opens the specified container, with the specified key (when required), and returns the contents of the opened container.
-     * If the container (and key when relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented,
-     * consistent with the operation of ConsumeItem.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Opens the specified container, with the specified key (when required), and returns the contents of the
+     * opened container. If the container (and key when relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will
+     * be decremented, consistent with the operation of ConsumeItem.
      * @param request UnlockContainerInstanceRequest
      * @return Async Task will return UnlockContainerItemResult
      */
@@ -9739,9 +9582,10 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Opens the specified container, with the specified key (when required), and returns the contents of the opened container.
-     * If the container (and key when relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented,
-     * consistent with the operation of ConsumeItem.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Opens the specified container, with the specified key (when required), and returns the contents of the
+     * opened container. If the container (and key when relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will
+     * be decremented, consistent with the operation of ConsumeItem.
      * @param request UnlockContainerInstanceRequest
      * @return UnlockContainerItemResult
      */
@@ -9763,9 +9607,10 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Opens the specified container, with the specified key (when required), and returns the contents of the opened container.
-     * If the container (and key when relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will be decremented,
-     * consistent with the operation of ConsumeItem.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Opens the specified container, with the specified key (when required), and returns the contents of the
+     * opened container. If the container (and key when relevant) are consumable (RemainingUses &gt; 0), their RemainingUses will
+     * be decremented, consistent with the operation of ConsumeItem.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<UnlockContainerItemResult> privateUnlockContainerInstanceAsync(final UnlockContainerInstanceRequest request) throws Exception {
@@ -9793,8 +9638,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it using an
-     * appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it
+     * using an appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are
      * consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
      * @param request UnlockContainerItemRequest
      * @return Async Task will return UnlockContainerItemResult
@@ -9809,8 +9655,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it using an
-     * appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it
+     * using an appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are
      * consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
      * @param request UnlockContainerItemRequest
      * @return UnlockContainerItemResult
@@ -9833,8 +9680,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it using an
-     * appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it
+     * using an appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are
      * consumable (RemainingUses &gt; 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
      */
     @SuppressWarnings("unchecked")
@@ -10383,8 +10231,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the
-     * purchased catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches
+     * the purchased catalog item
      * @param request ValidateAmazonReceiptRequest
      * @return Async Task will return ValidateAmazonReceiptResult
      */
@@ -10398,8 +10247,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the
-     * purchased catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches
+     * the purchased catalog item
      * @param request ValidateAmazonReceiptRequest
      * @return ValidateAmazonReceiptResult
      */
@@ -10421,8 +10271,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the
-     * purchased catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches
+     * the purchased catalog item
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ValidateAmazonReceiptResult> privateValidateAmazonIAPReceiptAsync(final ValidateAmazonReceiptRequest request) throws Exception {
@@ -10450,7 +10301,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates a Google Play purchase and gives the corresponding item to the player.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates a Google Play purchase and gives the corresponding item to the player.
      * @param request ValidateGooglePlayPurchaseRequest
      * @return Async Task will return ValidateGooglePlayPurchaseResult
      */
@@ -10464,7 +10316,8 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates a Google Play purchase and gives the corresponding item to the player.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates a Google Play purchase and gives the corresponding item to the player.
      * @param request ValidateGooglePlayPurchaseRequest
      * @return ValidateGooglePlayPurchaseResult
      */
@@ -10485,7 +10338,10 @@ public class PlayFabClientAPI {
         }
     }
 
-    /** Validates a Google Play purchase and gives the corresponding item to the player. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates a Google Play purchase and gives the corresponding item to the player.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ValidateGooglePlayPurchaseResult> privateValidateGooglePlayPurchaseAsync(final ValidateGooglePlayPurchaseRequest request) throws Exception {
         if (PlayFabSettings.ClientSessionTicket == null) throw new Exception ("Must be logged in to call this method");
@@ -10512,8 +10368,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased
-     * catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the
+     * purchased catalog item
      * @param request ValidateIOSReceiptRequest
      * @return Async Task will return ValidateIOSReceiptResult
      */
@@ -10527,8 +10384,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased
-     * catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the
+     * purchased catalog item
      * @param request ValidateIOSReceiptRequest
      * @return ValidateIOSReceiptResult
      */
@@ -10550,8 +10408,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased
-     * catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the
+     * purchased catalog item
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ValidateIOSReceiptResult> privateValidateIOSReceiptAsync(final ValidateIOSReceiptRequest request) throws Exception {
@@ -10579,8 +10438,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it matches the
-     * purchased catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it
+     * matches the purchased catalog item
      * @param request ValidateWindowsReceiptRequest
      * @return Async Task will return ValidateWindowsReceiptResult
      */
@@ -10594,8 +10454,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it matches the
-     * purchased catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it
+     * matches the purchased catalog item
      * @param request ValidateWindowsReceiptRequest
      * @return ValidateWindowsReceiptResult
      */
@@ -10617,8 +10478,9 @@ public class PlayFabClientAPI {
     }
 
     /**
-     * Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it matches the
-     * purchased catalog item
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it
+     * matches the purchased catalog item
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ValidateWindowsReceiptResult> privateValidateWindowsStoreReceiptAsync(final ValidateWindowsReceiptRequest request) throws Exception {

@@ -262,7 +262,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Increments the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the specified virtual currency by the stated amount
      * @param request AddUserVirtualCurrencyRequest
      * @return Async Task will return ModifyUserVirtualCurrencyResult
      */
@@ -276,7 +277,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Increments the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the specified virtual currency by the stated amount
      * @param request AddUserVirtualCurrencyRequest
      * @return ModifyUserVirtualCurrencyResult
      */
@@ -297,7 +299,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Increments the specified virtual currency by the stated amount */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increments the specified virtual currency by the stated amount
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyUserVirtualCurrencyResult> privateAddUserVirtualCurrencyAsync(final AddUserVirtualCurrencyRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -324,8 +329,9 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of
-     * 2,147,483,647 when granted to a player. Any value over that will be discarded.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum
+     * value of 2,147,483,647 when granted to a player. Any value over that will be discarded.
      * @param request AddVirtualCurrencyTypesRequest
      * @return Async Task will return BlankResult
      */
@@ -339,8 +345,9 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of
-     * 2,147,483,647 when granted to a player. Any value over that will be discarded.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum
+     * value of 2,147,483,647 when granted to a player. Any value over that will be discarded.
      * @param request AddVirtualCurrencyTypesRequest
      * @return BlankResult
      */
@@ -362,8 +369,9 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of
-     * 2,147,483,647 when granted to a player. Any value over that will be discarded.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum
+     * value of 2,147,483,647 when granted to a player. Any value over that will be discarded.
      */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<BlankResult> privateAddVirtualCurrencyTypesAsync(final AddVirtualCurrencyTypesRequest request) throws Exception {
@@ -453,7 +461,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Checks the global count for the limited edition item.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Checks the global count for the limited edition item.
      * @param request CheckLimitedEditionItemAvailabilityRequest
      * @return Async Task will return CheckLimitedEditionItemAvailabilityResult
      */
@@ -467,7 +476,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Checks the global count for the limited edition item.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Checks the global count for the limited edition item.
      * @param request CheckLimitedEditionItemAvailabilityRequest
      * @return CheckLimitedEditionItemAvailabilityResult
      */
@@ -488,7 +498,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Checks the global count for the limited edition item. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Checks the global count for the limited edition item.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<CheckLimitedEditionItemAvailabilityResult> privateCheckLimitedEditionItemAvailabilityAsync(final CheckLimitedEditionItemAvailabilityRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -1088,6 +1101,68 @@ public class PlayFabAdminAPI {
     }
 
     /**
+     * Deletes PlayStream and telemetry event data associated with the master player account from PlayFab storage
+     * @param request DeleteMasterPlayerEventDataRequest
+     * @return Async Task will return DeleteMasterPlayerEventDataResult
+     */
+    @SuppressWarnings("unchecked")
+    public static FutureTask<PlayFabResult<DeleteMasterPlayerEventDataResult>> DeleteMasterPlayerEventDataAsync(final DeleteMasterPlayerEventDataRequest request) {
+        return new FutureTask(new Callable<PlayFabResult<DeleteMasterPlayerEventDataResult>>() {
+            public PlayFabResult<DeleteMasterPlayerEventDataResult> call() throws Exception {
+                return privateDeleteMasterPlayerEventDataAsync(request);
+            }
+        });
+    }
+
+    /**
+     * Deletes PlayStream and telemetry event data associated with the master player account from PlayFab storage
+     * @param request DeleteMasterPlayerEventDataRequest
+     * @return DeleteMasterPlayerEventDataResult
+     */
+    @SuppressWarnings("unchecked")
+    public static PlayFabResult<DeleteMasterPlayerEventDataResult> DeleteMasterPlayerEventData(final DeleteMasterPlayerEventDataRequest request) {
+        FutureTask<PlayFabResult<DeleteMasterPlayerEventDataResult>> task = new FutureTask(new Callable<PlayFabResult<DeleteMasterPlayerEventDataResult>>() {
+            public PlayFabResult<DeleteMasterPlayerEventDataResult> call() throws Exception {
+                return privateDeleteMasterPlayerEventDataAsync(request);
+            }
+        });
+        try {
+            task.run();
+            return task.get();
+        } catch(Exception e) {
+            PlayFabResult<DeleteMasterPlayerEventDataResult> exceptionResult = new PlayFabResult<DeleteMasterPlayerEventDataResult>();
+            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
+            return exceptionResult;
+        }
+    }
+
+    /** Deletes PlayStream and telemetry event data associated with the master player account from PlayFab storage */
+    @SuppressWarnings("unchecked")
+    private static PlayFabResult<DeleteMasterPlayerEventDataResult> privateDeleteMasterPlayerEventDataAsync(final DeleteMasterPlayerEventDataRequest request) throws Exception {
+        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/DeleteMasterPlayerEventData"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+        task.run();
+        Object httpResult = task.get();
+        if (httpResult instanceof PlayFabError) {
+            PlayFabError error = (PlayFabError)httpResult;
+            if (PlayFabSettings.GlobalErrorHandler != null)
+                PlayFabSettings.GlobalErrorHandler.callback(error);
+            PlayFabResult result = new PlayFabResult<DeleteMasterPlayerEventDataResult>();
+            result.Error = error;
+            return result;
+        }
+        String resultRawJson = (String) httpResult;
+
+        PlayFabJsonSuccess<DeleteMasterPlayerEventDataResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<DeleteMasterPlayerEventDataResult>>(){}.getType());
+        DeleteMasterPlayerEventDataResult result = resultData.data;
+
+        PlayFabResult<DeleteMasterPlayerEventDataResult> pfResult = new PlayFabResult<DeleteMasterPlayerEventDataResult>();
+        pfResult.Result = result;
+        return pfResult;
+    }
+
+    /**
      * Deletes a player's subscription
      * @param request DeleteMembershipSubscriptionRequest
      * @return Async Task will return DeleteMembershipSubscriptionResult
@@ -1403,7 +1478,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Deletes an existing virtual item store
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Deletes an existing virtual item store
      * @param request DeleteStoreRequest
      * @return Async Task will return DeleteStoreResult
      */
@@ -1417,7 +1493,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Deletes an existing virtual item store
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Deletes an existing virtual item store
      * @param request DeleteStoreRequest
      * @return DeleteStoreResult
      */
@@ -1438,7 +1515,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Deletes an existing virtual item store */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Deletes an existing virtual item store
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<DeleteStoreResult> privateDeleteStoreAsync(final DeleteStoreRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -1912,7 +1992,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
      * @param request GetCatalogItemsRequest
      * @return Async Task will return GetCatalogItemsResult
      */
@@ -1926,7 +2007,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
      * @param request GetCatalogItemsRequest
      * @return GetCatalogItemsResult
      */
@@ -1947,7 +2029,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Retrieves the specified version of the title's catalog of virtual goods, including all defined properties */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetCatalogItemsResult> privateGetCatalogItemsAsync(final GetCatalogItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -2354,146 +2439,6 @@ public class PlayFabAdminAPI {
         GetDataReportResult result = resultData.data;
 
         PlayFabResult<GetDataReportResult> pfResult = new PlayFabResult<GetDataReportResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Retrieves the details for a specific completed session, including links to standard out and standard error logs
-     * @deprecated Please use MultiplayerServer/GetMultiplayerSessionLogsBySessionId instead.
-     * @param request GetMatchmakerGameInfoRequest
-     * @return Async Task will return GetMatchmakerGameInfoResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<GetMatchmakerGameInfoResult>> GetMatchmakerGameInfoAsync(final GetMatchmakerGameInfoRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<GetMatchmakerGameInfoResult>>() {
-            public PlayFabResult<GetMatchmakerGameInfoResult> call() throws Exception {
-                return privateGetMatchmakerGameInfoAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Retrieves the details for a specific completed session, including links to standard out and standard error logs
-     * @deprecated Please use MultiplayerServer/GetMultiplayerSessionLogsBySessionId instead.
-     * @param request GetMatchmakerGameInfoRequest
-     * @return GetMatchmakerGameInfoResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<GetMatchmakerGameInfoResult> GetMatchmakerGameInfo(final GetMatchmakerGameInfoRequest request) {
-        FutureTask<PlayFabResult<GetMatchmakerGameInfoResult>> task = new FutureTask(new Callable<PlayFabResult<GetMatchmakerGameInfoResult>>() {
-            public PlayFabResult<GetMatchmakerGameInfoResult> call() throws Exception {
-                return privateGetMatchmakerGameInfoAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<GetMatchmakerGameInfoResult> exceptionResult = new PlayFabResult<GetMatchmakerGameInfoResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Retrieves the details for a specific completed session, including links to standard out and standard error logs
-     * @deprecated Please use MultiplayerServer/GetMultiplayerSessionLogsBySessionId instead.
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<GetMatchmakerGameInfoResult> privateGetMatchmakerGameInfoAsync(final GetMatchmakerGameInfoRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/GetMatchmakerGameInfo"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<GetMatchmakerGameInfoResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<GetMatchmakerGameInfoResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<GetMatchmakerGameInfoResult>>(){}.getType());
-        GetMatchmakerGameInfoResult result = resultData.data;
-
-        PlayFabResult<GetMatchmakerGameInfoResult> pfResult = new PlayFabResult<GetMatchmakerGameInfoResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Retrieves the details of defined game modes for the specified game server executable
-     * @deprecated Do not use
-     * @param request GetMatchmakerGameModesRequest
-     * @return Async Task will return GetMatchmakerGameModesResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<GetMatchmakerGameModesResult>> GetMatchmakerGameModesAsync(final GetMatchmakerGameModesRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<GetMatchmakerGameModesResult>>() {
-            public PlayFabResult<GetMatchmakerGameModesResult> call() throws Exception {
-                return privateGetMatchmakerGameModesAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Retrieves the details of defined game modes for the specified game server executable
-     * @deprecated Do not use
-     * @param request GetMatchmakerGameModesRequest
-     * @return GetMatchmakerGameModesResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<GetMatchmakerGameModesResult> GetMatchmakerGameModes(final GetMatchmakerGameModesRequest request) {
-        FutureTask<PlayFabResult<GetMatchmakerGameModesResult>> task = new FutureTask(new Callable<PlayFabResult<GetMatchmakerGameModesResult>>() {
-            public PlayFabResult<GetMatchmakerGameModesResult> call() throws Exception {
-                return privateGetMatchmakerGameModesAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<GetMatchmakerGameModesResult> exceptionResult = new PlayFabResult<GetMatchmakerGameModesResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Retrieves the details of defined game modes for the specified game server executable
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<GetMatchmakerGameModesResult> privateGetMatchmakerGameModesAsync(final GetMatchmakerGameModesRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/GetMatchmakerGameModes"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<GetMatchmakerGameModesResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<GetMatchmakerGameModesResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<GetMatchmakerGameModesResult>>(){}.getType());
-        GetMatchmakerGameModesResult result = resultData.data;
-
-        PlayFabResult<GetMatchmakerGameModesResult> pfResult = new PlayFabResult<GetMatchmakerGameModesResult>();
         pfResult.Result = result;
         return pfResult;
     }
@@ -3200,7 +3145,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the random drop table configuration for the title
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the random drop table configuration for the title
      * @param request GetRandomResultTablesRequest
      * @return Async Task will return GetRandomResultTablesResult
      */
@@ -3214,7 +3160,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the random drop table configuration for the title
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the random drop table configuration for the title
      * @param request GetRandomResultTablesRequest
      * @return GetRandomResultTablesResult
      */
@@ -3235,7 +3182,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Retrieves the random drop table configuration for the title */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the random drop table configuration for the title
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetRandomResultTablesResult> privateGetRandomResultTablesAsync(final GetRandomResultTablesRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -3397,7 +3347,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the set of items defined for the specified store, including all prices defined
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined
      * @param request GetStoreItemsRequest
      * @return Async Task will return GetStoreItemsResult
      */
@@ -3411,7 +3362,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the set of items defined for the specified store, including all prices defined
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined
      * @param request GetStoreItemsRequest
      * @return GetStoreItemsResult
      */
@@ -3432,7 +3384,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Retrieves the set of items defined for the specified store, including all prices defined */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the set of items defined for the specified store, including all prices defined
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetStoreItemsResult> privateGetStoreItemsAsync(final GetStoreItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -3955,7 +3910,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the specified user's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified user's current inventory of virtual goods
      * @param request GetUserInventoryRequest
      * @return Async Task will return GetUserInventoryResult
      */
@@ -3969,7 +3925,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retrieves the specified user's current inventory of virtual goods
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified user's current inventory of virtual goods
      * @param request GetUserInventoryRequest
      * @return GetUserInventoryResult
      */
@@ -3990,7 +3947,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Retrieves the specified user's current inventory of virtual goods */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retrieves the specified user's current inventory of virtual goods
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GetUserInventoryResult> privateGetUserInventoryAsync(final GetUserInventoryRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4265,7 +4225,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Adds the specified items to the specified user inventories
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user inventories
      * @param request GrantItemsToUsersRequest
      * @return Async Task will return GrantItemsToUsersResult
      */
@@ -4279,7 +4240,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Adds the specified items to the specified user inventories
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user inventories
      * @param request GrantItemsToUsersRequest
      * @return GrantItemsToUsersResult
      */
@@ -4300,7 +4262,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Adds the specified items to the specified user inventories */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Adds the specified items to the specified user inventories
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<GrantItemsToUsersResult> privateGrantItemsToUsersAsync(final GrantItemsToUsersRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4327,7 +4292,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Increases the global count for the given scarce resource.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increases the global count for the given scarce resource.
      * @param request IncrementLimitedEditionItemAvailabilityRequest
      * @return Async Task will return IncrementLimitedEditionItemAvailabilityResult
      */
@@ -4341,7 +4307,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Increases the global count for the given scarce resource.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increases the global count for the given scarce resource.
      * @param request IncrementLimitedEditionItemAvailabilityRequest
      * @return IncrementLimitedEditionItemAvailabilityResult
      */
@@ -4362,7 +4329,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Increases the global count for the given scarce resource. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Increases the global count for the given scarce resource.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<IncrementLimitedEditionItemAvailabilityResult> privateIncrementLimitedEditionItemAvailabilityAsync(final IncrementLimitedEditionItemAvailabilityRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4513,7 +4483,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retuns the list of all defined virtual currencies for the title
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retuns the list of all defined virtual currencies for the title
      * @param request ListVirtualCurrencyTypesRequest
      * @return Async Task will return ListVirtualCurrencyTypesResult
      */
@@ -4527,7 +4498,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Retuns the list of all defined virtual currencies for the title
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retuns the list of all defined virtual currencies for the title
      * @param request ListVirtualCurrencyTypesRequest
      * @return ListVirtualCurrencyTypesResult
      */
@@ -4548,7 +4520,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Retuns the list of all defined virtual currencies for the title */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Retuns the list of all defined virtual currencies for the title
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ListVirtualCurrencyTypesResult> privateListVirtualCurrencyTypesAsync(final ListVirtualCurrencyTypesRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4575,77 +4550,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Updates the build details for the specified game server executable
-     * @deprecated Do not use
-     * @param request ModifyServerBuildRequest
-     * @return Async Task will return ModifyServerBuildResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static FutureTask<PlayFabResult<ModifyServerBuildResult>> ModifyServerBuildAsync(final ModifyServerBuildRequest request) {
-        return new FutureTask(new Callable<PlayFabResult<ModifyServerBuildResult>>() {
-            public PlayFabResult<ModifyServerBuildResult> call() throws Exception {
-                return privateModifyServerBuildAsync(request);
-            }
-        });
-    }
-
-    /**
-     * Updates the build details for the specified game server executable
-     * @deprecated Do not use
-     * @param request ModifyServerBuildRequest
-     * @return ModifyServerBuildResult
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    public static PlayFabResult<ModifyServerBuildResult> ModifyServerBuild(final ModifyServerBuildRequest request) {
-        FutureTask<PlayFabResult<ModifyServerBuildResult>> task = new FutureTask(new Callable<PlayFabResult<ModifyServerBuildResult>>() {
-            public PlayFabResult<ModifyServerBuildResult> call() throws Exception {
-                return privateModifyServerBuildAsync(request);
-            }
-        });
-        try {
-            task.run();
-            return task.get();
-        } catch(Exception e) {
-            PlayFabResult<ModifyServerBuildResult> exceptionResult = new PlayFabResult<ModifyServerBuildResult>();
-            exceptionResult.Error = PlayFabHTTP.GeneratePfError(-1, PlayFabErrorCode.Unknown, e.getMessage(), null, null);
-            return exceptionResult;
-        }
-    }
-
-    /**
-     * Updates the build details for the specified game server executable
-     * @deprecated Do not use
-     */
-    @Deprecated
-    @SuppressWarnings("unchecked")
-    private static PlayFabResult<ModifyServerBuildResult> privateModifyServerBuildAsync(final ModifyServerBuildRequest request) throws Exception {
-        if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-        FutureTask<Object> task = PlayFabHTTP.doPost(PlayFabSettings.GetURL("/Admin/ModifyServerBuild"), request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-        task.run();
-        Object httpResult = task.get();
-        if (httpResult instanceof PlayFabError) {
-            PlayFabError error = (PlayFabError)httpResult;
-            if (PlayFabSettings.GlobalErrorHandler != null)
-                PlayFabSettings.GlobalErrorHandler.callback(error);
-            PlayFabResult result = new PlayFabResult<ModifyServerBuildResult>();
-            result.Error = error;
-            return result;
-        }
-        String resultRawJson = (String) httpResult;
-
-        PlayFabJsonSuccess<ModifyServerBuildResult> resultData = gson.fromJson(resultRawJson, new TypeToken<PlayFabJsonSuccess<ModifyServerBuildResult>>(){}.getType());
-        ModifyServerBuildResult result = resultData.data;
-
-        PlayFabResult<ModifyServerBuildResult> pfResult = new PlayFabResult<ModifyServerBuildResult>();
-        pfResult.Result = result;
-        return pfResult;
-    }
-
-    /**
-     * Attempts to process an order refund through the original real money payment provider.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Attempts to process an order refund through the original real money payment provider.
      * @param request RefundPurchaseRequest
      * @return Async Task will return RefundPurchaseResponse
      */
@@ -4659,7 +4565,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Attempts to process an order refund through the original real money payment provider.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Attempts to process an order refund through the original real money payment provider.
      * @param request RefundPurchaseRequest
      * @return RefundPurchaseResponse
      */
@@ -4680,7 +4587,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Attempts to process an order refund through the original real money payment provider. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Attempts to process an order refund through the original real money payment provider.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<RefundPurchaseResponse> privateRefundPurchaseAsync(final RefundPurchaseRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -4769,7 +4679,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Removes one or more virtual currencies from the set defined for the title.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Removes one or more virtual currencies from the set defined for the title.
      * @param request RemoveVirtualCurrencyTypesRequest
      * @return Async Task will return BlankResult
      */
@@ -4783,7 +4694,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Removes one or more virtual currencies from the set defined for the title.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Removes one or more virtual currencies from the set defined for the title.
      * @param request RemoveVirtualCurrencyTypesRequest
      * @return BlankResult
      */
@@ -4804,7 +4716,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Removes one or more virtual currencies from the set defined for the title. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Removes one or more virtual currencies from the set defined for the title.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<BlankResult> privateRemoveVirtualCurrencyTypesAsync(final RemoveVirtualCurrencyTypesRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5017,7 +4932,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Attempts to resolve a dispute with the original order's payment provider.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Attempts to resolve a dispute with the original order's payment provider.
      * @param request ResolvePurchaseDisputeRequest
      * @return Async Task will return ResolvePurchaseDisputeResponse
      */
@@ -5031,7 +4947,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Attempts to resolve a dispute with the original order's payment provider.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Attempts to resolve a dispute with the original order's payment provider.
      * @param request ResolvePurchaseDisputeRequest
      * @return ResolvePurchaseDisputeResponse
      */
@@ -5052,7 +4969,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Attempts to resolve a dispute with the original order's payment provider. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Attempts to resolve a dispute with the original order's payment provider.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ResolvePurchaseDisputeResponse> privateResolvePurchaseDisputeAsync(final ResolvePurchaseDisputeRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5203,7 +5123,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Revokes access to an item in a user's inventory
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access to an item in a user's inventory
      * @param request RevokeInventoryItemRequest
      * @return Async Task will return RevokeInventoryResult
      */
@@ -5217,7 +5138,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Revokes access to an item in a user's inventory
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access to an item in a user's inventory
      * @param request RevokeInventoryItemRequest
      * @return RevokeInventoryResult
      */
@@ -5238,7 +5160,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Revokes access to an item in a user's inventory */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access to an item in a user's inventory
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<RevokeInventoryResult> privateRevokeInventoryItemAsync(final RevokeInventoryItemRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5265,7 +5190,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Revokes access for up to 25 items across multiple users and characters.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access for up to 25 items across multiple users and characters.
      * @param request RevokeInventoryItemsRequest
      * @return Async Task will return RevokeInventoryItemsResult
      */
@@ -5279,7 +5205,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Revokes access for up to 25 items across multiple users and characters.
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access for up to 25 items across multiple users and characters.
      * @param request RevokeInventoryItemsRequest
      * @return RevokeInventoryItemsResult
      */
@@ -5300,7 +5227,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Revokes access for up to 25 items across multiple users and characters. */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Revokes access for up to 25 items across multiple users and characters.
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<RevokeInventoryItemsResult> privateRevokeInventoryItemsAsync(final RevokeInventoryItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5459,7 +5389,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Creates the catalog configuration of all virtual goods for the specified catalog version
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Creates the catalog configuration of all virtual goods for the specified catalog version
      * @param request UpdateCatalogItemsRequest
      * @return Async Task will return UpdateCatalogItemsResult
      */
@@ -5473,7 +5404,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Creates the catalog configuration of all virtual goods for the specified catalog version
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Creates the catalog configuration of all virtual goods for the specified catalog version
      * @param request UpdateCatalogItemsRequest
      * @return UpdateCatalogItemsResult
      */
@@ -5494,7 +5426,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Creates the catalog configuration of all virtual goods for the specified catalog version */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Creates the catalog configuration of all virtual goods for the specified catalog version
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<UpdateCatalogItemsResult> privateSetCatalogItemsAsync(final UpdateCatalogItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -5769,7 +5704,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Sets all the items in one virtual store
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Sets all the items in one virtual store
      * @param request UpdateStoreItemsRequest
      * @return Async Task will return UpdateStoreItemsResult
      */
@@ -5783,7 +5719,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Sets all the items in one virtual store
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Sets all the items in one virtual store
      * @param request UpdateStoreItemsRequest
      * @return UpdateStoreItemsResult
      */
@@ -5804,7 +5741,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Sets all the items in one virtual store */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Sets all the items in one virtual store
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<UpdateStoreItemsResult> privateSetStoreItemsAsync(final UpdateStoreItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -6103,7 +6043,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Decrements the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the specified virtual currency by the stated amount
      * @param request SubtractUserVirtualCurrencyRequest
      * @return Async Task will return ModifyUserVirtualCurrencyResult
      */
@@ -6117,7 +6058,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Decrements the specified virtual currency by the stated amount
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the specified virtual currency by the stated amount
      * @param request SubtractUserVirtualCurrencyRequest
      * @return ModifyUserVirtualCurrencyResult
      */
@@ -6138,7 +6080,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Decrements the specified virtual currency by the stated amount */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Decrements the specified virtual currency by the stated amount
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<ModifyUserVirtualCurrencyResult> privateSubtractUserVirtualCurrencyAsync(final SubtractUserVirtualCurrencyRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -6227,7 +6172,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Updates the catalog configuration for virtual goods in the specified catalog version
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the catalog configuration for virtual goods in the specified catalog version
      * @param request UpdateCatalogItemsRequest
      * @return Async Task will return UpdateCatalogItemsResult
      */
@@ -6241,7 +6187,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Updates the catalog configuration for virtual goods in the specified catalog version
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the catalog configuration for virtual goods in the specified catalog version
      * @param request UpdateCatalogItemsRequest
      * @return UpdateCatalogItemsResult
      */
@@ -6262,7 +6209,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Updates the catalog configuration for virtual goods in the specified catalog version */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the catalog configuration for virtual goods in the specified catalog version
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<UpdateCatalogItemsResult> privateUpdateCatalogItemsAsync(final UpdateCatalogItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -6609,7 +6559,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Updates the random drop table configuration for the title
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the random drop table configuration for the title
      * @param request UpdateRandomResultTablesRequest
      * @return Async Task will return UpdateRandomResultTablesResult
      */
@@ -6623,7 +6574,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Updates the random drop table configuration for the title
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the random drop table configuration for the title
      * @param request UpdateRandomResultTablesRequest
      * @return UpdateRandomResultTablesResult
      */
@@ -6644,7 +6596,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Updates the random drop table configuration for the title */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates the random drop table configuration for the title
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<UpdateRandomResultTablesResult> privateUpdateRandomResultTablesAsync(final UpdateRandomResultTablesRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -6733,7 +6688,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Updates an existing virtual item store with new or modified items
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates an existing virtual item store with new or modified items
      * @param request UpdateStoreItemsRequest
      * @return Async Task will return UpdateStoreItemsResult
      */
@@ -6747,7 +6703,8 @@ public class PlayFabAdminAPI {
     }
 
     /**
-     * Updates an existing virtual item store with new or modified items
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates an existing virtual item store with new or modified items
      * @param request UpdateStoreItemsRequest
      * @return UpdateStoreItemsResult
      */
@@ -6768,7 +6725,10 @@ public class PlayFabAdminAPI {
         }
     }
 
-    /** Updates an existing virtual item store with new or modified items */
+    /**
+     * _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+     * version 2._ Updates an existing virtual item store with new or modified items
+     */
     @SuppressWarnings("unchecked")
     private static PlayFabResult<UpdateStoreItemsResult> privateUpdateStoreItemsAsync(final UpdateStoreItemsRequest request) throws Exception {
         if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");

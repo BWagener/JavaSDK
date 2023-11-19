@@ -102,7 +102,7 @@ public class PlayFabEconomyModels {
          * to 128 platforms can be listed.
          */
         public ArrayList<String> Platforms;
-        /** A set of player entity keys that are allowed to review content. There is a maximum of 64 entities that can be added. */
+        /** A set of player entity keys that are allowed to review content. There is a maximum of 128 entities that can be added. */
         public ArrayList<EntityKey> ReviewerEntities;
         /** The set of configuration that only applies to user generated contents. */
         public UserGeneratedContentSpecificConfig UserGeneratedContent;
@@ -187,7 +187,10 @@ public class PlayFabEconomyModels {
          * required. Titles have a 512 character limit per country code.
          */
         public Map<String,String> Title;
-        /** The high-level type of the item. The following item types are supported: bundle, catalogItem, currency, store, ugc. */
+        /**
+         * The high-level type of the item. The following item types are supported: bundle, catalogItem, currency, store, ugc,
+         * subscription.
+         */
         public String Type;
         
     }
@@ -205,6 +208,8 @@ public class PlayFabEconomyModels {
     public static class CatalogPrice {
         /** The amounts of the catalog item price. Each price can have up to 15 item amounts. */
         public ArrayList<CatalogPriceAmount> Amounts;
+        /** The per-unit amount this price can be used to purchase. */
+        public Integer UnitAmount;
         /** The per-unit duration this price can be used to purchase. The maximum duration is 100 years. */
         public Double UnitDurationInSeconds;
         
@@ -554,7 +559,8 @@ public class PlayFabEconomyModels {
         EH,
         YE,
         ZM,
-        ZW
+        ZW,
+        Unknown
     }
 
     /** The item will not be published to the public catalog until the PublishItem API is called for the item. */
@@ -1125,8 +1131,11 @@ public class PlayFabEconomyModels {
         /** The entity to perform this action on. */
         public EntityKey Entity;
         /**
-         * An OData filter used to refine the TransactionHistory. Transaction property 'timestamp' can be used in the filter. For
-         * example: "timestamp ge 'timestamp ge'" By default, a 6 month timespan from the current date is used.
+         * An OData filter used to refine the TransactionHistory. Transaction properties 'timestamp', 'transactionid', 'apiname'
+         * and 'operationtype' can be used in the filter. Properties 'transactionid', 'apiname', and 'operationtype' cannot be used
+         * together in a single request. The 'timestamp' property can be combined with 'apiname' or 'operationtype' in a single
+         * request. For example: "timestamp ge 2023-06-20T23:30Z" or "transactionid eq '10'" or "(timestamp ge 2023-06-20T23:30Z)
+         * and (apiname eq 'AddInventoryItems')". By default, a 6 month timespan from the current date is used.
          */
         public String Filter;
         
@@ -1375,6 +1384,10 @@ public class PlayFabEconomyModels {
         
     }
 
+    public static class PurchaseOverridesInfo {
+        
+    }
+
     public static class PurchasePriceAmount {
         /** The amount of the inventory item to use in the purchase . */
         public Integer Amount;
@@ -1459,7 +1472,10 @@ public class PlayFabEconomyModels {
         public Map<String,String> CustomTags;
         /** The entity to perform this action on. */
         public EntityKey Entity;
-        /** Xbox Token used for delegated business partner authentication. */
+        /**
+         * Xbox Token used for delegated business partner authentication. Token provided by the Xbox Live SDK method
+         * GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
+         */
         public String XboxToken;
         
     }
@@ -1688,6 +1704,8 @@ public class PlayFabEconomyModels {
          * can be found here: https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/search#limits
          */
         public String Filter;
+        /** The locale to be returned in the result. */
+        public String Language;
         /** An OData orderBy used to order the results of the search query. For example: "rating/average asc" */
         public String OrderBy;
         /** The text to search for. */
@@ -1979,6 +1997,11 @@ public class PlayFabEconomyModels {
         public ArrayList<String> GivingTransactionIds;
         /** The idempotency id for the request. */
         public String IdempotencyId;
+        /**
+         * The transfer operation status. Possible values are 'InProgress' or 'Completed'. If the operation has completed, the
+         * response code will be 200. Otherwise, it will be 202.
+         */
+        public String OperationStatus;
         /** The ids of transactions that occurred as a result of the request's receiving action. */
         public ArrayList<String> ReceivingTransactionIds;
         

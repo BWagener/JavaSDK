@@ -58,7 +58,8 @@ public class PlayFabMultiplayerModels {
         WestUs2,
         CentralIndia,
         UaeNorth,
-        UkSouth
+        UkSouth,
+        SwedenCentral
     }
 
     public static enum AzureVmFamily {
@@ -70,6 +71,7 @@ public class PlayFabMultiplayerModels {
         Fsv2,
         Dasv4,
         Dav4,
+        Dadsv5,
         Eav4,
         Easv4,
         Ev4,
@@ -117,6 +119,10 @@ public class PlayFabMultiplayerModels {
         Standard_D4a_v4,
         Standard_D8a_v4,
         Standard_D16a_v4,
+        Standard_D2ads_v5,
+        Standard_D4ads_v5,
+        Standard_D8ads_v5,
+        Standard_D16ads_v5,
         Standard_E2a_v4,
         Standard_E4a_v4,
         Standard_E8a_v4,
@@ -436,13 +442,6 @@ public class PlayFabMultiplayerModels {
         public ArrayList<BuildRegionParams> RegionConfigurations;
         /** The resource constraints to apply to each server on the VM (EXPERIMENTAL API) */
         public ServerResourceConstraintParams ServerResourceConstraints;
-        /**
-         * DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-         * written first to disc.
-         * @deprecated Please use  instead.
-         */
-        @Deprecated
-        public Boolean UseStreamingForAssetDownloads;
         /** The VM size to create the build on. */
         public AzureVmSize VmSize;
         /** The configuration for the VmStartupScript for the build */
@@ -543,13 +542,6 @@ public class PlayFabMultiplayerModels {
         public ServerResourceConstraintParams ServerResourceConstraints;
         /** The command to run when the multiplayer server is started, including any arguments. */
         public String StartMultiplayerServerCommand;
-        /**
-         * DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-         * written first to disc.
-         * @deprecated Please use  instead.
-         */
-        @Deprecated
-        public Boolean UseStreamingForAssetDownloads;
         /** The VM size to create the build on. */
         public AzureVmSize VmSize;
         /** The configuration for the VmStartupScript for the build */
@@ -664,13 +656,6 @@ public class PlayFabMultiplayerModels {
          * relative to the root asset folder when unzipped.
          */
         public String StartMultiplayerServerCommand;
-        /**
-         * DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-         * written first to disc.
-         * @deprecated Please use  instead.
-         */
-        @Deprecated
-        public Boolean UseStreamingForAssetDownloads;
         /** The VM size to create the build on. */
         public AzureVmSize VmSize;
         /** The configuration for the VmStartupScript for the build */
@@ -752,7 +737,7 @@ public class PlayFabMultiplayerModels {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /**
-         * The private key-value pairs which are only visible to members of the lobby. At most 30 key-value pairs may be stored
+         * The private key-value pairs which are visible to all entities in the lobby. At most 30 key-value pairs may be stored
          * here, keys are limited to 30 characters and values to 1000. The total size of all lobbyData values may not exceed 4096
          * bytes. Keys are case sensitive.
          */
@@ -1010,6 +995,17 @@ public class PlayFabMultiplayerModels {
         
     }
 
+    public static enum DirectPeerConnectivityOptions {
+        None,
+        SamePlatformType,
+        DifferentPlatformType,
+        AnyPlatformType,
+        SameEntityLoginProvider,
+        DifferentEntityLoginProvider,
+        AnyEntityLoginProvider,
+        AnyPlatformTypeAndEntityLoginProvider
+    }
+
     public static class DynamicStandbySettings {
         /**
          * List of auto standing by trigger values and corresponding standing by multiplier. Defaults to 1.5X at 50%, 3X at 25%,
@@ -1074,18 +1070,6 @@ public class PlayFabMultiplayerModels {
     public static class FindFriendLobbiesRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
-        /**
-         * Controls whether this query should link to friends made on the Facebook network. Defaults to false
-         * @deprecated Please use ExternalPlatformFriends instead.
-         */
-        @Deprecated
-        public Boolean ExcludeFacebookFriends;
-        /**
-         * Controls whether this query should link to friends made on the Steam network. Defaults to false
-         * @deprecated Please use ExternalPlatformFriends instead.
-         */
-        @Deprecated
-        public Boolean ExcludeSteamFriends;
         /** Indicates which other platforms' friends this query should link to. */
         public ExternalFriendSources ExternalPlatformFriends;
         /**
@@ -1094,15 +1078,16 @@ public class PlayFabMultiplayerModels {
          * (less than). The left-hand side of each OData logical expression should be either a search property key (e.g.
          * string_key1, number_key3, etc) or one of the pre-defined search keys all of which must be prefixed by "lobby/":
          * lobby/memberCount (number of players in a lobby), lobby/maxMemberCount (maximum number of players allowed in a lobby),
-         * lobby/membershipLock (must equal 'Unlocked' or 'Locked'), lobby/amOwner (required to equal "true"), lobby/amMember
-         * (required to equal "true").
+         * lobby/memberCountRemaining (remaining number of players who can be allowed in a lobby), lobby/membershipLock (must equal
+         * 'Unlocked' or 'Locked'), lobby/amOwner (required to equal "true"), lobby/amMember (required to equal "true").
          */
         public String Filter;
         /**
          * OData style string that contains sorting for this query in either ascending ("asc") or descending ("desc") order.
-         * OrderBy clauses are of the form "number_key1 asc" or the pre-defined search key "lobby/memberCount asc" and
-         * "lobby/maxMemberCount desc". To sort by closest, a moniker `distance{number_key1 = 5}` can be used to sort by distance
-         * from the given number. This field only supports either one sort clause or one distance clause.
+         * OrderBy clauses are of the form "number_key1 asc" or the pre-defined search key "lobby/memberCount asc",
+         * "lobby/memberCountRemaining desc" and "lobby/maxMemberCount desc". To sort by closest, a moniker `distance{number_key1 =
+         * 5}` can be used to sort by distance from the given number. This field only supports either one sort clause or one
+         * distance clause.
          */
         public String OrderBy;
         /** Request pagination information. */
@@ -1130,15 +1115,16 @@ public class PlayFabMultiplayerModels {
          * (less than). The left-hand side of each OData logical expression should be either a search property key (e.g.
          * string_key1, number_key3, etc) or one of the pre-defined search keys all of which must be prefixed by "lobby/":
          * lobby/memberCount (number of players in a lobby), lobby/maxMemberCount (maximum number of players allowed in a lobby),
-         * lobby/membershipLock (must equal 'Unlocked' or 'Locked'), lobby/amOwner (required to equal "true"), lobby/amMember
-         * (required to equal "true").
+         * lobby/memberCountRemaining (remaining number of players who can be allowed in a lobby), lobby/membershipLock (must equal
+         * 'Unlocked' or 'Locked'), lobby/amOwner (required to equal "true"), lobby/amMember (required to equal "true").
          */
         public String Filter;
         /**
          * OData style string that contains sorting for this query in either ascending ("asc") or descending ("desc") order.
-         * OrderBy clauses are of the form "number_key1 asc" or the pre-defined search key "lobby/memberCount asc" and
-         * "lobby/maxMemberCount desc". To sort by closest, a moniker `distance{number_key1 = 5}` can be used to sort by distance
-         * from the given number. This field only supports either one sort clause or one distance clause.
+         * OrderBy clauses are of the form "number_key1 asc" or the pre-defined search key "lobby/memberCount asc",
+         * "lobby/memberCountRemaining desc" and "lobby/maxMemberCount desc". To sort by closest, a moniker `distance{number_key1 =
+         * 5}` can be used to sort by distance from the given number. This field only supports either one sort clause or one
+         * distance clause.
          */
         public String OrderBy;
         /** Request pagination information. */
@@ -1312,6 +1298,8 @@ public class PlayFabMultiplayerModels {
         public String StartMultiplayerServerCommand;
         /** The VM size the build was created on. */
         public AzureVmSize VmSize;
+        /** The configuration for the VmStartupScript feature for the build */
+        public VmStartupScriptConfiguration VmStartupScriptConfiguration;
         
     }
 
@@ -1459,12 +1447,14 @@ public class PlayFabMultiplayerModels {
         public ArrayList<ConnectedPlayer> ConnectedPlayers;
         /** The fully qualified domain name of the virtual machine that is hosting this multiplayer server. */
         public String FQDN;
-        /** The IPv4 address of the virtual machine that is hosting this multiplayer server. */
+        /** The public IPv4 address of the virtual machine that is hosting this multiplayer server. */
         public String IPV4Address;
         /** The time (UTC) at which a change in the multiplayer server state was observed. */
         public Date LastStateTransitionTime;
         /** The ports the multiplayer server uses. */
         public ArrayList<Port> Ports;
+        /** The list of public Ipv4 addresses associated with the server. */
+        public ArrayList<PublicIpAddress> PublicIPV4Addresses;
         /** The region the multiplayer server is located in. */
         public String Region;
         /** The string server ID of the multiplayer server generated by PlayFab. */
@@ -1687,7 +1677,7 @@ public class PlayFabMultiplayerModels {
         public Long MaxPlayers;
         /**
          * The private key-value pairs used by the member to communicate information to other members and the owner. Visible to all
-         * members of the lobby. At most 30 key-value pairs may be stored here, keys are limited to 30 characters and values to
+         * entities in the lobby. At most 30 key-value pairs may be stored here, keys are limited to 30 characters and values to
          * 1000. The total size of all memberData values may not exceed 4096 bytes. Keys are case sensitive.
          */
         public Map<String,String> MemberData;
@@ -1721,7 +1711,7 @@ public class PlayFabMultiplayerModels {
         public Map<String,String> CustomTags;
         /**
          * The private key-value pairs used by the member to communicate information to other members and the owner. Visible to all
-         * members of the lobby. At most 30 key-value pairs may be stored here, keys are limited to 30 characters and values to
+         * entities in the lobby. At most 30 key-value pairs may be stored here, keys are limited to 30 characters and values to
          * 1000. The total size of all memberData values may not exceed 4096 bytes.Keys are case sensitive.
          */
         public Map<String,String> MemberData;
@@ -1886,10 +1876,18 @@ public class PlayFabMultiplayerModels {
         public Map<String,String> CustomTags;
         /** The container images we want to list tags for. */
         public String ImageName;
+        /** The page size for the request. */
+        public Integer PageSize;
+        /** The skip token for the paged request. */
+        public String SkipToken;
         
     }
 
     public static class ListContainerImageTagsResponse {
+        /** The page size on the response. */
+        public Integer PageSize;
+        /** The skip token for the paged response. */
+        public String SkipToken;
         /** The list of tags for a particular container image. */
         public ArrayList<String> Tags;
         
@@ -2212,6 +2210,46 @@ public class PlayFabMultiplayerModels {
         
     }
 
+    public static class PartyInvitationConfiguration {
+        /**
+         * The list of PlayFab EntityKeys that the invitation allows to authenticate into the network. If this list is empty, all
+         * users are allowed to authenticate using the invitation's identifier. This list may contain no more than 1024 items.
+         */
+        public ArrayList<EntityKey> EntityKeys;
+        /** The invite identifier for this party. If this value is specified, it must be no longer than 127 characters. */
+        public String Identifier;
+        /** Controls which participants can revoke this invite. */
+        public String Revocability;
+        
+    }
+
+    public static enum PartyInvitationRevocability {
+        Creator,
+        Anyone
+    }
+
+    public static class PartyNetworkConfiguration {
+        /** Controls whether and how to support direct peer-to-peer connection attempts among devices in the network. */
+        public String DirectPeerConnectivityOptions;
+        /** The maximum number of devices allowed to connect to the network. Must be between 1 and 32, inclusive. */
+        public Long MaxDevices;
+        /** The maximum number of devices allowed per user. Must be greater than 0. */
+        public Long MaxDevicesPerUser;
+        /** The maximum number of endpoints allowed per device. Must be between 0 and 32, inclusive. */
+        public Long MaxEndpointsPerDevice;
+        /** The maximum number of unique users allowed in the network. Must be greater than 0. */
+        public Long MaxUsers;
+        /** The maximum number of users allowed per device. Must be between 1 and 8, inclusive. */
+        public Long MaxUsersPerDevice;
+        /**
+         * An optionally-specified configuration for the initial invitation for this party. If not provided, default configuration
+         * values will be used: a title-unique invitation identifier will be generated, the revocability will be Anyone, and the
+         * EntityID list will be empty.
+         */
+        public PartyInvitationConfiguration PartyInvitationConfiguration;
+        
+    }
+
     public static class Port {
         /** The name for the port. */
         public String Name;
@@ -2225,6 +2263,16 @@ public class PlayFabMultiplayerModels {
     public static enum ProtocolType {
         TCP,
         UDP
+    }
+
+    public static class PublicIpAddress {
+        /** FQDN of the public IP */
+        public String FQDN;
+        /** Server IP Address */
+        public String IpAddress;
+        /** Routing Type of the public IP. */
+        public String RoutingType;
+        
     }
 
     public static class QosServer {
@@ -2304,12 +2352,14 @@ public class PlayFabMultiplayerModels {
         public ArrayList<ConnectedPlayer> ConnectedPlayers;
         /** The fully qualified domain name of the virtual machine that is hosting this multiplayer server. */
         public String FQDN;
-        /** The IPv4 address of the virtual machine that is hosting this multiplayer server. */
+        /** The public IPv4 address of the virtual machine that is hosting this multiplayer server. */
         public String IPV4Address;
         /** The time (UTC) at which a change in the multiplayer server state was observed. */
         public Date LastStateTransitionTime;
         /** The ports the multiplayer server uses. */
         public ArrayList<Port> Ports;
+        /** The list of public Ipv4 addresses associated with the server. */
+        public ArrayList<PublicIpAddress> PublicIPV4Addresses;
         /** The region the multiplayer server is located in. */
         public String Region;
         /** The string server ID of the multiplayer server generated by PlayFab. */
@@ -2320,6 +2370,38 @@ public class PlayFabMultiplayerModels {
         public String State;
         /** The virtual machine ID that the multiplayer server is located on. */
         public String VmId;
+        
+    }
+
+    /**
+     * Requests a party session from a particular set of builds if build alias params is provided, in any of the given
+     * preferred regions.
+     */
+    public static class RequestPartyServiceRequest {
+        /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
+        public Map<String,String> CustomTags;
+        /** The network configuration for this request. */
+        public PartyNetworkConfiguration NetworkConfiguration;
+        /** A guid string party ID created track the party session over its life. */
+        public String PartyId;
+        /**
+         * The preferred regions to request a party session from. The party service will iterate through the regions in the
+         * specified order and allocate a party session from the first one that is available.
+         */
+        public ArrayList<String> PreferredRegions;
+        
+    }
+
+    public static class RequestPartyServiceResponse {
+        /**
+         * The invitation identifier supplied in the PartyInvitationConfiguration, or the PlayFab-generated guid if none was
+         * supplied.
+         */
+        public String InvitationId;
+        /** The guid string party ID of the party session. */
+        public String PartyId;
+        /** A base-64 encoded string containing the serialized network descriptor for this party. */
+        public String SerializedNetworkDescriptor;
         
     }
 
@@ -2341,6 +2423,11 @@ public class PlayFabMultiplayerModels {
         /** The username for accessing the container registry. */
         public String Username;
         
+    }
+
+    public static enum RoutingType {
+        Microsoft,
+        Internet
     }
 
     public static class Schedule {
@@ -2553,7 +2640,7 @@ public class PlayFabMultiplayerModels {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
         /**
-         * The private key-value pairs which are only visible to members of the lobby. Optional. Sets or updates key-value pairs on
+         * The private key-value pairs which are visible to all entities in the lobby. Optional. Sets or updates key-value pairs on
          * the lobby. Only the current lobby owner can set lobby data. Keys may be an arbitrary string of at most 30 characters.
          * The total size of all lobbyData values may not exceed 4096 bytes. Values are not individually limited. There can be up
          * to 30 key-value pairs stored here. Keys are case sensitive.
@@ -2572,9 +2659,9 @@ public class PlayFabMultiplayerModels {
         /**
          * The private key-value pairs used by the member to communicate information to other members and the owner. Optional. Sets
          * or updates new key-value pairs on the caller's member data. New keys will be added with their values and existing keys
-         * will be updated with the new values. Visible to all members of the lobby. At most 30 key-value pairs may be stored here,
-         * keys are limited to 30 characters and values to 1000. The total size of all memberData values may not exceed 4096 bytes.
-         * Keys are case sensitive. Servers cannot specifiy this.
+         * will be updated with the new values. Visible to all entities in the lobby. At most 30 key-value pairs may be stored
+         * here, keys are limited to 30 characters and values to 1000. The total size of all memberData values may not exceed 4096
+         * bytes. Keys are case sensitive. Servers cannot specifiy this.
          */
         public Map<String,String> MemberData;
         /**
@@ -2624,6 +2711,8 @@ public class PlayFabMultiplayerModels {
     public static class UploadCertificateRequest {
         /** The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.). */
         public Map<String,String> CustomTags;
+        /** Forces the certificate renewal if the certificate already exists. Default is false */
+        public Boolean ForceUpdate;
         /** The game certificate to upload. */
         public Certificate GameCertificate;
         
@@ -2640,14 +2729,34 @@ public class PlayFabMultiplayerModels {
     }
 
     public static class VmStartupScriptConfiguration {
+        /** Optional port requests (name/protocol) that will be used by the VmStartupScript. Max of 5 requests. */
+        public ArrayList<VmStartupScriptPortRequest> PortRequests;
         /** Asset which contains the VmStartupScript script and any other required files. */
         public AssetReference VmStartupScriptAssetReference;
         
     }
 
     public static class VmStartupScriptParams {
+        /** Optional port requests (name/protocol) that will be used by the VmStartupScript. Max of 5 requests. */
+        public ArrayList<VmStartupScriptPortRequestParams> PortRequests;
         /** Asset which contains the VmStartupScript script and any other required files. */
         public AssetReferenceParams VmStartupScriptAssetReference;
+        
+    }
+
+    public static class VmStartupScriptPortRequest {
+        /** The name for the port. */
+        public String Name;
+        /** The protocol for the port. */
+        public ProtocolType Protocol;
+        
+    }
+
+    public static class VmStartupScriptPortRequestParams {
+        /** The name for the port. */
+        public String Name;
+        /** The protocol for the port. */
+        public ProtocolType Protocol;
         
     }
 
